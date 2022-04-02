@@ -1,4 +1,4 @@
-package com.example.peanuts.ui.home;
+package com.example.peanuts.ui.groups;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.peanuts.databinding.FragmentHomeBinding;
+import com.example.peanuts.databinding.FragmentGroupBinding;
 
-public class HomeFragment extends Fragment {
+public class GroupsFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentGroupBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        GroupsViewModel dashboardViewModel =
+                new ViewModelProvider(this).get(GroupsViewModel.class);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentGroupBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textGroup;
+        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
