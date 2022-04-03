@@ -3,22 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/text_explore">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.peanuts.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_profile"
+        android:name="com.example.peanuts.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/navigation_add"
+        android:name="com.example.peanuts.ui.add.AddFragment"
+        android:label="@string/title_add"
+        tools:layout="@layout/fragment_add" />
+    <fragment
+        android:id="@+id/text_explore"
+        android:name="com.example.peanuts.ui.home.ExploreFragment"
+        android:label="@string/title_explore"
+        tools:layout="@layout/fragment_explore" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.peanuts.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/text_group"
+        android:name="com.example.peanuts.ui.groups.GroupsFragment"
+        android:label="@string/title_groups"
+        tools:layout="@layout/fragment_group" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_notification"
         android:name="com.example.peanuts.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
