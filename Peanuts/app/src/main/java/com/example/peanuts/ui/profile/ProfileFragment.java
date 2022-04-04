@@ -2,6 +2,7 @@ package com.example.peanuts.ui.profile;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,11 @@ public class ProfileFragment extends Fragment {
         final TextView textView = binding.textProfile;
         profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
+    }
+
+    public void toSettings(View view) {
+        Intent intent = new Intent(this.getContext(), Settings.class);
+        startActivity(intent);
     }
 
     @Override
