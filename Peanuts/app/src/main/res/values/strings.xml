@@ -7,4 +7,9 @@
     <string name="title_groups">Groups</string>
     <string name="title_explore">Explore</string>
     <string name="title_add">Add</string>
+    <string name="allergens">Potential Allergens</string>
+    <string name="add_food_title">Name of food</string>
+    <string name="title">Title</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="save_button">Save</string>
 </resources>

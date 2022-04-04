@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:foregroundTint="#673AB7"
+    android:background="@color/white"
     tools:context=".ui.add.AddFragment">
 
     <TextView
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="190dp"
-        android:text="Title"
+        android:text="@string/title"
         android:textSize="20sp" />
 
     <EditText
@@ -40,7 +40,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="210dp"
         android:minHeight="48dp"
-        android:text="Name of food"
+        android:text="@string/add_food_title"
         android:textColor="#009688"
         android:textSize="14sp" />
 
@@ -49,9 +49,28 @@
         android:layout_width="206dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="270dp"
-        android:text="Potential Allergens"
+        android:layout_marginTop="280dp"
+        android:text="@string/allergens"
         android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/save_button"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/cancel_button"
+        android:textColor="@color/white"
+        app:iconTint="@color/white" />
 
 
 </FrameLayout>
