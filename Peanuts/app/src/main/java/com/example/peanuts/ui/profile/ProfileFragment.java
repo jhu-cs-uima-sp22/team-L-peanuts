@@ -43,8 +43,18 @@ public class ProfileFragment extends Fragment {
         return root;
     }
 
-    public void onClick(View view) {
+    public void toSettings(View view) {
         Intent intent = new Intent(getActivity(), Settings.class);
+        startActivity(intent);
+    }
+
+    public void toEditRestrictions(View view) {
+        Intent intent = new Intent(getActivity(), Settings.class); //TODO: change this to a different activity, not settings
+        startActivity(intent);
+    }
+
+    public void toEditFoods(View view) {
+        Intent intent = new Intent(getActivity(), Settings.class); //TODO: change this to a different activity, not settings
         startActivity(intent);
     }
 
