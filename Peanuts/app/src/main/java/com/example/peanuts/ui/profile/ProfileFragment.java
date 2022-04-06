@@ -12,21 +12,28 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.peanuts.MainActivity;
 import com.example.peanuts.R;
 import com.example.peanuts.databinding.FragmentAddBinding;
 import com.example.peanuts.databinding.FragmentProfileBinding;
 import com.example.peanuts.ui.add.AddViewModel;
 
+import org.w3c.dom.Text;
+
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
+    private MainActivity myact;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         ProfileViewModel profileViewModel =
                 new ViewModelProvider(this).get(ProfileViewModel.class);
+
+        myact = (MainActivity) getActivity();
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -36,8 +43,8 @@ public class ProfileFragment extends Fragment {
         return root;
     }
 
-    public void toSettings(View view) {
-        Intent intent = new Intent(this.getContext(), Settings.class);
+    public void onClick(View view) {
+        Intent intent = new Intent(getActivity(), Settings.class);
         startActivity(intent);
     }
 
