@@ -7,6 +7,11 @@
     <string name="title_groups">Groups</string>
     <string name="title_explore">Explore</string>
     <string name="title_add">Add</string>
+    <string name="allergens">Potential Allergens</string>
+    <string name="add_food_title">Name of food</string>
+    <string name="title">Title</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="save_button">Save</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_name">Name</string>
     <string name="prompt_email">Email</string>
@@ -24,5 +29,4 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="prompt_confirm_password">Confirm Password</string>
-
 </resources>
