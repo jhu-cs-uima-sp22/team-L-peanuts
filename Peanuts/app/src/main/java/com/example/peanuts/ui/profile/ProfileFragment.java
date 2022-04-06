@@ -1,7 +1,10 @@
 package com.example.peanuts.ui.profile;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,7 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.peanuts.MainActivity;
 import com.example.peanuts.R;
@@ -40,12 +45,16 @@ public class ProfileFragment extends Fragment {
 
         final TextView textView = binding.textProfile;
         profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
-    }
+        ImageButton btn = (ImageButton) root.findViewById(R.id.settings_button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Settings.class);
+                startActivity(intent);
+            }
+        });
 
-    public void toSettings(View view) {
-        Intent intent = new Intent(getActivity(), Settings.class);
-        startActivity(intent);
+        return root;
     }
 
     public void toEditRestrictions(View view) {

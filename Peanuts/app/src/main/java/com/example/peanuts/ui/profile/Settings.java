@@ -17,7 +17,6 @@ public class Settings extends AppCompatActivity {
     }
 
     public void back(View view) {
-        Intent intent = new Intent(this, ProfileFragment.class);
-        startActivity(intent);
+        finish();
     }
 }
