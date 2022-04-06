@@ -96,7 +96,6 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="edit_restrictions_button"
                     android:minHeight="48dp"
-                    android:onClick="toEditRestrictions"
                     android:src="@drawable/baseline_edit_24"
                     android:text="Edit Restsrictions Button"
                     app:layout_constraintStart_toEndOf="@+id/textView5"
@@ -229,7 +228,6 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="edit_foods_button"
                     android:minHeight="48dp"
-                    android:onClick="toEditFoods"
                     android:src="@drawable/baseline_edit_24"
                     app:layout_constraintStart_toEndOf="@+id/textView13"
                     app:layout_constraintTop_toTopOf="parent" />

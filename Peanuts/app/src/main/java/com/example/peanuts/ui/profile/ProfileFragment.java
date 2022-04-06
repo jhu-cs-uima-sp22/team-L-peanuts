@@ -53,18 +53,24 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        ImageButton editFoodsbtn = (ImageButton) root.findViewById(R.id.EditFoodsButton);
+        editFoodsbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EditFoods.class);
+                startActivity(intent);
+            }
+        });
+        ImageButton editRestrictionsbtn = (ImageButton) root.findViewById(R.id.EditRestrictionsButton);
+        editRestrictionsbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EditFoods.class); //TODO: this needs to be changed to the edit restrictions activity
+                startActivity(intent);
+            }
+        });
 
         return root;
-    }
-
-    public void toEditRestrictions(View view) {
-        Intent intent = new Intent(getActivity(), Settings.class); //TODO: change this to a different activity, not settings
-        startActivity(intent);
-    }
-
-    public void toEditFoods(View view) {
-        Intent intent = new Intent(getActivity(), EditFoods.class); //TODO: change this to a different activity, not settings
-        startActivity(intent);
     }
 
     @Override
