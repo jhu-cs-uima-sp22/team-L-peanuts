@@ -63,7 +63,7 @@ public class ProfileFragment extends Fragment {
     }
 
     public void toEditFoods(View view) {
-        Intent intent = new Intent(getActivity(), Settings.class); //TODO: change this to a different activity, not settings
+        Intent intent = new Intent(getActivity(), EditFoods.class); //TODO: change this to a different activity, not settings
         startActivity(intent);
     }
 
