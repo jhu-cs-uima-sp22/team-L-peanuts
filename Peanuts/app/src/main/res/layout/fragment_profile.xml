@@ -25,9 +25,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"
-                android:layout_height="149dp"
-                android:background="#6D8BC34A"
-                android:backgroundTint="#8BC34A">
+                android:layout_height="120dp"
+                android:background="#E9EFD7"
+                android:backgroundTint="#E9EFD7">
 
                 <ImageView
                     android:id="@+id/profile_photo"
@@ -46,8 +46,13 @@
                     android:id="@+id/name"
                     android:layout_width="120dp"
                     android:layout_height="29dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
                     android:orderInCategory="2"
                     android:text="Karen Smith"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/profile_photo"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,8 +60,10 @@
                     android:id="@+id/email"
                     android:layout_width="213dp"
                     android:layout_height="44dp"
+                    android:layout_marginStart="8dp"
                     android:orderInCategory="3"
                     android:text="karen1979@gmail.com"
+                    android:textColor="#000000"
                     app:layout_constraintStart_toEndOf="@+id/profile_photo"
                     app:layout_constraintTop_toBottomOf="@+id/name" />
 
