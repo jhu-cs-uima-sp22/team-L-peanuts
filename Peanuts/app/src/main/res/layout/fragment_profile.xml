@@ -26,7 +26,7 @@
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"
                 android:layout_height="149dp"
-                android:background="#888BC34A">
+                android:background="#88C8ED9D">
 
                 <ImageView
                     android:id="@+id/profile_photo"
