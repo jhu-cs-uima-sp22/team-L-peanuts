@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -46,6 +47,7 @@ public class AddFragment extends Fragment {
     private Button clear;
     private Button addAllergens;
     private EditText name;
+    private String nameOfFood;
     private FragmentTransaction transaction;
 
     private boolean mTwoPane;
@@ -85,7 +87,8 @@ public class AddFragment extends Fragment {
 
         final TextView textView = binding.textAdd;
 
-        name = (EditText) root.findViewById(R.id.name);
+        name = (EditText) root.findViewById(R.id.item_text);
+        name.setHint("Name of food");
         save = (Button) root.findViewById(R.id.save_button);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,10 +96,18 @@ public class AddFragment extends Fragment {
                 //create post
                 //save data in database
                 Context context = getContext();
-                CharSequence text = "Food Added!";
                 int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                nameOfFood = name.getText().toString();
+                CharSequence text;
+                if (nameOfFood.equals("")) {
+                    text = "You need to name your food";
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                } else {
+                    text = "Food Added!";
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }
             }
         });
         clear = (Button) root.findViewById(R.id.clear_button);
@@ -104,8 +115,8 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String str = "Name of food";
-                //name.clearComposingText();
-                //name.setText(str);
+                name.setText("");
+                name.setHint("Name of food");
             }
         });
 
