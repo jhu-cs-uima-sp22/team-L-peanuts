@@ -28,6 +28,7 @@
                 android:layout_height="149dp"
                 android:background="#88C8ED9D">
 
+
                 <ImageView
                     android:id="@+id/profile_photo"
                     android:layout_width="100dp"
@@ -50,6 +51,7 @@
                     android:gravity="center"
                     android:orderInCategory="2"
                     android:text="Karen Smith"
+                    android:textColor="#000000"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/profile_photo"
@@ -64,6 +66,7 @@
                     android:layout_marginTop="28dp"
                     android:orderInCategory="3"
                     android:text="karen1979@gmail.com"
+                    android:textColor="#000000"
                     app:layout_constraintStart_toEndOf="@+id/profile_photo"
                     app:layout_constraintTop_toBottomOf="@+id/name" />
 
