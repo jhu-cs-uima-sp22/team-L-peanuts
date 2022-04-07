@@ -11,10 +11,14 @@
         android:theme="@style/Theme.Peanuts">
         <activity
             android:name=".ui.profile.EditFoods"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Edit Foods"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ui.profile.Settings"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Settings"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".EditRestrictions"
             android:exported="false" />
