@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -32,6 +33,7 @@ import com.example.peanuts.databinding.FragmentAddBinding;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.peanuts.databinding.FragmentNotificationsBinding;
 import com.example.peanuts.ui.notifications.NotificationsViewModel;
+import com.example.peanuts.ui.profile.EditFoods;
 import com.example.peanuts.ui.profile.ProfileFragment;
 
 
@@ -41,13 +43,17 @@ public class AddFragment extends Fragment {
 
     private FragmentAddBinding binding;
     private Button save;
-    private Button cancel;
+    private Button clear;
+    private Button addAllergens;
+    private EditText name;
     private FragmentTransaction transaction;
 
     private boolean mTwoPane;
     private String userId;
     private List<String> mItems;
     private RecyclerView.RecyclerListener mAdapt;
+    int REQUEST_CODE;
+    int RESULT_CODE;
 
    /* @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,25 +85,40 @@ public class AddFragment extends Fragment {
 
         final TextView textView = binding.textAdd;
 
-        save = (Button) view.findViewById(R.id.save_button);
+        name = (EditText) root.findViewById(R.id.name);
+        save = (Button) root.findViewById(R.id.save_button);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //create post
                 //save data in database
-                //transaction = getSupportFragmentManager().beginTransaction();
-
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack so the user can navigate back
-                //transaction.replace(R.id.fragment_container, this.item);
-                //transaction.addToBackStack(null);
+                Context context = getContext();
+                CharSequence text = "Food Added!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         });
-        cancel = (Button) view.findViewById(R.id.cancel_button);
-        cancel.setOnClickListener(new View.OnClickListener() {
+        clear = (Button) root.findViewById(R.id.clear_button);
+        clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String str = "Name of food";
+                //name.clearComposingText();
+                //name.setText(str);
+            }
+        });
 
+        addAllergens = (Button) root.findViewById(R.id.add_allergens);
+        addAllergens.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), EditFoods.class);
+                startActivity(intent);
+                //NEED TO FIGURE OUT HOW TO LAUNCH WITH RESULT
+
+                //getActivity().startActivityForResult(intent, 1);
+                //getActivity().startActivityForResult(intent, REQUEST_CODE);
             }
         });
 
@@ -110,4 +131,12 @@ public class AddFragment extends Fragment {
         binding = null;
     }
 
+    /*@Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_CODE) {
+            //String testResult = data.getStringExtra(EXTRA_KEY_TEST);
+            // TODO: Do something with your extra data
+        }
+    }*/
 }
