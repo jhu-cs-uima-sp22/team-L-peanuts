@@ -1,6 +1,7 @@
 package com.example.peanuts.ui.add;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -19,10 +20,11 @@ import android.widget.TextView;
 import com.example.peanuts.MainActivity;
 import com.example.peanuts.R;
 import com.example.peanuts.databinding.FragmentAddBinding;
+import com.example.peanuts.ui.profile.ProfileFragment;
 
 import java.util.List;
 
-public class AddFragment extends Fragment {
+public class AddFragment extends Fragment implements View.OnClickListener{
 
     private FragmentAddBinding binding;
     private FragmentTransaction transaction;
@@ -54,6 +56,7 @@ public class AddFragment extends Fragment {
 
         //AddViewModel addViewModel =
                 //new ViewModelProvider(this).get(AddViewModel.class);
+        Log.d("FRAG", "addFood");
 
         View view = inflater.inflate(R.layout.fragment_add, container, false);
 
@@ -63,21 +66,6 @@ public class AddFragment extends Fragment {
         final TextView textView = binding.textAdd;
 
         TextView save = (TextView) view.findViewById(R.id.save_button);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("Save", "save");
-                //create post
-                //save data in database
-                //transaction = getSupportFragmentManager().beginTransaction();
-                getActivity().getFragmentManager().popBackStack();
-
-// Replace whatever is in the fragment_container view with this fragment,
-// and add the transaction to the back stack so the user can navigate back
-                //transaction.replace(R.id.fragment_container, this.item);
-                //transaction.addToBackStack(null);
-            }
-        });
 
         TextView cancel = (TextView) view.findViewById(R.id.cancel_button);
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -107,5 +95,23 @@ public class AddFragment extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
     }
 
+    @Override
+    public void onClick(View view) {
+        Log.d("Save", "save");
+        //create post
+        //save data in database
+        //transaction = getSupportFragmentManager().beginTransaction();
 
+        Fragment fragment = new ProfileFragment();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_view, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack so the user can navigate back
+        //transaction.replace(R.id.fragment_container, this.item);
+        //transaction.addToBackStack(null);
+    }
 }
