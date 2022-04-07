@@ -76,12 +76,18 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        TextView name = (TextView) root.findViewById(R.id.name);
         Context context = myact.getApplicationContext();
         myPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        name.setText(myPrefs.getString("NAME", "Karen Smith"));
 
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        View root = binding.getRoot();
+        TextView name = (TextView) root.findViewById(R.id.name);
+        name.setText(myPrefs.getString("NAME", "Karen Smith"));
+        super.onResume();
     }
 
     @Override

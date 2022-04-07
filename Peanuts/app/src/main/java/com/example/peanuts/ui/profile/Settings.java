@@ -16,7 +16,7 @@ import com.example.peanuts.R;
 
 public class Settings extends AppCompatActivity {
 
-    private SharedPreferences myPrefs;
+    private SharedPreferences preferences;
     private MainActivity myact;
 
     @Override
@@ -24,16 +24,18 @@ public class Settings extends AppCompatActivity {
         //myact = (MainActivity) getActivity();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        Context context = myact.getApplicationContext();
-        myPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Context context = getApplicationContext();
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        TextView textView = (TextView) findViewById(R.id.name_text);
+        textView.setText(preferences.getString("NAME", "Karen Smith"));
     }
 
-    public void back(View view) {
+    public void save(View view) {
         TextView textView = (TextView) findViewById(R.id.name_text);
         String name = textView.getText().toString();
-        SharedPreferences.Editor peditor = myPrefs.edit();
-        peditor.putString("NAME", name);
-        peditor.apply();
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("NAME", name);
+        editor.apply();
 
         finish();
     }
