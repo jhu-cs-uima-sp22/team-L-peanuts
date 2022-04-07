@@ -3,6 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.4" />
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout-w936dp/activity_login.xml" value="0.7023153252480706" />
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/activity_edit_restrictions.xml" value="0.2" />
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/activity_login.xml" value="0.2" />
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/activity_new_account.xml" value="0.11882086167800454" />
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/content_main.xml" value="8.0" />
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/fragment_add.xml" value="0.25" />
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/item_restriction.xml" value="0.1875" />
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/login.xml" value="0.264" />
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/menu/bottom_nav_menu.xml" value="0.264" />
         <entry key="app/src/main/res/drawable/baseline_account_circle_24.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/baseline_arrow_back_24.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/baseline_edit_24.xml" value="0.2085" />
@@ -11,19 +21,8 @@
         <entry key="app/src/main/res/drawable/baseline_lock_24.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/baseline_settings_24.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.2085" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22864583333333333" />
-        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.23072916666666668" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.1" />
-        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.2" />
-        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.4" />
-        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout-w936dp/activity_login.xml" value="0.7023153252480706" />
-        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/activity_edit_restrictions.xml" value="0.2" />
-        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/activity_login.xml" value="0.2" />
-        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/activity_new_account.xml" value="0.11882086167800454" />
-        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/content_main.xml" value="8.0" />
-        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/item_restriction.xml" value="0.1875" />
-        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/login.xml" value="0.264" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13653717182431652" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.23072916666666668" />
         <entry key="app/src/main/res/layout/fragment_add.xml" value="0.3107968136820116" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/fragment_explore.xml" value="0.19610507246376813" />

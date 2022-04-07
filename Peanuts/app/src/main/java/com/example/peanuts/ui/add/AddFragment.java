@@ -1,47 +1,30 @@
 package com.example.peanuts.ui.add;
 
-
-
-import static android.widget.Toast.LENGTH_SHORT;
-
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.peanuts.MainActivity;
 import com.example.peanuts.R;
 import com.example.peanuts.databinding.FragmentAddBinding;
-import androidx.recyclerview.widget.RecyclerView;
-import com.example.peanuts.databinding.FragmentNotificationsBinding;
-import com.example.peanuts.ui.notifications.NotificationsViewModel;
-import com.example.peanuts.ui.profile.ProfileFragment;
-
 
 import java.util.List;
 
 public class AddFragment extends Fragment {
 
     private FragmentAddBinding binding;
-    private Button save;
-    private Button cancel;
     private FragmentTransaction transaction;
 
     private boolean mTwoPane;
@@ -79,13 +62,15 @@ public class AddFragment extends Fragment {
 
         final TextView textView = binding.textAdd;
 
-        save = (Button) view.findViewById(R.id.save_button);
+        TextView save = (TextView) view.findViewById(R.id.save_button);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("Save", "save");
                 //create post
                 //save data in database
                 //transaction = getSupportFragmentManager().beginTransaction();
+                getActivity().getFragmentManager().popBackStack();
 
 // Replace whatever is in the fragment_container view with this fragment,
 // and add the transaction to the back stack so the user can navigate back
@@ -93,7 +78,8 @@ public class AddFragment extends Fragment {
                 //transaction.addToBackStack(null);
             }
         });
-        cancel = (Button) view.findViewById(R.id.cancel_button);
+
+        TextView cancel = (TextView) view.findViewById(R.id.cancel_button);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,5 +95,17 @@ public class AddFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+    }
+
 
 }
