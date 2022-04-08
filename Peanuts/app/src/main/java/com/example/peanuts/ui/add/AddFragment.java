@@ -136,8 +136,13 @@ public class AddFragment extends Fragment {
         //allergen list
 
         listView = (ListView) root.findViewById(R.id.list);
+        myItems = new ArrayList<>();
+        myItems.add(new Item("Peanut", false));
+        myItems.add(new Item("Dairy", false));
+
         adapter = new ItemAdapter(getContext(), R.layout.fragment_add, myItems);
-        //listView.setAdapter(adapter);
+        Log.d("debug", "after a initiated");
+        listView.setAdapter(adapter);
         Log.d("debug", "set");
 
         //addAllergens = (Button) root.findViewById(R.id.add_allergens);
