@@ -4,6 +4,10 @@ package com.example.peanuts.ui.add;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -26,9 +30,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.peanuts.Item;
+import com.example.peanuts.ItemAdapter;
 import com.example.peanuts.R;
 import com.example.peanuts.databinding.FragmentAddBinding;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +46,7 @@ import com.example.peanuts.ui.profile.EditFoods;
 import com.example.peanuts.ui.profile.ProfileFragment;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddFragment extends Fragment {
@@ -48,6 +57,9 @@ public class AddFragment extends Fragment {
     private Button addAllergens;
     private EditText name;
     private String nameOfFood;
+    private ListView listView;
+    private ItemAdapter adapter;
+    protected List<Item> myItems;
     private FragmentTransaction transaction;
 
     private boolean mTwoPane;
@@ -107,6 +119,8 @@ public class AddFragment extends Fragment {
                     text = "Food Added!";
                     Toast toast = Toast.makeText(context, text, duration);
                     toast.show();
+                    name.setText("");
+                    name.setHint("Name of food");
                 }
             }
         });
@@ -114,24 +128,37 @@ public class AddFragment extends Fragment {
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = "Name of food";
                 name.setText("");
                 name.setHint("Name of food");
             }
         });
 
-        addAllergens = (Button) root.findViewById(R.id.add_allergens);
-        addAllergens.setOnClickListener(new View.OnClickListener() {
+        //allergen list
+
+        listView = (ListView) root.findViewById(R.id.list);
+        adapter = new ItemAdapter(getContext(), R.layout.fragment_add, myItems);
+        //listView.setAdapter(adapter);
+        Log.d("debug", "set");
+
+        //addAllergens = (Button) root.findViewById(R.id.add_allergens);
+       /* addAllergens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), EditFoods.class);
-                startActivity(intent);
+                //TRYING TO LAUNCH ACTIVITY WITH RETURN
+               // Intent intent = new Intent(getActivity(), EditFoods.class);
+                //registerForActivityResult(intent, intent);
+                //startActivity(intent);
                 //NEED TO FIGURE OUT HOW TO LAUNCH WITH RESULT
 
                 //getActivity().startActivityForResult(intent, 1);
                 //getActivity().startActivityForResult(intent, REQUEST_CODE);
+
+                //TRYING TO USE LIST
+                //scrollView = (ListView)root.findViewById(R.id.listView);
+                //scrollView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
             }
-        });
+        });*/
 
         return root;
     }
