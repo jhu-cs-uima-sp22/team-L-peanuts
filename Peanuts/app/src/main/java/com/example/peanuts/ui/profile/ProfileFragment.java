@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.peanuts.EditRestrictions;
+import com.example.peanuts.FoodDetail;
 import com.example.peanuts.MainActivity;
 import com.example.peanuts.R;
 import com.example.peanuts.databinding.FragmentAddBinding;
@@ -71,7 +72,18 @@ public class ProfileFragment extends Fragment {
         editRestrictionsbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EditRestrictions.class); //TODO: this needs to be changed to the edit restrictions activity
+                Intent intent = new Intent(getActivity(), EditRestrictions.class);
+                startActivity(intent);
+            }
+        });
+        ImageButton foodbtn = (ImageButton) root.findViewById(R.id.Spaghetti);
+        foodbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), FoodDetail.class);
+                intent.putExtra("name", "Spaghetti");
+                intent.putExtra("image", R.drawable.spaghetti);
+                intent.putExtra("allergens", "-Dairy\n-Eggs\n-Wheat\n-Gluten\n");
                 startActivity(intent);
             }
         });
