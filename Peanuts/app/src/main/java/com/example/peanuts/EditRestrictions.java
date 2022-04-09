@@ -19,9 +19,20 @@ public class EditRestrictions extends AppCompatActivity {
 
         // create temp ArrayList of items
         restrictions = new ArrayList<>();
-        restrictions.add(new Item("peanuts", true));
-        restrictions.add(new Item("dairy", false));
-        restrictions.add(new Item("seafood", true));
+        restrictions.add(new Item("Peanuts", false));
+        restrictions.add(new Item("Dairy", false));
+        restrictions.add(new Item("Seafood", false));
+        restrictions.add(new Item("Soy", false));
+        restrictions.add(new Item("Strawberries", false));
+        restrictions.add(new Item("Shellfish", false));
+        restrictions.add(new Item("Eggs", false));
+        restrictions.add(new Item("Tree Nuts", false));
+        restrictions.add(new Item("Wheat", false));
+        restrictions.add(new Item("Gluten", false));
+        restrictions.add(new Item("Avocado", false));
+        restrictions.add(new Item("Sesame", false));
+
+
 
         adapter = new ItemAdapter(this, R.layout.item_restriction, restrictions);
 
