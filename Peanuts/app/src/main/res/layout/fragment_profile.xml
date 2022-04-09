@@ -242,7 +242,7 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/cardView9"
-                            android:layout_width="100dp"
+                            android:layout_width="75dp"
                             android:layout_height="match_parent">
 
                             <ImageView
@@ -260,7 +260,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Strawberries"
                                 android:textAlignment="center"
-                                android:textSize="14sp"
+                                android:textSize="18sp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/imageView9" />
