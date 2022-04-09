@@ -40,6 +40,5 @@ public class EditRestrictions extends AppCompatActivity {
         // refresh view
         adapter.notifyDataSetChanged();
 
-
     }
 }

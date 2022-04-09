@@ -44,27 +44,31 @@ public class NewAccount extends AppCompatActivity {
     }
 
     public void launchRestrictions(View view) {
-        UUID uuid = UUID.randomUUID();
-        String id = uuid.toString();
+        Context context = getApplicationContext();
+        CharSequence text = "Passwords do not match";
+        int duration = Toast.LENGTH_SHORT;
 
-        String name = nameText.getText().toString();
-        String email = emailText.getText().toString();
-        String pass = passText.getText().toString();
-        String confirm = confirmText.getText().toString();
+        try {
+            String name = nameText.getText().toString();
+            String email = emailText.getText().toString();
+            String pass = passText.getText().toString();
+            String confirm = confirmText.getText().toString();
 
-        if (pass.equals(confirm) ) {
-            writeNewUser(id, name, email,pass);
-            Intent intent = new Intent(this, EditRestrictions.class);
-            startActivity(intent);
-        } else {
-            Context context = getApplicationContext();
-            CharSequence text = "Invalid input";
-            int duration = Toast.LENGTH_SHORT;
+            if (name.equals("") || confirm.equals("") ||
+                    email.equals("") || pass.equals("")) throw new Exception();
 
-            Toast toast = Toast.makeText(context, text, duration);
+            if (pass.equals(confirm)) {
+                writeNewUser(name, email, pass);
+                Intent intent = new Intent(this, EditRestrictions.class);
+                startActivity(intent);
+            } else {
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        } catch (Exception e) {
+            Toast toast = Toast.makeText(context, "Missing input", duration);
             toast.show();
         }
-
     }
 
     public void launchLogin(View view) {
@@ -85,7 +89,7 @@ public class NewAccount extends AppCompatActivity {
         }
     }
 
-    public void writeNewUser(String userId, String name, String email, String password) {
+    public void writeNewUser(String name, String email, String password) {
         User user = new User(name, email, password);
 
         myRef.child(email).setValue(user);

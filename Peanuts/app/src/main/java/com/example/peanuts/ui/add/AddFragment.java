@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.peanuts.Item;
 import com.example.peanuts.ItemAdapter;
@@ -94,12 +95,10 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                 //new ViewModelProvider(this).get(AddViewModel.class);
         Log.d("FRAG", "addFood");
 
-        View view = inflater.inflate(R.layout.fragment_add, container, false);
+//        View view = inflater.inflate(R.layout.fragment_add, container, false);
 
         binding = FragmentAddBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        final TextView textView = binding.textAdd;
 
         name = (EditText) root.findViewById(R.id.item_text);
         name.setHint("Name of food");
