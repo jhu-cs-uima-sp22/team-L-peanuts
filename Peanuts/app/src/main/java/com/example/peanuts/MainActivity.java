@@ -1,12 +1,14 @@
 package com.example.peanuts;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
+import com.example.peanuts.databinding.ActivityMainBinding;
 import com.example.peanuts.ui.add.AddFragment;
-import com.example.peanuts.ui.profile.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -18,7 +20,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.peanuts.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
@@ -29,11 +30,42 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
     private Fragment addFood;
     private Fragment profile;
+    private SharedPreferences preferences;
+    protected ArrayList<FoodItem> foodItems;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Context context = getApplicationContext();
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("0", "Peanuts");
+        editor.putString("1", "Dairy");
+        editor.putString("2", "Seafood");
+        editor.putString("3", "Soy");
+        editor.putString("4", "Strawberries");
+        editor.putString("5", "Shellfish");
+        editor.putString("6", "Eggs");
+        editor.putString("7", "Tree Nuts");
+        editor.putString("8", "Wheat");
+        editor.putString("9", "Gluten");
+        editor.putString("10", "Avocado");
+        editor.putString("11", "Sesame");
+        editor.apply();
+
+        foodItems = new ArrayList<>();
+        boolean[] restrictions = new boolean[12];
+        restrictions[1] = true;
+        restrictions[6] = true;
+        restrictions[8] = true;
+        restrictions[9] = true;
+
+        Drawable image = getDrawable(R.drawable.spaghetti);
+        foodItems.add(new FoodItem("Spaghetti", restrictions, image));
+        foodItems.add(new FoodItem("Spaghetti", restrictions, image));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

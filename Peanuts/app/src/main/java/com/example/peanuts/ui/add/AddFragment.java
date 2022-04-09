@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,10 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.peanuts.MainActivity;
 import com.example.peanuts.R;
+import com.example.peanuts.ProfileFragment;
 import com.example.peanuts.databinding.FragmentAddBinding;
-import com.example.peanuts.ui.profile.ProfileFragment;
 
 import java.util.List;
 

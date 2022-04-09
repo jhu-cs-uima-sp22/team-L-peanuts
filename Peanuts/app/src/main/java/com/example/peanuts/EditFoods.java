@@ -55,7 +55,7 @@ public class EditFoods extends AppCompatActivity {
     }
 
     public void close(View view) {
-        int position = view.getVerticalScrollbarPosition();
+        int position = view.getVerticalScrollbarPosition(); //need to fix, position is not right
         foodItems.remove(position);
         adapter.notifyDataSetChanged();
     }

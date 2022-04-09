@@ -8,7 +8,7 @@
     android:orientation="horizontal" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/spaghetti_card"
+        android:id="@+id/food_card"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_margin="10dp">

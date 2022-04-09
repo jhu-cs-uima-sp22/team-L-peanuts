@@ -20,7 +20,7 @@
             android:label="Edit Foods"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".ui.profile.Settings"
+            android:name=".Settings"
             android:exported="false"
             android:label="Settings"
             android:parentActivityName=".MainActivity" />
