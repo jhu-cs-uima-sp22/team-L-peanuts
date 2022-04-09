@@ -42,10 +42,13 @@ public class Login extends AppCompatActivity {
         Context context = getApplicationContext();
         CharSequence text = "Invalid input";
         int duration = Toast.LENGTH_SHORT;
-        String email = emailText.getText().toString();
-        String pass = passText.getText().toString();
 
         try {
+            String email = emailText.getText().toString();
+            String pass = passText.getText().toString();
+
+            if (email.equals("") || pass.equals("")) throw new Exception();
+
             myRef.child(email).child("password").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -60,7 +63,6 @@ public class Login extends AppCompatActivity {
                         toast.show();
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                     Log.d("retrieve", databaseError.toString());
