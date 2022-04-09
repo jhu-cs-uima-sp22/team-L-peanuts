@@ -56,37 +56,11 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     private FragmentAddBinding binding;
     private Button save;
     private Button clear;
-    private Button addAllergens;
     private EditText name;
     private String nameOfFood;
-    private ListView listView;
-    private ItemAdapter adapter;
-    protected List<Item> myItems;
-    private FragmentTransaction transaction;
 
-    private boolean mTwoPane;
-    private String userId;
-    private List<String> mItems;
-    private RecyclerView.RecyclerListener mAdapt;
-    int REQUEST_CODE;
-    int RESULT_CODE;
-
-   /* @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Activity activity = this.getActivity();
-        //not sure what to do with recyclerView
-
-        mItems.add("Peanuts");
-        mItems.add("Dairy");
-        mItems.add("Tree nuts");
-        mItems.add("Shellfish");
-        mItems.add("Seafood");
-        mItems.add("Strawberry");
-        mItems.add("Soy");
-        mItems.add("Gluten");
-        mItems.add("Eggs");
-    }*/
+    protected ArrayList<Item> restrictions;
+    protected ItemAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -104,6 +78,33 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
         name = (EditText) root.findViewById(R.id.item_text);
         name.setHint("Name of food");
+
+        //allergen list
+
+
+        // create temp ArrayList of items
+        restrictions = new ArrayList<>();
+        restrictions.add(new Item("peanuts", false));
+        restrictions.add(new Item("dairy", false));
+        restrictions.add(new Item("seafood", false));
+        restrictions.add(new Item("soy", false));
+        restrictions.add(new Item("strawberries", false));
+        restrictions.add(new Item("shellfish", false));
+        restrictions.add(new Item("eggs", false));
+        restrictions.add(new Item("tree nuts", false));
+        restrictions.add(new Item("wheat", false));
+        restrictions.add(new Item("gluten", false));
+        restrictions.add(new Item("avocado", false));
+        restrictions.add(new Item("sesame", false));
+
+        adapter = new ItemAdapter(getContext(), R.layout.item_restriction, restrictions);
+
+        ListView myList = (ListView) root.findViewById(R.id.list);
+        myList.setAdapter(adapter);
+        registerForContextMenu(myList);
+        // refresh view
+        adapter.notifyDataSetChanged();
+
         save = (Button) root.findViewById(R.id.save_button);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,40 +134,15 @@ public class AddFragment extends Fragment implements View.OnClickListener{
             public void onClick(View v) {
                 name.setText("");
                 name.setHint("Name of food");
+
+                for(int i = 0; i < restrictions.size(); i++) {
+                    if (restrictions.get(i).isChecked()) {
+                        restrictions.get(i).changeChecked(false);
+                    }
+                }
+                adapter.notifyDataSetChanged();
             }
         });
-
-        //allergen list
-
-        /*listView = (ListView) root.findViewById(R.id.list);
-        myItems = new ArrayList<>();
-        myItems.add(new Item("Peanut", false));
-        myItems.add(new Item("Dairy", false));
-
-        adapter = new ItemAdapter(getContext(), R.layout.fragment_add, myItems);
-        Log.d("debug", "after a initiated");
-        listView.setAdapter(adapter);
-        Log.d("debug", "set");*/
-
-        //addAllergens = (Button) root.findViewById(R.id.add_allergens);
-       /* addAllergens.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TRYING TO LAUNCH ACTIVITY WITH RETURN
-               // Intent intent = new Intent(getActivity(), EditFoods.class);
-                //registerForActivityResult(intent, intent);
-                //startActivity(intent);
-                //NEED TO FIGURE OUT HOW TO LAUNCH WITH RESULT
-
-                //getActivity().startActivityForResult(intent, 1);
-                //getActivity().startActivityForResult(intent, REQUEST_CODE);
-
-                //TRYING TO USE LIST
-                //scrollView = (ListView)root.findViewById(R.id.listView);
-                //scrollView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
-            }
-        });*/
 
         return root;
     }
@@ -177,14 +153,6 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         binding = null;
     }
 
-    /*@Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_CODE) {
-            //String testResult = data.getStringExtra(EXTRA_KEY_TEST);
-            // TODO: Do something with your extra data
-        }
-    }*/
     @Override
     public void onResume() {
         super.onResume();

@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 //        if (id == R.id.nav_exit) {
 //            this.finishAffinity();  // exit the app
 //        }
-                if (id == R.id.add_food) {
+                if (id == R.id.text_add) {
                     transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.nav_view, addFood);
                     transaction.addToBackStack(null);
