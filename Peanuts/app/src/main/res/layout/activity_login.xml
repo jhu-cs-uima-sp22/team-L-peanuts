@@ -32,13 +32,15 @@
             android:layout_margin="16dp"
             android:gravity="center"
             android:minHeight="48dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
             android:text="@string/login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/new_email"
+            android:id="@+id/login_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -51,7 +53,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/new_password"
+            android:id="@+id/login_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -91,7 +93,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="64dp"
             android:backgroundTint="@color/white"
-            android:onClick="lauchNewAccount"
+            android:onClick="launchNewAccount"
             android:shadowColor="@color/white"
             android:text="@string/action_signup"
             android:textColor="@color/accent"

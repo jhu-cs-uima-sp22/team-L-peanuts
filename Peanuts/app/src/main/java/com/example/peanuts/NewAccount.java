@@ -88,7 +88,7 @@ public class NewAccount extends AppCompatActivity {
     public void writeNewUser(String userId, String name, String email, String password) {
         User user = new User(name, email, password);
 
-        myRef.child(userId).setValue(user);
+        myRef.child(email).setValue(user);
     }
 
 
