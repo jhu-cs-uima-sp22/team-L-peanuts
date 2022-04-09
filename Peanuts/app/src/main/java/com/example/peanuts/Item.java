@@ -12,4 +12,6 @@ public class Item {
     public String getItem() {
         return item;
     }
+
+    public Boolean isChecked() { return isChecked; }
 }
