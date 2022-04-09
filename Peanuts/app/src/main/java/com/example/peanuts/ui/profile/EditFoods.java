@@ -1,9 +1,11 @@
 package com.example.peanuts.ui.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.peanuts.R;
 
@@ -22,5 +24,9 @@ public class EditFoods extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void close(View view) {
+        CardView item = (CardView) findViewById(R.id.spaghetti_card);
     }
 }

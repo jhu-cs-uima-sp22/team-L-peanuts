@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,9 +34,13 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             itemView = (LinearLayout) convertView;
         }
 
-//        TextView whatView = (TextView) itemView.findViewById(R.id.detail);
-//
-//        whatView.setText(it.getWhat());
+        TextView textView = (TextView) itemView.findViewById(R.id.restriction_name);
+        CheckBox checkBox = (CheckBox) itemView.findViewById(R.id.checkBox);
+
+        textView.setText(it.getItem());
+        Boolean checked = it.isChecked();
+        checkBox.setChecked(checked);
+
 
 
         return itemView;
