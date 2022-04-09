@@ -14,6 +14,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Icon;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,6 +29,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -56,8 +59,13 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     private FragmentAddBinding binding;
     private Button save;
     private Button clear;
+    private Button image;
     private EditText name;
     private String nameOfFood;
+    private ImageView imageView;
+    private ImageView imageView2;
+    private boolean setImage;
+    private ActivityResultLauncher<String> getContent;
 
     protected ArrayList<Item> restrictions;
     protected ItemAdapter adapter;
@@ -78,6 +86,10 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
         name = (EditText) root.findViewById(R.id.item_text);
         name.setHint("Name of food");
+        image = root.findViewById(R.id.pick_image);
+        imageView = root.findViewById(R.id.imageView);
+        imageView2 = root.findViewById(R.id.imageView2);
+        setImage = false;
 
         //allergen list
 
@@ -112,39 +124,67 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                 //create post
                 //save data in database
                 Context context = getContext();
-                int duration = Toast.LENGTH_SHORT;
+                int duration = Toast.LENGTH_LONG;
                 nameOfFood = name.getText().toString();
                 CharSequence text;
-                if (nameOfFood.equals("")) {
+                if (!setImage) {
+                    text = "You need to pick an image";
+                }
+                else if (nameOfFood.equals("")) {
                     text = "You need to name your food";
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
                 } else {
                     text = "Food Added!";
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                    name.setText("");
-                    name.setHint("Name of food");
+                    clearContent();
                 }
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         });
         clear = (Button) root.findViewById(R.id.clear_button);
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                name.setText("");
-                name.setHint("Name of food");
+                clearContent();
+            }
+        });
 
-                for(int i = 0; i < restrictions.size(); i++) {
-                    if (restrictions.get(i).isChecked()) {
-                        restrictions.get(i).changeChecked(false);
-                    }
-                }
-                adapter.notifyDataSetChanged();
+        //IMAGE
+
+
+
+        getContent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+            @Override
+            public void onActivityResult(Uri result) {
+                imageView.setImageURI(result);
+                setImage = true;
+                imageView2.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getContent.launch("image/*");
             }
         });
 
         return root;
+    }
+
+    private void clearContent () {
+        name.setText("");
+        name.setHint("Name of food");
+
+        for(int i = 0; i < restrictions.size(); i++) {
+            if (restrictions.get(i).isChecked()) {
+                restrictions.get(i).changeChecked(false);
+            }
+        }
+        adapter.notifyDataSetChanged();
+        imageView.setImageResource(android.R.color.transparent);
+        imageView2.setVisibility(View.VISIBLE);
+        setImage = false;
     }
 
     @Override
