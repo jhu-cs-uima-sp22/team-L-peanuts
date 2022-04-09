@@ -30,7 +30,5 @@ public class EditRestrictions extends AppCompatActivity {
         registerForContextMenu(myList);
         // refresh view
         adapter.notifyDataSetChanged();
-
-
     }
 }

@@ -1,38 +1,28 @@
 package com.example.peanuts.ui.profile;
 
-import static android.widget.Toast.LENGTH_SHORT;
-
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
-import android.provider.Telephony;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.peanuts.EditFoods;
 import com.example.peanuts.EditRestrictions;
 import com.example.peanuts.FoodDetail;
 import com.example.peanuts.MainActivity;
 import com.example.peanuts.R;
-import com.example.peanuts.databinding.FragmentAddBinding;
 import com.example.peanuts.databinding.FragmentProfileBinding;
-import com.example.peanuts.ui.add.AddViewModel;
-
-import org.w3c.dom.Text;
 
 public class ProfileFragment extends Fragment {
 

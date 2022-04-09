@@ -1,5 +1,7 @@
 package com.example.peanuts;
 
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -18,6 +20,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.peanuts.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationBarView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
