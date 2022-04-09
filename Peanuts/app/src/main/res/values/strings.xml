@@ -17,7 +17,8 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">log in</string>
-    <string name="action_signup">sign Up</string>
+    <string name="action_signup">sign up</string>
+    <string name="action_sign_in_short">sign in</string>
     <string name="login">Log in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
