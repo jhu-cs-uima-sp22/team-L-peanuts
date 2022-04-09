@@ -1,15 +1,15 @@
 package com.example.peanuts.ui.add;
 
-
-
 import static android.widget.Toast.LENGTH_SHORT;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
+
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,14 +17,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -33,7 +30,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.peanuts.Item;
 import com.example.peanuts.ItemAdapter;
@@ -47,9 +43,14 @@ import com.example.peanuts.ui.profile.ProfileFragment;
 
 
 import java.util.ArrayList;
+import com.example.peanuts.MainActivity;
+import com.example.peanuts.R;
+import com.example.peanuts.databinding.FragmentAddBinding;
+import com.example.peanuts.ui.profile.ProfileFragment;
+
 import java.util.List;
 
-public class AddFragment extends Fragment {
+public class AddFragment extends Fragment implements View.OnClickListener{
 
     private FragmentAddBinding binding;
     private Button save;
@@ -91,6 +92,7 @@ public class AddFragment extends Fragment {
 
         //AddViewModel addViewModel =
                 //new ViewModelProvider(this).get(AddViewModel.class);
+        Log.d("FRAG", "addFood");
 
         View view = inflater.inflate(R.layout.fragment_add, container, false);
 
@@ -182,4 +184,34 @@ public class AddFragment extends Fragment {
             // TODO: Do something with your extra data
         }
     }*/
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+    }
+
+    @Override
+    public void onClick(View view) {
+        Log.d("Save", "save");
+        //create post
+        //save data in database
+        //transaction = getSupportFragmentManager().beginTransaction();
+
+        Fragment fragment = new ProfileFragment();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.nav_view, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack so the user can navigate back
+        //transaction.replace(R.id.fragment_container, this.item);
+        //transaction.addToBackStack(null);
+    }
 }
