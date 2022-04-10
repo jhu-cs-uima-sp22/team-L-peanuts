@@ -32,13 +32,15 @@
             android:layout_margin="16dp"
             android:gravity="center"
             android:minHeight="48dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
             android:text="@string/login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/login_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -51,7 +53,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/login_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -64,7 +66,7 @@
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/username" />
+            app:layout_constraintTop_toBottomOf="@+id/new_email" />
 
         <Button
             android:id="@+id/login"
@@ -81,7 +83,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password"
+            app:layout_constraintTop_toBottomOf="@+id/new_password"
             app:layout_constraintVertical_bias="0.2" />
 
         <Button
@@ -91,7 +93,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="64dp"
             android:backgroundTint="@color/white"
-            android:onClick="lauchNewAccount"
+            android:onClick="launchNewAccount"
             android:shadowColor="@color/white"
             android:text="@string/action_signup"
             android:textColor="@color/accent"
@@ -107,8 +109,8 @@
             android:layout_marginBottom="64dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/password"
-            app:layout_constraintStart_toStartOf="@+id/password"
+            app:layout_constraintEnd_toEndOf="@+id/new_password"
+            app:layout_constraintStart_toStartOf="@+id/new_password"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.3" />
 

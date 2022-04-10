@@ -3,6 +3,7 @@ package com.example.peanuts.ui.profile;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,8 +18,10 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.AdapterView;
 import android.widget.GridView;
+
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,11 +33,15 @@ import com.example.peanuts.FoodItemAdapterProfile;
 import com.example.peanuts.MainActivity;
 import com.example.peanuts.ProfileViewModel;
 import com.example.peanuts.R;
+
 import com.example.peanuts.Settings;
 import com.example.peanuts.databinding.FragmentProfileBinding;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+
+import com.example.peanuts.databinding.FragmentProfileBinding;
+
 
 public class ProfileFragment extends Fragment {
 
@@ -118,7 +125,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onResume() {
         View root = binding.getRoot();
-        TextView name = (TextView) root.findViewById(R.id.name);
+        TextView name = (TextView) root.findViewById(R.id.new_name);
         name.setText(myPrefs.getString("NAME", "Karen Smith"));
         super.onResume();
     }

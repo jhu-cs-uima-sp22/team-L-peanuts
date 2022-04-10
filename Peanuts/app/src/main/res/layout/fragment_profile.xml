@@ -43,7 +43,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/name"
+                    android:id="@+id/new_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
@@ -68,7 +68,7 @@
                     android:text="karen1979@gmail.com"
                     android:textColor="#000000"
                     app:layout_constraintStart_toEndOf="@+id/profile_photo"
-                    app:layout_constraintTop_toBottomOf="@+id/name" />
+                    app:layout_constraintTop_toBottomOf="@+id/new_name" />
 
                 <ImageButton
                     android:id="@+id/settings_button"
@@ -242,7 +242,7 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/cardView9"
-                            android:layout_width="100dp"
+                            android:layout_width="75dp"
                             android:layout_height="match_parent">
 
                             <ImageView
@@ -260,7 +260,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Strawberries"
                                 android:textAlignment="center"
-                                android:textSize="14sp"
+                                android:textSize="18sp"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/imageView9" />

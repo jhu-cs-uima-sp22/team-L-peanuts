@@ -4,7 +4,7 @@ public class Item {
     private String item;
     private Boolean isChecked;
 
-    Item(String item, Boolean isChecked) {
+    public Item(String item, Boolean isChecked) {
         this.item = item;
         this.isChecked = isChecked;
     }
@@ -14,4 +14,8 @@ public class Item {
     }
 
     public Boolean isChecked() { return isChecked; }
+
+    public void changeChecked(Boolean checked) {
+        isChecked = checked;
+    }
 }
