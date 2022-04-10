@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -57,6 +59,11 @@ public class Login extends AppCompatActivity {
 
                     if (pass.equals(savedPass)) {
                         Intent intent = new Intent(Login.this, MainActivity.class);
+                        Context context = getApplicationContext();
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("user_email", email);
+                        editor.apply();
                         startActivity(intent);
                     } else {
                         Toast toast = Toast.makeText(context, text, duration);

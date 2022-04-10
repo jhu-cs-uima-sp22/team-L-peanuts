@@ -93,18 +93,18 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
         // create temp ArrayList of items
         restrictions = new ArrayList<>();
-        restrictions.add(new Item("peanuts", false));
-        restrictions.add(new Item("dairy", false));
-        restrictions.add(new Item("seafood", false));
-        restrictions.add(new Item("soy", false));
-        restrictions.add(new Item("strawberries", false));
-        restrictions.add(new Item("shellfish", false));
-        restrictions.add(new Item("eggs", false));
-        restrictions.add(new Item("tree nuts", false));
-        restrictions.add(new Item("wheat", false));
-        restrictions.add(new Item("gluten", false));
-        restrictions.add(new Item("avocado", false));
-        restrictions.add(new Item("sesame", false));
+        restrictions.add(new Item("Avocado", false, getResources().getDrawable(R.drawable.avocado_icon)));
+        restrictions.add(new Item("Dairy", false, getResources().getDrawable(R.drawable.dairy_icon)));
+        restrictions.add(new Item("Eggs", false, getResources().getDrawable(R.drawable.eggs_icon)));
+        restrictions.add(new Item("Gluten", false, getResources().getDrawable(R.drawable.gluten_icon)));
+        restrictions.add(new Item("Peanuts", false, getResources().getDrawable(R.drawable.peanuts_icon)));
+        restrictions.add(new Item("Seafood", false, getResources().getDrawable(R.drawable.seafood_icon)));
+        restrictions.add(new Item("Sesame", false, getResources().getDrawable(R.drawable.sesame_icon)));
+        restrictions.add(new Item("Shellfish", false, getResources().getDrawable(R.drawable.shellfish_icon)));
+        restrictions.add(new Item("Soy", false, getResources().getDrawable(R.drawable.soy_icon)));
+        restrictions.add(new Item("Strawberries", false, getResources().getDrawable(R.drawable.strawberries_icon)));
+        restrictions.add(new Item("Tree Nuts", false, getResources().getDrawable(R.drawable.tree_nuts_icon)));
+        restrictions.add(new Item("Wheat", false, getResources().getDrawable(R.drawable.wheat_icon)));
 
         adapter = new ItemAdapter(getContext(), R.layout.item_restriction, restrictions, "");
 

@@ -41,6 +41,8 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 
 import com.example.peanuts.databinding.FragmentProfileBinding;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class ProfileFragment extends Fragment {
@@ -52,12 +54,18 @@ public class ProfileFragment extends Fragment {
     protected FoodItemAdapterProfile adapter;
     public int foodPosition = 0;
 
+    private DatabaseReference myRef;
+    private FirebaseDatabase database;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         ProfileViewModel profileViewModel =
                 new ViewModelProvider(this).get(ProfileViewModel.class);
 
         myact = (MainActivity) getActivity();
+
+        database = FirebaseDatabase.getInstance("https://peanuts-e9a7c-default-rtdb.firebaseio.com/");
+        myRef = database.getReference("users");
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -85,6 +93,9 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditRestrictions.class);
+                Context context = getContext();
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                intent.putExtra("user", preferences.getString("user_email", ""));
                 startActivity(intent);
             }
         });

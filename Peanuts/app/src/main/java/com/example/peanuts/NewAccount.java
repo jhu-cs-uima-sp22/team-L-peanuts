@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -81,6 +83,7 @@ public class NewAccount extends AppCompatActivity {
         public String name;
         public String password;
         public String email;
+        public boolean[] restrictions;
 
         public User(String username, String email, String password) {
             this.name = username;
@@ -92,6 +95,11 @@ public class NewAccount extends AppCompatActivity {
     public void writeNewUser(String name, String email, String password) {
         User user = new User(name, email, password);
 
+        Context context = getApplicationContext();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("user_email", email);
+        editor.apply();
         myRef.child(email).setValue(user);
     }
 
