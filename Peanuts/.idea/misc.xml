@@ -3,6 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/baseline_edit_24.xml" value="0.2355" />
+        <entry key="app/src/main/res/drawable/outline_close_24.xml" value="0.1175" />
+        <entry key="app/src/main/res/layout/activity_edit_foods.xml" value="0.22916666666666666" />
+        <entry key="app/src/main/res/layout/activity_edit_restrictions.xml" value="0.22916666666666666" />
+        <entry key="app/src/main/res/layout/activity_food_detail.xml" value="0.22916666666666666" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22533111572265624" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.2539993286132813" />
+        <entry key="app/src/main/res/layout/food_layout.xml" value="0.22916666666666666" />
+        <entry key="app/src/main/res/layout/food_layout_profile.xml" value="0.16944444444444445" />
+        <entry key="app/src/main/res/layout/fragment_add.xml" value="0.1" />
         <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.4" />
         <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout-w936dp/activity_login.xml" value="0.7023153252480706" />
         <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/activity_edit_foods.xml" value="0.264" />
@@ -33,17 +43,19 @@
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.23072916666666668" />
         <entry key="app/src/main/res/layout/fragment_add.xml" value="0.3107968136820116" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1787037037037037" />
-        <entry key="app/src/main/res/layout/fragment_explore.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/fragment_group.xml" value="0.18611378977820636" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.18611378977820636" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.18611378977820636" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.19144287109375002" />
+        <entry key="app/src/main/res/layout/item_restriction.xml" value="0.3756218905472637" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.25391540527343753" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.1788693234476367" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.24072265625000006" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.24" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

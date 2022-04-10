@@ -74,7 +74,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                              ViewGroup container, Bundle savedInstanceState) {
 
         //AddViewModel addViewModel =
-                //new ViewModelProvider(this).get(AddViewModel.class);
+        //new ViewModelProvider(this).get(AddViewModel.class);
         Log.d("FRAG", "addFood");
 
 //        View view = inflater.inflate(R.layout.fragment_add, container, false);

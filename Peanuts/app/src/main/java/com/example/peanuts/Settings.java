@@ -1,4 +1,4 @@
-package com.example.peanuts.ui.profile;
+package com.example.peanuts;
 
 import androidx.appcompat.app.AppCompatActivity;
 
