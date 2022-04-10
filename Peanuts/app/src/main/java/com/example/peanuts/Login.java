@@ -53,7 +53,7 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Log.d("retrieve", dataSnapshot.toString());
-                    String savedPass = dataSnapshot.getValue().toString();
+                    String savedPass = (String) dataSnapshot.getValue();
 
                     if (pass.equals(savedPass)) {
                         Intent intent = new Intent(Login.this, MainActivity.class);
