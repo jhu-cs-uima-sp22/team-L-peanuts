@@ -11,8 +11,7 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.UUID;
+import com.google.firebase.database.Logger;
 
 public class NewAccount extends AppCompatActivity {
 
@@ -60,6 +59,7 @@ public class NewAccount extends AppCompatActivity {
             if (pass.equals(confirm)) {
                 writeNewUser(name, email, pass);
                 Intent intent = new Intent(this, EditRestrictions.class);
+                intent.putExtra("user", email);
                 startActivity(intent);
             } else {
                 Toast toast = Toast.makeText(context, text, duration);
