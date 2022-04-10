@@ -16,11 +16,13 @@ import java.util.List;
 public class FoodItemAdapter extends ArrayAdapter<FoodItem> {
 
     int resource;
+    private List<FoodItem> items;
 
     public FoodItemAdapter(Context ctx, int res, List<FoodItem> items)
     {
         super(ctx, res, items);
         resource = res;
+        this.items = items;
     }
 
     @Override
@@ -42,6 +44,18 @@ public class FoodItemAdapter extends ArrayAdapter<FoodItem> {
 
         ImageView image = (ImageView) foodItemView.findViewById(R.id.food_item_image);
         image.setImageDrawable(it.getImage());
+
+        ImageButton close = (ImageButton) foodItemView.findViewById(R.id.close);
+        close.setTag(position);
+        close.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Integer index = (Integer) view.getTag();
+                items.remove(index.intValue());
+                notifyDataSetChanged();
+            }
+        });
 
         return foodItemView;
     }

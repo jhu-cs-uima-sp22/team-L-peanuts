@@ -7,6 +7,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.peanuts.MainActivity;
@@ -52,11 +54,5 @@ public class EditFoods extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void close(View view) {
-        int position = view.getVerticalScrollbarPosition(); //need to fix, position is not right
-        foodItems.remove(position);
-        adapter.notifyDataSetChanged();
     }
 }

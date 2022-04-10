@@ -52,7 +52,6 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
             android:contentDescription="Close_Button"
-            android:onClick="close"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/outline_close_24"

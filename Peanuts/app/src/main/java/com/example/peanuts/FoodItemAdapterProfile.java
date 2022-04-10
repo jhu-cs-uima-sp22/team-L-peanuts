@@ -36,7 +36,7 @@ public class FoodItemAdapterProfile extends ArrayAdapter<FoodItem> {
             foodItemView = (LinearLayout) convertView;
         }
 
-        ImageButton foodButton = (ImageButton) foodItemView.findViewById(R.id.food_item_image_profile);
+        ImageView foodButton = (ImageView) foodItemView.findViewById(R.id.food_item_image_profile);
         foodButton.setImageDrawable(it.getImage());
 
         return foodItemView;
