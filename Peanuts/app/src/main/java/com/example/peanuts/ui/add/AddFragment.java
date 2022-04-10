@@ -42,7 +42,6 @@ import com.example.peanuts.databinding.FragmentAddBinding;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.peanuts.databinding.FragmentNotificationsBinding;
 import com.example.peanuts.ui.notifications.NotificationsViewModel;
-import com.example.peanuts.ui.profile.EditFoods;
 import com.example.peanuts.ui.profile.ProfileFragment;
 
 
@@ -107,7 +106,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         restrictions.add(new Item("avocado", false));
         restrictions.add(new Item("sesame", false));
 
-        adapter = new ItemAdapter(getContext(), R.layout.item_restriction, restrictions);
+        adapter = new ItemAdapter(getContext(), R.layout.item_restriction, restrictions, "");
 
         ListView myList = (ListView) root.findViewById(R.id.list);
         myList.setAdapter(adapter);

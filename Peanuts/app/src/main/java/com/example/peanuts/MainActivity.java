@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment addFood;
     private Fragment profile;
     private SharedPreferences preferences;
-    protected ArrayList<FoodItem> foodItems;
+    public ArrayList<FoodItem> foodItems;
 
 
     @Override
