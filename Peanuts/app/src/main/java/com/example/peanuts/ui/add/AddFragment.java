@@ -11,9 +11,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,12 +24,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -37,6 +41,7 @@ import android.widget.Toast;
 
 import com.example.peanuts.Item;
 import com.example.peanuts.ItemAdapter;
+import com.example.peanuts.Login;
 import com.example.peanuts.R;
 import com.example.peanuts.databinding.FragmentAddBinding;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,6 +57,12 @@ import com.example.peanuts.databinding.FragmentAddBinding;
 import com.example.peanuts.ui.profile.ProfileFragment;
 
 import java.util.List;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 public class AddFragment extends Fragment implements View.OnClickListener{
 
@@ -65,9 +76,14 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     private ImageView imageView2;
     private boolean setImage;
     private ActivityResultLauncher<String> getContent;
+    private SharedPreferences sp;
 
     protected ArrayList<Item> restrictions;
     protected ItemAdapter adapter;
+    protected FirebaseDatabase database;
+    protected DatabaseReference myRef;
+
+    private Uri imageUri;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -75,6 +91,15 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         //AddViewModel addViewModel =
         //new ViewModelProvider(this).get(AddViewModel.class);
         Log.d("FRAG", "addFood");
+
+        database = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
+        //database = FirebaseDatabase.getInstance().getReference();
+        myRef = database.getReference("posts");
+        //sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        //@SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = sp.edit();
+
+        //String email = sp.getString("email", "");
+        String email = "email";
 
 //        View view = inflater.inflate(R.layout.fragment_add, container, false);
 
@@ -86,6 +111,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         image = root.findViewById(R.id.pick_image);
         imageView = root.findViewById(R.id.imageView);
         imageView2 = root.findViewById(R.id.imageView2);
+        CheckBox checkBox = (CheckBox) root.findViewById(R.id.checkBox);
         setImage = false;
 
         //allergen list
@@ -131,6 +157,26 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                     text = "You need to name your food";
                 } else {
                     text = "Food Added!";
+
+                    Log.d("debug", "in save");
+                    myRef.child("Email").setValue(email);
+                    Log.d("debug", "saved email");
+                    myRef.child("Name of food").setValue(nameOfFood);
+                    Log.d("debug", "saved name");
+                    //myRef.child("Image").setValue(imageUri);
+                    Log.d("debug", "saved image");
+
+                    int num = 0;
+                    for(int i = 0; i < restrictions.size(); i++) {
+                        if (restrictions.get(i).isChecked()) {
+                            myRef.child("Restriction " + num).setValue(restrictions.get(i));
+                            Log.d("debug", "saved restrictions");
+                            num++;
+                        }
+                    }
+
+                    Log.d("debug", "done with db");
+
                     clearContent();
                 }
 
@@ -153,6 +199,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         getContent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri result) {
+                imageUri = result;
                 imageView.setImageURI(result);
                 setImage = true;
                 imageView2.setVisibility(View.INVISIBLE);
