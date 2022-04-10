@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.example.peanuts.databinding.ActivityMainBinding;
 import com.example.peanuts.ui.add.AddFragment;
+import com.example.peanuts.ui.profile.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;

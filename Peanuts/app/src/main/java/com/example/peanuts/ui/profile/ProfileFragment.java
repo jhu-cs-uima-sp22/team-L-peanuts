@@ -1,4 +1,4 @@
-package com.example.peanuts;
+package com.example.peanuts.ui.profile;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -23,6 +23,14 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.peanuts.EditFoods;
+import com.example.peanuts.EditRestrictions;
+import com.example.peanuts.FoodDetail;
+import com.example.peanuts.FoodItemAdapterProfile;
+import com.example.peanuts.MainActivity;
+import com.example.peanuts.ProfileViewModel;
+import com.example.peanuts.R;
+import com.example.peanuts.Settings;
 import com.example.peanuts.databinding.FragmentProfileBinding;
 import com.google.android.material.snackbar.Snackbar;
 
