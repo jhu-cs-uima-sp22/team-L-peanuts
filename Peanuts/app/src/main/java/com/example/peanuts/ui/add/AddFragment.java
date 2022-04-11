@@ -94,8 +94,10 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         Log.d("FRAG", "addFood");
 
         database = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
-        String email = "user email";
-        myRef = database.getReference();
+        Context context = getContext();
+        sp = PreferenceManager.getDefaultSharedPreferences(context);
+        String email = sp.getString("user_email", "email");
+        myRef = database.getReference("Users");
         binding = FragmentAddBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -138,11 +140,12 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
                 if (dataSnapshot.getValue() != null) {
                     Log.d("retrieve_success", dataSnapshot.toString());
-
                     for (DataSnapshot posts: dataSnapshot.getChildren()) {
                         usersPost.add(posts.getValue(FoodPost.class));
                         Log.d("debug", "added child");
                     }
+
+                    //usersPost.remove(usersPost.size()-1);
 
                 } else {
                     usersPost = new ArrayList<>();
@@ -173,6 +176,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                     text = "You need to name your food";
                 } else {
                     text = "Food Added!";
+                    myRef.child(email).setValue(new ArrayList<>());
 
                     Log.d("debug", "saving");
                     //myRef.child("Email").setValue(email);
