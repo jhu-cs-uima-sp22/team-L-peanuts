@@ -31,5 +31,4 @@ The app functions properly. Nearly all of our original sprint 1 tasks were compl
 
 -The settings page functions properly, allowing user to change name or password.
 
--The add page view is completed. Just working on connecting a created food with the database and displaying it under the foods section of profile.
-
+-The add page view is completed. Just working on connecting a created food with the database and displaying it under the foods section of profile. We are able to add 1 food item currently.
