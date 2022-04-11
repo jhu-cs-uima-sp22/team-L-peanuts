@@ -1,6 +1,5 @@
 # team-L-peanuts
 
-# team-L-peanuts
 
 **Logins: **
 
