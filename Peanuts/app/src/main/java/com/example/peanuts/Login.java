@@ -59,6 +59,12 @@ public class Login extends AppCompatActivity {
 
                     if (pass.equals(savedPass)) {
                         Intent intent = new Intent(Login.this, MainActivity.class);
+                        Context context = getApplicationContext();
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("user_email", email);
+                        editor.putString("user_password", pass);
+                        editor.apply();
                         startActivity(intent);
                     } else {
                         Toast toast = Toast.makeText(context, text, duration);

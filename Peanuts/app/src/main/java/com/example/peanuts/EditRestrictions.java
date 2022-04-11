@@ -25,18 +25,18 @@ public class EditRestrictions extends AppCompatActivity {
 
         // create temp ArrayList of items
         restrictions = new ArrayList<>();
-        restrictions.add(new Item("Avocado", false));
-        restrictions.add(new Item("Dairy", false));
-        restrictions.add(new Item("Eggs", false));
-        restrictions.add(new Item("Gluten", false));
-        restrictions.add(new Item("Peanuts", false));
-        restrictions.add(new Item("Seafood", false));
-        restrictions.add(new Item("Sesame", false));
-        restrictions.add(new Item("Shellfish", false));
-        restrictions.add(new Item("Soy", false));
-        restrictions.add(new Item("Strawberries", false));
-        restrictions.add(new Item("Tree Nuts", false));
-        restrictions.add(new Item("Wheat", false));
+        restrictions.add(new Item("Avocado", false, getResources().getDrawable(R.drawable.avocado_icon)));
+        restrictions.add(new Item("Dairy", false, getResources().getDrawable(R.drawable.dairy_icon)));
+        restrictions.add(new Item("Eggs", false, getResources().getDrawable(R.drawable.eggs_icon)));
+        restrictions.add(new Item("Gluten", false, getResources().getDrawable(R.drawable.gluten_icon)));
+        restrictions.add(new Item("Peanuts", false, getResources().getDrawable(R.drawable.peanuts_icon)));
+        restrictions.add(new Item("Seafood", false, getResources().getDrawable(R.drawable.seafood_icon)));
+        restrictions.add(new Item("Sesame", false, getResources().getDrawable(R.drawable.sesame_icon)));
+        restrictions.add(new Item("Shellfish", false, getResources().getDrawable(R.drawable.shellfish_icon)));
+        restrictions.add(new Item("Soy", false, getResources().getDrawable(R.drawable.soy_icon)));
+        restrictions.add(new Item("Strawberries", false, getResources().getDrawable(R.drawable.strawberries_icon)));
+        restrictions.add(new Item("Tree Nuts", false, getResources().getDrawable(R.drawable.tree_nuts_icon)));
+        restrictions.add(new Item("Wheat", false, getResources().getDrawable(R.drawable.wheat_icon)));
 
         adapter = new ItemAdapter(this, R.layout.item_restriction, restrictions, user);
 
