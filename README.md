@@ -3,7 +3,7 @@
 
 **Logins: **
 
-Email: peanuts@gmail.com
+Email: email
 
 Password: peanuts
 
