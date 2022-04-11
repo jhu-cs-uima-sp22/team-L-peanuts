@@ -1,15 +1,15 @@
 # team-L-peanuts
 
 
-Logins: 
+**Logins: **
 
 
 
-State of App:
+**State of App:**
 
 The app functions properly. Nearly all of our original sprint 1 tasks were completed. We just did not get a chance to implement the edit foods page since we are still working on getting the add foods page working.
 
-Completed Pages:
+**Completed Pages:**
 
 -Login and signup screens
 
@@ -21,7 +21,7 @@ Completed Pages:
 
 -Add page
 
-Complete Features:
+**Complete Features:**
 
 -Login and signup stores user information in a database. A user can submit and change their own restrictions to be stored in the database.
 
