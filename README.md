@@ -7,6 +7,8 @@ Email: peanuts@gmail.com
 
 Password: peanuts
 
+NOTE: You can also create a login for testing.
+
 **State of App:**
 
 The app functions properly. Nearly all of our original sprint 1 tasks were completed. We just did not get a chance to implement the edit foods page since we are still working on getting the add foods page working.
