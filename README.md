@@ -11,7 +11,7 @@ NOTE: You can also create a login for testing.
 
 **State of App:**
 
-The app functions properly. Nearly all of our original sprint 1 tasks were completed. We just did not get a chance to implement the edit foods page since we are still working on getting the add foods page working.
+The app functions properly. Nearly all of our original sprint 1 tasks were completed. We just did not get a chance to implement the edit foods page since we were still working retreving data from the Foods database.
 
 **Completed Pages:**
 
@@ -33,4 +33,4 @@ The app functions properly. Nearly all of our original sprint 1 tasks were compl
 
 -The settings page functions properly, allowing user to change name or password.
 
--The add page view is completed. Just working on connecting a created food with the database and displaying it under the foods section of profile. We are able to add 1 food item currently.
+-All features of the add page view is completed. New created posts are added to a Foods database.
