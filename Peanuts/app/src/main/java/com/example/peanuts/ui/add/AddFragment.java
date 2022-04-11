@@ -95,12 +95,13 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
         database = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
         //database = FirebaseDatabase.getInstance().getReference();
-        myRef = database.getReference("posts");
+        String email = "user email";
+        myRef = database.getReference("email");
         //sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         //@SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = sp.edit();
 
         //String email = sp.getString("email", "");
-        String email = "email";
+
 
 //        View view = inflater.inflate(R.layout.fragment_add, container, false);
 
@@ -169,7 +170,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                     //myRef.child("Image").setValue(imageUri);
                     Log.d("debug", "saved image");
                     usersPost = new ArrayList<>();
-                    myRef.child(email).child("posts").addValueEventListener(new ValueEventListener() {
+                    myRef.child(email).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Log.d("debug", "in onDataChange");
@@ -184,6 +185,8 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                                     Log.d("debug", "added child");
                                     //Log.i(TAG, zoneSnapshot.child("ZNAME").getValue(String.class));
                                 }
+
+
                             } else {
                                 usersPost = new ArrayList<>();
                                 Log.d("debug", "in empty");
@@ -194,7 +197,6 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                             Log.d("retrieve_fail", databaseError.toString());
                         }
                     });
-
                     FoodPost post = new FoodPost(nameOfFood);
                     int num = 0;
                     for(int i = 0; i < restrictions.size(); i++) {
@@ -202,9 +204,8 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                             post.addAllergens(restrictions.get(i).getItem());
                         }
                     }
-
                     usersPost.add(post);
-                    myRef.child(email).child("posts").setValue(usersPost);
+                    myRef.child(email).setValue(usersPost);
 
                     Log.d("debug", "done with db");
 
