@@ -23,6 +23,9 @@
         <entry key="app/src/main/res/drawable/baseline_lock_24.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/baseline_settings_24.xml" value="0.2085" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.2085" />
+        <entry key="app/src/main/res/layout/activity_edit_foods.xml" value="0.26403985507246375" />
+        <entry key="app/src/main/res/layout/activity_edit_restrictions.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/activity_food_detail.xml" value="0.26403985507246375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13653717182431652" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.23072916666666668" />
         <entry key="app/src/main/res/layout/food_layout.xml" value="0.15070921985815602" />
