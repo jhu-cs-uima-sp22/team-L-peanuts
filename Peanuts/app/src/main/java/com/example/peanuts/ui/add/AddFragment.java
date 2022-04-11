@@ -82,7 +82,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     protected FoodPostAdapter adapter;
     protected FirebaseDatabase database;
     protected DatabaseReference myRef;
-    private ArrayList<FoodPost> usersPost;
+    private ArrayList<FoodPost> usersPost = new ArrayList<>();
 
     private Uri imageUri;
 
@@ -94,17 +94,8 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         Log.d("FRAG", "addFood");
 
         database = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
-        //database = FirebaseDatabase.getInstance().getReference();
         String email = "user email";
-        myRef = database.getReference("email");
-        //sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        //@SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = sp.edit();
-
-        //String email = sp.getString("email", "");
-
-
-//        View view = inflater.inflate(R.layout.fragment_add, container, false);
-
+        myRef = database.getReference();
         binding = FragmentAddBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
@@ -117,8 +108,6 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         setImage = false;
 
         //allergen list
-
-
         // create temp ArrayList of items
         restrictions = new ArrayList<>();
         restrictions.add(new Item("Avocado", false, getResources().getDrawable(R.drawable.avocado_icon)));
@@ -142,7 +131,29 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         // refresh view
         adapter.notifyDataSetChanged();
 
-        //usersPost = new ArrayList<>();
+        myRef.child(email).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("debug", "in onDataChange");
+
+                if (dataSnapshot.getValue() != null) {
+                    Log.d("retrieve_success", dataSnapshot.toString());
+
+                    for (DataSnapshot posts: dataSnapshot.getChildren()) {
+                        usersPost.add(posts.getValue(FoodPost.class));
+                        Log.d("debug", "added child");
+                    }
+
+                } else {
+                    usersPost = new ArrayList<>();
+                    Log.d("debug", "in empty");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("retrieve_fail", databaseError.toString());
+            }
+        });
 
         save = (Button) root.findViewById(R.id.save_button);
         save.setOnClickListener(new View.OnClickListener() {
@@ -150,6 +161,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
             public void onClick(View v) {
                 //create post
                 //save data in database
+                Log.d("SAVE", String.valueOf(usersPost));
                 Context context = getContext();
                 int duration = Toast.LENGTH_LONG;
                 nameOfFood = name.getText().toString();
@@ -162,41 +174,14 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                 } else {
                     text = "Food Added!";
 
-                    Log.d("debug", "in save");
+                    Log.d("debug", "saving");
                     //myRef.child("Email").setValue(email);
                     Log.d("debug", "saved email");
                     //myRef.child("Name of food").setValue(nameOfFood);
                     Log.d("debug", "saved name");
                     //myRef.child("Image").setValue(imageUri);
                     Log.d("debug", "saved image");
-                    usersPost = new ArrayList<>();
-                    myRef.child(email).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            Log.d("debug", "in onDataChange");
 
-                            if (dataSnapshot.getValue() != null) {
-                                Log.d("retrieve_success", dataSnapshot.toString());
-                                //usersPost = (ArrayList<FoodPost>) dataSnapshot.getValue();
-                                int index = 0;
-                                for (DataSnapshot posts: dataSnapshot.getChildren()) {
-                                    usersPost.add(index, posts.child(email).getValue(FoodPost.class));
-                                    index++;
-                                    Log.d("debug", "added child");
-                                    //Log.i(TAG, zoneSnapshot.child("ZNAME").getValue(String.class));
-                                }
-
-
-                            } else {
-                                usersPost = new ArrayList<>();
-                                Log.d("debug", "in empty");
-                            }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Log.d("retrieve_fail", databaseError.toString());
-                        }
-                    });
                     FoodPost post = new FoodPost(nameOfFood);
                     int num = 0;
                     for(int i = 0; i < restrictions.size(); i++) {
@@ -225,9 +210,6 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         });
 
         //IMAGE
-
-
-
         getContent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri result) {

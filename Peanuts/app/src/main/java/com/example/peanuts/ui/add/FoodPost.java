@@ -10,6 +10,8 @@ public class FoodPost {
     private Uri imageUri;
     private int index;
 
+    FoodPost() {}
+
     FoodPost (String title, Uri imageUri) {
         this.title = title;
         this.imageUri = imageUri;
@@ -28,6 +30,10 @@ public class FoodPost {
 
     public ArrayList<String> getAllergens () {
         return allergens;
+    }
+
+    public void setTitle (String title) {
+        this.title = title;
     }
 
     public void addAllergens (String al) {
