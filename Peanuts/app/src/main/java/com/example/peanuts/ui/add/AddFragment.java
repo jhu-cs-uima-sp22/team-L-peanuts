@@ -78,10 +78,11 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     private ActivityResultLauncher<String> getContent;
     private SharedPreferences sp;
 
-    protected ArrayList<Item> restrictions;
-    protected ItemAdapter adapter;
+    public ArrayList<Item> restrictions;
+    protected FoodPostAdapter adapter;
     protected FirebaseDatabase database;
     protected DatabaseReference myRef;
+    private ArrayList<FoodPost> usersPost;
 
     private Uri imageUri;
 
@@ -132,13 +133,15 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         restrictions.add(new Item("Tree Nuts", false, getResources().getDrawable(R.drawable.tree_nuts_icon)));
         restrictions.add(new Item("Wheat", false, getResources().getDrawable(R.drawable.wheat_icon)));
 
-        adapter = new ItemAdapter(getContext(), R.layout.item_restriction, restrictions, "");
+        adapter = new FoodPostAdapter(getContext(), R.layout.item_restriction, restrictions, restrictions);
 
         ListView myList = (ListView) root.findViewById(R.id.list);
         myList.setAdapter(adapter);
         registerForContextMenu(myList);
         // refresh view
         adapter.notifyDataSetChanged();
+
+        //usersPost = new ArrayList<>();
 
         save = (Button) root.findViewById(R.id.save_button);
         save.setOnClickListener(new View.OnClickListener() {
@@ -159,21 +162,49 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                     text = "Food Added!";
 
                     Log.d("debug", "in save");
-                    myRef.child("Email").setValue(email);
+                    //myRef.child("Email").setValue(email);
                     Log.d("debug", "saved email");
-                    myRef.child("Name of food").setValue(nameOfFood);
+                    //myRef.child("Name of food").setValue(nameOfFood);
                     Log.d("debug", "saved name");
                     //myRef.child("Image").setValue(imageUri);
                     Log.d("debug", "saved image");
+                    usersPost = new ArrayList<>();
+                    myRef.child(email).child("posts").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Log.d("debug", "in onDataChange");
 
+                            if (dataSnapshot.getValue() != null) {
+                                Log.d("retrieve_success", dataSnapshot.toString());
+                                //usersPost = (ArrayList<FoodPost>) dataSnapshot.getValue();
+                                int index = 0;
+                                for (DataSnapshot posts: dataSnapshot.getChildren()) {
+                                    usersPost.add(index, posts.child(email).getValue(FoodPost.class));
+                                    index++;
+                                    Log.d("debug", "added child");
+                                    //Log.i(TAG, zoneSnapshot.child("ZNAME").getValue(String.class));
+                                }
+                            } else {
+                                usersPost = new ArrayList<>();
+                                Log.d("debug", "in empty");
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.d("retrieve_fail", databaseError.toString());
+                        }
+                    });
+
+                    FoodPost post = new FoodPost(nameOfFood);
                     int num = 0;
                     for(int i = 0; i < restrictions.size(); i++) {
                         if (restrictions.get(i).isChecked()) {
-                            myRef.child("Restriction " + num).setValue(restrictions.get(i));
-                            Log.d("debug", "saved restrictions");
-                            num++;
+                            post.addAllergens(restrictions.get(i).getItem());
                         }
                     }
+
+                    usersPost.add(post);
+                    myRef.child(email).child("posts").setValue(usersPost);
 
                     Log.d("debug", "done with db");
 
