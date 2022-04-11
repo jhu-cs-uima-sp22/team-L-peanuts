@@ -63,6 +63,7 @@ public class Login extends AppCompatActivity {
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.putString("user_email", email);
+                        editor.putString("user_password", pass);
                         editor.apply();
                         startActivity(intent);
                     } else {

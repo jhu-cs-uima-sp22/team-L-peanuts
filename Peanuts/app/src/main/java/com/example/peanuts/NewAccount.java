@@ -15,6 +15,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Logger;
 
+import java.util.ArrayList;
+
 public class NewAccount extends AppCompatActivity {
 
     private DatabaseReference myRef;
@@ -83,22 +85,25 @@ public class NewAccount extends AppCompatActivity {
         public String name;
         public String password;
         public String email;
-        public boolean[] restrictions;
+        public ArrayList<String> restrictions;
 
-        public User(String username, String email, String password) {
+        public User(String username, String email, String password, ArrayList<String> restrictions) {
             this.name = username;
             this.password = password;
             this.email = email;
+            this.restrictions = restrictions;
         }
     }
 
     public void writeNewUser(String name, String email, String password) {
-        User user = new User(name, email, password);
+        User user = new User(name, email, password, new ArrayList<>());
 
         Context context = getApplicationContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("user_email", email);
+        editor.putString("user_name", name);
+        editor.putString("user_password", password);
         editor.apply();
         myRef.child(email).setValue(user);
     }

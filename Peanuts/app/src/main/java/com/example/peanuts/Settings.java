@@ -26,15 +26,22 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         Context context = getApplicationContext();
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        TextView textView = (TextView) findViewById(R.id.name_text);
-        textView.setText(preferences.getString("NAME", "Karen Smith"));
+        TextView name_text = (TextView) findViewById(R.id.name_text);
+        name_text.setText(preferences.getString("user_name", ""));
+        TextView email_text = (TextView) findViewById(R.id.email_text);
+        email_text.setText(preferences.getString("user_email", ""));
+        TextView password_text = (TextView) findViewById(R.id.password_text);
+        password_text.setText(preferences.getString("user_password", ""));
     }
 
     public void save(View view) {
-        TextView textView = (TextView) findViewById(R.id.name_text);
-        String name = textView.getText().toString();
+        TextView textViewName = (TextView) findViewById(R.id.name_text);
+        String name = textViewName.getText().toString();
+        TextView textViewPassword = (TextView) findViewById(R.id.password_text);
+        String password = textViewPassword.getText().toString();
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("NAME", name);
+        editor.putString("user_name", name);
+        editor.putString("user_password", password);
         editor.apply();
 
         finish();

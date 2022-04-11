@@ -60,17 +60,15 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         TextView textView = (TextView) itemView.findViewById(R.id.restriction_name);
         CheckBox checkBox = (CheckBox) itemView.findViewById(R.id.checkBox);
 
-        imageView.setImageDrawable(it.getIcon());
-        textView.setText(it.getItem());
-        Boolean checked = it.isChecked();
-        checkBox.setChecked(checked);
-
         myRef.child(user).child("restrictions").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
                     Log.d("retrieve_success", dataSnapshot.toString());
                     checkedItem = (ArrayList<String>) dataSnapshot.getValue();
+                    if (checkedItem != null && checkedItem.contains(it.getItem())) {
+                        checkBox.setChecked(true);
+                    }
                 } else {
                     checkedItem = new ArrayList<>();
                 }
@@ -82,18 +80,20 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             }
         });
 
+        imageView.setImageDrawable(it.getIcon());
+        textView.setText(it.getItem());
+
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 Log.d("ITEM", "added");
-                if (b) {
+                if (b && !checkedItem.contains(it.getItem())) {
                     checkedItem.add(it.getItem());
                     Log.d("ItemList", String.valueOf(checkedItem));
-                    myRef.child(user).child("restrictions").setValue(checkedItem);
-                } else if (checkedItem.contains(it.getItem())) {
+                } else if (!b && checkedItem.contains(it.getItem())) {
                     checkedItem.remove(it.getItem());
-                    myRef.child(user).child("restrictions").setValue(checkedItem);
                 }
+                myRef.child(user).child("restrictions").setValue(checkedItem);
             }
         });
 
