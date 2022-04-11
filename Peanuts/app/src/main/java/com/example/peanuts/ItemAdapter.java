@@ -2,6 +2,7 @@ package com.example.peanuts;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,12 +56,9 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             itemView = (LinearLayout) convertView;
         }
 
+        ImageView imageView = (ImageView) itemView.findViewById(R.id.restriction_icon);
         TextView textView = (TextView) itemView.findViewById(R.id.restriction_name);
         CheckBox checkBox = (CheckBox) itemView.findViewById(R.id.checkBox);
-
-        textView.setText(it.getItem());
-        Boolean checked = it.isChecked();
-        checkBox.setChecked(checked);
 
         myRef.child(user).child("restrictions").addValueEventListener(new ValueEventListener() {
             @Override
@@ -67,6 +66,9 @@ public class ItemAdapter extends ArrayAdapter<Item> {
                 if (dataSnapshot.getValue() != null) {
                     Log.d("retrieve_success", dataSnapshot.toString());
                     checkedItem = (ArrayList<String>) dataSnapshot.getValue();
+                    if (checkedItem != null && checkedItem.contains(it.getItem())) {
+                        checkBox.setChecked(true);
+                    }
                 } else {
                     checkedItem = new ArrayList<>();
                 }
@@ -78,18 +80,20 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             }
         });
 
+        imageView.setImageDrawable(it.getIcon());
+        textView.setText(it.getItem());
+
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 Log.d("ITEM", "added");
-                if (b) {
+                if (b && !checkedItem.contains(it.getItem())) {
                     checkedItem.add(it.getItem());
                     Log.d("ItemList", String.valueOf(checkedItem));
-                    myRef.child(user).child("restrictions").setValue(checkedItem);
-                } else if (checkedItem.contains(it.getItem())) {
+                } else if (!b && checkedItem.contains(it.getItem())) {
                     checkedItem.remove(it.getItem());
-                    myRef.child(user).child("restrictions").setValue(checkedItem);
                 }
+                myRef.child(user).child("restrictions").setValue(checkedItem);
             }
         });
 

@@ -130,8 +130,8 @@
                         android:orientation="horizontal">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cardView5"
-                            android:layout_width="75dp"
+                            android:id="@+id/peanuts_card"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             tools:layout_conversion_absoluteHeight="39dp"
                             tools:layout_conversion_absoluteWidth="0dp"
@@ -162,8 +162,8 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cardView6"
-                            android:layout_width="75dp"
+                            android:id="@+id/dairy_card"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent">
 
                             <ImageView
@@ -189,8 +189,8 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cardView7"
-                            android:layout_width="75dp"
+                            android:id="@+id/seafood_card"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content">
 
                             <ImageView
@@ -215,8 +215,8 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cardView8"
-                            android:layout_width="75dp"
+                            android:id="@+id/soy_card"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent">
 
                             <ImageView
@@ -241,8 +241,8 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cardView9"
-                            android:layout_width="75dp"
+                            android:id="@+id/strawberries_card"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent">
 
                             <ImageView
@@ -267,8 +267,8 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cardView10"
-                            android:layout_width="75dp"
+                            android:id="@+id/shellfish_card"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent">
 
                             <ImageView
@@ -293,8 +293,8 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cardView11"
-                            android:layout_width="75dp"
+                            android:id="@+id/eggs_card"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent">
 
                             <ImageView
@@ -319,8 +319,8 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cardView12"
-                            android:layout_width="75dp"
+                            android:id="@+id/tree_nuts_card"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent">
 
                             <ImageView
@@ -345,8 +345,8 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cardView13"
-                            android:layout_width="75dp"
+                            android:id="@+id/wheat_card"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent">
 
                             <ImageView
@@ -371,8 +371,8 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cardView14"
-                            android:layout_width="75dp"
+                            android:id="@+id/gluten_card"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent">
 
                             <ImageView
@@ -397,8 +397,8 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cardView15"
-                            android:layout_width="75dp"
+                            android:id="@+id/avocado_card"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent">
 
                             <ImageView
@@ -423,8 +423,8 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/cardView16"
-                            android:layout_width="75dp"
+                            android:id="@+id/sesame_card"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent">
 
                             <ImageView
