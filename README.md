@@ -9,10 +9,15 @@ State of App:
 The app functions properly. Nearly all of our original sprint 1 tasks were completed. We just did not get a chance to implement the edit foods page since we are still working on getting the add foods page working.
 
 Completed Pages:
+
 -Login and signup screens
+
 -Editing restrictions page
+
 -Profile page
+
 -Settings page
+
 -Add page
 
 Complete Features:
