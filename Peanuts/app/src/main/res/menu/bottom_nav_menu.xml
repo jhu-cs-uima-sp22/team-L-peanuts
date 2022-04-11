@@ -9,7 +9,7 @@
         android:title="@string/title_notifications" />
     <item
         android:id="@+id/text_explore"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/baseline_search_24"
         android:title="@string/title_explore" />
 
     <item

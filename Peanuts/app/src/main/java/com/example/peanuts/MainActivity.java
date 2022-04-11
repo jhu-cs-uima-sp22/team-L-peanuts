@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
         Drawable image = getDrawable(R.drawable.spaghetti);
         foodItems.add(new FoodItem("Spaghetti", restrictions, image));
-        foodItems.add(new FoodItem("Spaghetti", restrictions, image));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
