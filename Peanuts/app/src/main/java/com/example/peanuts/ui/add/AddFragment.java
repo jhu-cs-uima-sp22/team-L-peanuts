@@ -39,6 +39,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.peanuts.FoodItem;
 import com.example.peanuts.Item;
 import com.example.peanuts.ItemAdapter;
 import com.example.peanuts.Login;
@@ -82,7 +83,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     protected FoodPostAdapter adapter;
     protected FirebaseDatabase database;
     protected DatabaseReference myRef;
-    private ArrayList<FoodPost> usersPost = new ArrayList<>();
+    private ArrayList<FoodItem> usersPost = new ArrayList<>();
 
     private Uri imageUri;
 
@@ -141,7 +142,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                 if (dataSnapshot.getValue() != null) {
                     Log.d("retrieve_success", dataSnapshot.toString());
                     for (DataSnapshot posts: dataSnapshot.getChildren()) {
-                        usersPost.add(posts.getValue(FoodPost.class));
+                        usersPost.add(posts.getValue(FoodItem.class));
                         Log.d("debug", "added child");
                     }
 
@@ -177,23 +178,16 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                 } else {
                     text = "Food Added!";
                     myRef.child(email).setValue(new ArrayList<>());
-
-                    Log.d("debug", "saving");
-                    //myRef.child("Email").setValue(email);
-                    Log.d("debug", "saved email");
-                    //myRef.child("Name of food").setValue(nameOfFood);
-                    Log.d("debug", "saved name");
-                    //myRef.child("Image").setValue(imageUri);
-                    Log.d("debug", "saved image");
-
-                    FoodPost post = new FoodPost(nameOfFood);
-                    int num = 0;
+                    String uriString = imageUri.toString();
+                    FoodItem post = new FoodItem(nameOfFood, uriString);
+                    Log.d("debug", "food post created");
                     for(int i = 0; i < restrictions.size(); i++) {
                         if (restrictions.get(i).isChecked()) {
                             post.addAllergens(restrictions.get(i).getItem());
                         }
                     }
                     usersPost.add(post);
+                    Log.d("debug", "added to usersPost");
                     myRef.child(email).setValue(usersPost);
 
                     Log.d("debug", "done with db");

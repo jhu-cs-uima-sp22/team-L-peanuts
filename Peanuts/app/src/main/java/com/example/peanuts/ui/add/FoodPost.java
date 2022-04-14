@@ -7,12 +7,12 @@ import java.util.ArrayList;
 public class FoodPost {
     private String title;
     private ArrayList<String> allergens;
-    private Uri imageUri;
+    private String imageUri;
     private int index;
 
     FoodPost() {}
 
-    FoodPost (String title, Uri imageUri) {
+    FoodPost (String title, String imageUri) {
         this.title = title;
         this.imageUri = imageUri;
         allergens = new ArrayList<>();
@@ -41,7 +41,7 @@ public class FoodPost {
         index++;
     }
 
-    public Uri getImageUri () {
+    public String getImageUri () {
         return imageUri;
     }
 }

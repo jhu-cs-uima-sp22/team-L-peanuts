@@ -13,11 +13,12 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22533111572265624" />
         <entry key="app/src/main/res/layout/activity_new_account.xml" value="0.16944444444444445" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.2539993286132813" />
+        <entry key="app/src/main/res/layout/explore_posts.xml" value="0.26403985507246375" />
         <entry key="app/src/main/res/layout/food_layout.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/food_layout_profile.xml" value="0.16944444444444445" />
         <entry key="app/src/main/res/layout/fragment_add.xml" value="0.2671249389648438" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1787037037037037" />
-        <entry key="app/src/main/res/layout/fragment_explore.xml" value="0.22916666666666666" />
+        <entry key="app/src/main/res/layout/fragment_explore.xml" value="0.23412628173828126" />
         <entry key="app/src/main/res/layout/fragment_group.xml" value="0.18611378977820636" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.18611378977820636" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.18611378977820636" />
