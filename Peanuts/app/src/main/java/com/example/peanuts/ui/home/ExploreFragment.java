@@ -59,8 +59,8 @@ public class ExploreFragment extends Fragment {
 
         final TextView textView = binding.textExplore;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        Log.d("debug", "in explore");
 
-        list = root.findViewById(R.id.explore_posts);
         usersPost = new ArrayList<>();
         Context context = getContext();
         sp = PreferenceManager.getDefaultSharedPreferences(context);
@@ -78,13 +78,13 @@ public class ExploreFragment extends Fragment {
                     Log.d("retrieve_success", dataSnapshot.toString());
                     for (DataSnapshot posts: dataSnapshot.getChildren()) {
                         usersPost.add(posts.getValue(FoodItem.class));
-                        Log.d("debug", "added child");
+                        Log.d("debug", "added child in frag");
                     }
 
                     //usersPost.remove(usersPost.size()-1);
 
                 } else {
-                    usersPost = new ArrayList<>();
+                    //usersPost = new ArrayList<>();
                     Log.d("debug", "in empty");
                 }
             }
@@ -95,12 +95,16 @@ public class ExploreFragment extends Fragment {
         });
 
         adapter = new PostAdapter(getContext(), R.layout.explore_posts, usersPost);
+        list = root.findViewById(R.id.posts_list);
+        Log.d("debug", "set list");
         list.setAdapter(adapter);
+        Log.d("debug", "set adapter");
         registerForContextMenu(list);
         // refresh view
         adapter.notifyDataSetChanged();
-
+        Log.d("debug", "done");
         return root;
+
     }
 
     @Override

@@ -11,25 +11,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="411dp"
         android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/searchView"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="invisible"/>
 
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="4dp"
+        android:textSize="20sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </SearchView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/explore_posts"
+        android:id="@+id/posts_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="108dp"
@@ -42,5 +33,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:actionViewClass="android.widget.SearchView"
+        >
+    </SearchView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

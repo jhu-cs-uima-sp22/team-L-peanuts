@@ -44,6 +44,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.d("debug", "in item getView");
         LinearLayout itemView;
         Item it = getItem(position);
 
@@ -63,9 +64,13 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         myRef.child(user).child("restrictions").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("debug", "in data snap");
+
                 if (dataSnapshot.getValue() != null) {
                     Log.d("retrieve_success", dataSnapshot.toString());
                     checkedItem = (ArrayList<String>) dataSnapshot.getValue();
+                    Log.d("debug", "got db value");
+
                     if (checkedItem != null && checkedItem.contains(it.getItem())) {
                         checkBox.setChecked(true);
                     }

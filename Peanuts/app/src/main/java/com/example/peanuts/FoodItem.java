@@ -48,6 +48,10 @@ public class FoodItem {
         return picture;
     }
 
+    public String getImageUri () {
+        return imageUri;
+    }
+
     public void addAllergens (String al) {
         allergens.add(index, al);
         index++;

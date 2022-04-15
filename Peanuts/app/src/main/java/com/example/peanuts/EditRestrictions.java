@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -19,6 +20,8 @@ public class EditRestrictions extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_restrictions);
+        Log.d("debug", "in edit restrictions");
+
 
         Intent intent = getIntent();
         String user = intent.getStringExtra("user");
@@ -37,14 +40,22 @@ public class EditRestrictions extends AppCompatActivity {
         restrictions.add(new Item("Strawberries", false, getResources().getDrawable(R.drawable.strawberries_icon)));
         restrictions.add(new Item("Tree Nuts", false, getResources().getDrawable(R.drawable.tree_nuts_icon)));
         restrictions.add(new Item("Wheat", false, getResources().getDrawable(R.drawable.wheat_icon)));
+        Log.d("debug", "set array");
 
         adapter = new ItemAdapter(this, R.layout.item_restriction, restrictions, user);
+        Log.d("debug", "set adapter");
 
         ListView myList = (ListView) this.findViewById(R.id.restrictions_list);
+        Log.d("debug", "set list");
+
         myList.setAdapter(adapter);
+        Log.d("debug", "connected list and adapter");
+
         registerForContextMenu(myList);
         // refresh view
         adapter.notifyDataSetChanged();
+        Log.d("debug", "done");
+
     }
 
     @Override
