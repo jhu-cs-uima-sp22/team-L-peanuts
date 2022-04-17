@@ -10,10 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Peanuts">
         <activity
+            android:name=".GroupActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".FoodDetail"
             android:exported="false"
             android:label="Food Item"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".EditFoods"
             android:exported="false"
@@ -26,7 +30,8 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".EditRestrictions"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Edit Restrictions" />
         <activity
             android:name=".NewAccount"
             android:exported="false" />
