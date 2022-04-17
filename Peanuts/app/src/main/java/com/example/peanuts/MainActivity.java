@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment profile;
     private SharedPreferences preferences;
     public ArrayList<FoodItem> foodItems;
+    public ArrayList<GroupItem> groupItems;
 
 
     @Override
@@ -65,9 +66,13 @@ public class MainActivity extends AppCompatActivity {
         restrictions[6] = true;
         restrictions[8] = true;
         restrictions[9] = true;
-
         Drawable image = getDrawable(R.drawable.spaghetti);
         foodItems.add(new FoodItem("Spaghetti", restrictions, image));
+
+        groupItems = new ArrayList<>();
+        ArrayList<NewAccount.User> members = new ArrayList<>();
+        groupItems.add(new GroupItem("Birthday Party", members));
+        groupItems.add(new GroupItem("Weekly Scrum", members));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
