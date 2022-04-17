@@ -78,4 +78,5 @@ public class GroupsFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 }

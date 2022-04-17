@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Logger;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class NewAccount extends AppCompatActivity {
@@ -94,6 +95,13 @@ public class NewAccount extends AppCompatActivity {
             this.email = email;
             this.restrictions = restrictions;
         }
+
+        public String getName() { return name; }
+
+        public String getEmail() { return email; }
+
+        public ArrayList<String> getRestrictions() { return restrictions; }
+
     }
 
     public void writeNewUser(String name, String email, String password) {
