@@ -67,18 +67,22 @@ public class ExploreFragment extends Fragment {
         String email = sp.getString("user_email", "email");
         //Fill arraylist
         database = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
+        //myRef = database.getReference("Users");
         myRef = database.getReference("Users");
 
-        myRef.child(email).addValueEventListener(new ValueEventListener() {
+       myRef.child(email).addValueEventListener(new ValueEventListener() {
+        //myRef.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("debug", "in onDataChange");
 
                 if (dataSnapshot.getValue() != null) {
                     Log.d("retrieve_success", dataSnapshot.toString());
-                    for (DataSnapshot posts: dataSnapshot.getChildren()) {
-                        usersPost.add(posts.getValue(FoodItem.class));
-                        Log.d("debug", "added child in frag");
+                    for (DataSnapshot post: dataSnapshot.getChildren()) {
+                        //for (DataSnapshot post: user.getChildren()) {
+                            usersPost.add(post.getValue(FoodItem.class));
+                            Log.d("debug", "added child in frag");
+                        //}
                     }
 
                     //usersPost.remove(usersPost.size()-1);

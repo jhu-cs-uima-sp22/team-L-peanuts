@@ -1,10 +1,18 @@
 package com.example.peanuts.ui.home;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
+import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +36,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
@@ -110,11 +120,45 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
         }
 
         if (it.getImageUri() != null ) {
-            Uri foodImage = Uri.parse(it.getImageUri());
-            image.setImageURI(foodImage);
+            Log.d("debug", "in if set image");
+            String str = it.getImageUri();
+            Uri foodImage = Uri.parse(str);
+
+            Log.d("debug", "set image, converted");
+
+            Bitmap bitmap = loadFromUri(foodImage);
+            Log.d("debug", "set image, converted to bitmap");
+            image.setImageBitmap(bitmap);
+            //image.setImageURI(foodImage);
+            //image.setImageURI(foodImage);
+            //image.setImageDrawable(foodImage);
+            Log.d("debug", "set image");
         }
         Log.d("debug", "set image");
         return itemView;
+    }
+
+    public Bitmap loadFromUri(Uri photoUri) {
+        Log.d("debug", "in loadFromUri");
+        Bitmap image = null;
+        try {
+            if(Build.VERSION.SDK_INT > 27){
+                Log.d("debug", "in first if");
+                // on newer versions of Android, use the new decodeBitmap method
+                ImageDecoder.Source source = ImageDecoder.createSource(this.getContext().getContentResolver(), photoUri);
+                Log.d("debug", "set source");
+                image = ImageDecoder.decodeBitmap(source);
+                Log.d("debug", "set image");
+            } else {
+                Log.d("debug", "in else");
+                // support older versions of Android by using getBitmap
+                image = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), photoUri);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d("debug", "returned");
+        return image;
     }
 
 }
