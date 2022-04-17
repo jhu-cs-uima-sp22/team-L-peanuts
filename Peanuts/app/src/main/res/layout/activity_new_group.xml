@@ -28,7 +28,7 @@
     <LinearLayout
         android:id="@+id/added_users"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:layout_marginStart="1dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/users_list"
