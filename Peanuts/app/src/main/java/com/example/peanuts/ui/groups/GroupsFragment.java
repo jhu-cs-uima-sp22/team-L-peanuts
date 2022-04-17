@@ -65,7 +65,7 @@ public class GroupsFragment extends Fragment {
                 //intent.putExtra("name", name);
                 //intent.putExtra("restrictions", restrictions);
                 //intent.putExtra("image", R.drawable.spaghetti);
-                intent.putExtra("name", myact.groupItems.get(groupPosition).getName());
+                intent.putExtra("name", myact.groupItems.get(groupPosition).getGroupName());
                 startActivity(intent);
             }
         });

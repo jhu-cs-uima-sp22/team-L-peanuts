@@ -68,10 +68,9 @@ public class MainActivity extends AppCompatActivity {
         foodItems.add(new FoodItem("Spaghetti", restrictions, image));
 
         groupItems = new ArrayList<>();
-        ArrayList<String> members = new ArrayList<>();
-        members.add("ryuno");
-        groupItems.add(new GroupItem("Birthday Party","Email", members));
-        groupItems.add(new GroupItem("Weekly Scrum", "Email", members));
+        ArrayList<NewAccount.User> members = new ArrayList<>();
+        groupItems.add(new GroupItem("Birthday Party", members));
+        groupItems.add(new GroupItem("Weekly Scrum", members));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
