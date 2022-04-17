@@ -1,28 +1,20 @@
 package com.example.peanuts.ui.add;
 
-import static android.widget.Toast.LENGTH_SHORT;
-
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -31,32 +23,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.peanuts.Item;
-import com.example.peanuts.ItemAdapter;
-import com.example.peanuts.Login;
+import com.example.peanuts.RestrictionItem;
 import com.example.peanuts.R;
 import com.example.peanuts.databinding.FragmentAddBinding;
-import androidx.recyclerview.widget.RecyclerView;
-import com.example.peanuts.databinding.FragmentNotificationsBinding;
-import com.example.peanuts.ui.notifications.NotificationsViewModel;
 import com.example.peanuts.ui.profile.ProfileFragment;
 
 
 import java.util.ArrayList;
-import com.example.peanuts.MainActivity;
-import com.example.peanuts.R;
-import com.example.peanuts.databinding.FragmentAddBinding;
-import com.example.peanuts.ui.profile.ProfileFragment;
 
-import java.util.List;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -78,7 +57,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     private ActivityResultLauncher<String> getContent;
     private SharedPreferences sp;
 
-    public ArrayList<Item> restrictions;
+    public ArrayList<RestrictionItem> restrictions;
     protected FoodPostAdapter adapter;
     protected FirebaseDatabase database;
     protected DatabaseReference myRef;
@@ -112,18 +91,18 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         //allergen list
         // create temp ArrayList of items
         restrictions = new ArrayList<>();
-        restrictions.add(new Item("Avocado", false, getResources().getDrawable(R.drawable.avocado_icon)));
-        restrictions.add(new Item("Dairy", false, getResources().getDrawable(R.drawable.dairy_icon)));
-        restrictions.add(new Item("Eggs", false, getResources().getDrawable(R.drawable.eggs_icon)));
-        restrictions.add(new Item("Gluten", false, getResources().getDrawable(R.drawable.gluten_icon)));
-        restrictions.add(new Item("Peanuts", false, getResources().getDrawable(R.drawable.peanuts_icon)));
-        restrictions.add(new Item("Seafood", false, getResources().getDrawable(R.drawable.seafood_icon)));
-        restrictions.add(new Item("Sesame", false, getResources().getDrawable(R.drawable.sesame_icon)));
-        restrictions.add(new Item("Shellfish", false, getResources().getDrawable(R.drawable.shellfish_icon)));
-        restrictions.add(new Item("Soy", false, getResources().getDrawable(R.drawable.soy_icon)));
-        restrictions.add(new Item("Strawberries", false, getResources().getDrawable(R.drawable.strawberries_icon)));
-        restrictions.add(new Item("Tree Nuts", false, getResources().getDrawable(R.drawable.tree_nuts_icon)));
-        restrictions.add(new Item("Wheat", false, getResources().getDrawable(R.drawable.wheat_icon)));
+        restrictions.add(new RestrictionItem("Avocado", false, getResources().getDrawable(R.drawable.avocado_icon)));
+        restrictions.add(new RestrictionItem("Dairy", false, getResources().getDrawable(R.drawable.dairy_icon)));
+        restrictions.add(new RestrictionItem("Eggs", false, getResources().getDrawable(R.drawable.eggs_icon)));
+        restrictions.add(new RestrictionItem("Gluten", false, getResources().getDrawable(R.drawable.gluten_icon)));
+        restrictions.add(new RestrictionItem("Peanuts", false, getResources().getDrawable(R.drawable.peanuts_icon)));
+        restrictions.add(new RestrictionItem("Seafood", false, getResources().getDrawable(R.drawable.seafood_icon)));
+        restrictions.add(new RestrictionItem("Sesame", false, getResources().getDrawable(R.drawable.sesame_icon)));
+        restrictions.add(new RestrictionItem("Shellfish", false, getResources().getDrawable(R.drawable.shellfish_icon)));
+        restrictions.add(new RestrictionItem("Soy", false, getResources().getDrawable(R.drawable.soy_icon)));
+        restrictions.add(new RestrictionItem("Strawberries", false, getResources().getDrawable(R.drawable.strawberries_icon)));
+        restrictions.add(new RestrictionItem("Tree Nuts", false, getResources().getDrawable(R.drawable.tree_nuts_icon)));
+        restrictions.add(new RestrictionItem("Wheat", false, getResources().getDrawable(R.drawable.wheat_icon)));
 
         adapter = new FoodPostAdapter(getContext(), R.layout.item_restriction, restrictions, restrictions);
 
