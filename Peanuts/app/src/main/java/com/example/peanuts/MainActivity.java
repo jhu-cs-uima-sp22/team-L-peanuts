@@ -1,11 +1,13 @@
 package com.example.peanuts;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.peanuts.databinding.ActivityMainBinding;
 import com.example.peanuts.ui.add.AddFragment;
@@ -104,6 +106,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+    }
+
+    public void launchNewGroup(View view) {
+        Intent intent = new Intent(this, NewGroup.class);
+        startActivity(intent);
     }
 
 }

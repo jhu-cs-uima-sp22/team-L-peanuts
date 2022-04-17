@@ -1,7 +1,6 @@
 package com.example.peanuts.ui.add;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,40 +10,28 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 
 import com.example.peanuts.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.content.Context;
-import android.widget.ArrayAdapter;
 
-import com.example.peanuts.Item;
+import com.example.peanuts.RestrictionItem;
 
-import java.util.List;
-
-public class FoodPostAdapter extends ArrayAdapter<Item> {
+public class FoodPostAdapter extends ArrayAdapter<RestrictionItem> {
     int resource;
-    private ArrayList<Item> checkedItem;
+    private ArrayList<RestrictionItem> checkedRestrictionItem;
 
-    public FoodPostAdapter(Context ctx, int res, List<Item> items, ArrayList<Item> checkedItem) {
-        super(ctx, res, items);
+    public FoodPostAdapter(Context ctx, int res, List<RestrictionItem> restrictionItems, ArrayList<RestrictionItem> checkedRestrictionItem) {
+        super(ctx, res, restrictionItems);
         resource = res;
-        this.checkedItem = checkedItem;
+        this.checkedRestrictionItem = checkedRestrictionItem;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LinearLayout itemView;
-        Item it = getItem(position);
+        RestrictionItem it = getItem(position);
 
         if (convertView == null) {
             itemView = new LinearLayout(getContext());
