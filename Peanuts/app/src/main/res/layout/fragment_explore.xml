@@ -42,7 +42,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
+        android:queryHint="Food"
         android:actionViewClass="android.widget.SearchView"
         >
     </SearchView>
