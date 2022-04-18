@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -17,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +41,7 @@ import com.example.peanuts.databinding.FragmentAddBinding;
 import com.example.peanuts.ui.profile.ProfileFragment;
 
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import com.google.firebase.database.DataSnapshot;
@@ -68,6 +72,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     private ArrayList<FoodItem> usersPost = new ArrayList<>();
 
     private Uri imageUri;
+    private Bitmap bitmap;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -160,8 +165,9 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                 } else {
                     text = "Food Added!";
                     myRef.child(email).setValue(new ArrayList<>());
-                    String uriString = imageUri.toString();
-                    FoodItem post = new FoodItem(nameOfFood, uriString);
+                    //String uriString = imageUri.toString();
+                    String bitString = bitmapToString(bitmap);
+                    FoodItem post = new FoodItem(nameOfFood, bitString);
                     Log.d("debug", "food post created");
                     for(int i = 0; i < restrictions.size(); i++) {
                         if (restrictions.get(i).isChecked()) {
@@ -193,8 +199,9 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         getContent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri result) {
-                imageUri = result;
+                //imageUri = result;
                 imageView.setImageURI(result);
+                bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
                 setImage = true;
                 imageView2.setVisibility(View.INVISIBLE);
             }
@@ -209,6 +216,19 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
         return root;
     }
+
+    public static String bitmapToString(Bitmap bitmap) {
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 300, outputStream);
+            byte[] byteArray = outputStream.toByteArray();
+            return Base64.encodeToString(byteArray, Base64.DEFAULT);
+        } catch (Exception e) {
+            Log.d("App", "Failed to decode image " + e.getMessage());
+            return null;
+        }
+    }
+
 
     private void clearContent () {
         name.setText("");

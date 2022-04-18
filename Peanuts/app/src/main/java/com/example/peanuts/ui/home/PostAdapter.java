@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -122,11 +123,11 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
         if (it.getImageUri() != null ) {
             Log.d("debug", "in if set image");
             String str = it.getImageUri();
-            Uri foodImage = Uri.parse(str);
+            //Uri foodImage = Uri.parse(str);
 
             Log.d("debug", "set image, converted");
 
-            Bitmap bitmap = loadFromUri(foodImage);
+            Bitmap bitmap = stringToBitmap(str);
             Log.d("debug", "set image, converted to bitmap");
             image.setImageBitmap(bitmap);
             //image.setImageURI(foodImage);
@@ -138,7 +139,7 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
         return itemView;
     }
 
-    public Bitmap loadFromUri(Uri photoUri) {
+    /*public Bitmap loadFromUri(Uri photoUri) {
         Log.d("debug", "in loadFromUri");
         Bitmap image = null;
         try {
@@ -159,6 +160,17 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
         }
         Log.d("debug", "returned");
         return image;
+    }*/
+
+    public static Bitmap stringToBitmap(String encodedString){
+        try{
+            byte [] encodeByte = Base64.decode(encodedString,Base64.DEFAULT);
+            return BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+        }
+        catch(Exception e){
+            Log.d("App", "Failed to decode image " + e.getMessage());
+            return null;
+        }
     }
 
 }
