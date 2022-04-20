@@ -43,7 +43,7 @@ import java.util.List;
 import android.content.Context;
 import android.widget.ArrayAdapter;
 
-import com.example.peanuts.Item;
+import com.example.peanuts.RestrictionItem;
 
 import java.util.List;
 
