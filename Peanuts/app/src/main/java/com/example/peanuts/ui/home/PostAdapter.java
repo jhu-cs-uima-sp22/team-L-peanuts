@@ -37,6 +37,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -92,7 +93,7 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
                 Log.d("debug", "in onDataChange");
 
                 if (dataSnapshot.getValue() != null) {
-                    Log.d("retrieve_success", dataSnapshot.toString());
+s                    Log.d("retrieve_success", dataSnapshot.toString());
                     for (DataSnapshot posts: dataSnapshot.getChildren()) {
                         usersPost.add(posts.getValue(FoodItem.class));
                         Log.d("debug", "added child in adapt");
@@ -120,21 +121,27 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
             textView.setText(name);
         }
 
-        if (it.getImageUri() != null ) {
+        /*if (it.getImageUri() != null ) {
             Log.d("debug", "in if set image");
             String str = it.getImageUri();
             //Uri foodImage = Uri.parse(str);
 
+            File file = it.getFile();
+            if (file.exists()) {
+                Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                image.setImageBitmap(myBitmap);
+            }
             Log.d("debug", "set image, converted");
 
-            Bitmap bitmap = stringToBitmap(str);
+            //Bitmap bitmap = stringToBitmap(str);
             Log.d("debug", "set image, converted to bitmap");
-            image.setImageBitmap(bitmap);
+
+            image.setVisibility(View.VISIBLE);
             //image.setImageURI(foodImage);
             //image.setImageURI(foodImage);
             //image.setImageDrawable(foodImage);
             Log.d("debug", "set image");
-        }
+        }*/
         Log.d("debug", "set image");
         return itemView;
     }
@@ -164,7 +171,11 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
 
     public static Bitmap stringToBitmap(String encodedString){
         try{
-            byte [] encodeByte = Base64.decode(encodedString,Base64.DEFAULT);
+            //String base64Image = encodedString.split(",")[1];
+            String base64Image = encodedString.substring(8);
+            byte [] encodeByte = Base64.decode(base64Image,Base64.URL_SAFE);
+
+            Log.d("debug", "converted");
             return BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
         }
         catch(Exception e){

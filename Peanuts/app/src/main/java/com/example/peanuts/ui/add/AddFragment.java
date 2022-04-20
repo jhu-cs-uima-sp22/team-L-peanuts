@@ -42,7 +42,10 @@ import com.example.peanuts.ui.profile.ProfileFragment;
 
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -166,8 +169,24 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                     text = "Food Added!";
                     myRef.child(email).setValue(new ArrayList<>());
                     //String uriString = imageUri.toString();
-                    String bitString = bitmapToString(bitmap);
-                    FoodItem post = new FoodItem(nameOfFood, bitString);
+                    //File file = new File(imageUri.getPath());
+
+                    /*File path = new File("image/" + UUID.randomUUID() + ".jpg");
+                    try {
+                        FileOutputStream out = new FileOutputStream(path);
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out); //100-best quality
+                        assert(out !=null);
+
+                    } catch (Exception e) {
+
+                    }*/
+
+                    //String bitString = bitmapToString(bitmap);
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byte[] data = baos.toByteArray();
+                    FoodItem post = new FoodItem(nameOfFood, data);
                     Log.d("debug", "food post created");
                     for(int i = 0; i < restrictions.size(); i++) {
                         if (restrictions.get(i).isChecked()) {
@@ -175,9 +194,10 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                         }
                     }
                     usersPost.add(post);
+
                     Log.d("debug", "added to usersPost");
                     myRef.child(email).setValue(usersPost);
-
+                    //myRef.child(email).child(usersPost.get(usersPost.size()-1).getName()).child("image").setValue("url" + path);
                     Log.d("debug", "done with db");
 
                     clearContent();
@@ -199,8 +219,8 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         getContent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri result) {
-                //imageUri = result;
-                imageView.setImageURI(result);
+                imageUri = result;
+                //imageView.setImageURI(result);
                 bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
                 setImage = true;
                 imageView2.setVisibility(View.INVISIBLE);
