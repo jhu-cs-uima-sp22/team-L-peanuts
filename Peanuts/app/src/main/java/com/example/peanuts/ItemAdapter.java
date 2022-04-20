@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemAdapter extends ArrayAdapter<Item> {
+/*public class ItemAdapter extends ArrayAdapter<Item> {
     int resource;
     String user;
 
@@ -105,3 +105,5 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         return itemView;
     }
 }
+
+ */
