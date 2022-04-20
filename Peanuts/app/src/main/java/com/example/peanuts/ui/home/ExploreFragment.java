@@ -78,11 +78,21 @@ public class ExploreFragment extends Fragment {
 
                 if (dataSnapshot.getValue() != null) {
                     Log.d("retrieve_success", dataSnapshot.toString());
-                    for (DataSnapshot post: dataSnapshot.getChildren()) {
+                    for (DataSnapshot user: dataSnapshot.getChildren()) {
                         //for (DataSnapshot post: user.getChildren()) {
-                            usersPost.add(post.getValue(FoodItem.class));
+                            usersPost.add(user.getValue(FoodItem.class));
                             Log.d("debug", "added child in frag");
-                        //}
+
+                            adapter = new PostAdapter(getContext(), R.layout.explore_posts, usersPost);
+                            list = root.findViewById(R.id.posts_list);
+                            Log.d("debug", "set list");
+                            list.setAdapter(adapter);
+                            Log.d("debug", "set adapter");
+                            registerForContextMenu(list);
+                            // refresh view
+                            adapter.notifyDataSetChanged();
+                            Log.d("debug", "done");
+                       // }
                     }
 
                     //usersPost.remove(usersPost.size()-1);
@@ -98,7 +108,7 @@ public class ExploreFragment extends Fragment {
             }
         });
 
-        adapter = new PostAdapter(getContext(), R.layout.explore_posts, usersPost);
+        /*adapter = new PostAdapter(getContext(), R.layout.explore_posts, usersPost);
         list = root.findViewById(R.id.posts_list);
         Log.d("debug", "set list");
         list.setAdapter(adapter);
@@ -106,7 +116,7 @@ public class ExploreFragment extends Fragment {
         registerForContextMenu(list);
         // refresh view
         adapter.notifyDataSetChanged();
-        Log.d("debug", "done");
+        Log.d("debug", "done");*/
         return root;
 
     }
