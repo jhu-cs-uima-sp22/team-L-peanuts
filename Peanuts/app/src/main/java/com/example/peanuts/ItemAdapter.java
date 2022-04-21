@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /*public class ItemAdapter extends ArrayAdapter<Item> {
     int resource;
     String user;
@@ -35,7 +36,7 @@ import java.util.List;
     private ArrayList<String> checkedItem;
 
 
-    public ItemAdapter(Context ctx, int res, List<Item> items, String user)
+    public ItemAdapter(Context ctx, int res, List<RestrictionItem> items, String user)
     {
         super(ctx, res, items);
         resource = res;
@@ -46,7 +47,7 @@ import java.util.List;
     public View getView(int position, View convertView, ViewGroup parent) {
         Log.d("debug", "in item getView");
         LinearLayout itemView;
-        Item it = getItem(position);
+        RestrictionItem it = getItem(position);
 
         if (convertView == null) {
             itemView = new LinearLayout(getContext());
