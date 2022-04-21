@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -17,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +32,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.peanuts.FoodItem;
+
 import com.example.peanuts.RestrictionItem;
 import com.example.peanuts.ItemAdapter;
 import com.example.peanuts.Login;
@@ -38,7 +42,11 @@ import com.example.peanuts.databinding.FragmentAddBinding;
 import com.example.peanuts.ui.profile.ProfileFragment;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -68,6 +76,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     private ArrayList<FoodItem> usersPost = new ArrayList<>();
 
     private Uri imageUri;
+    private Bitmap bitmap;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -160,8 +169,25 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                 } else {
                     text = "Food Added!";
                     myRef.child(email).setValue(new ArrayList<>());
-                    String uriString = imageUri.toString();
-                    FoodItem post = new FoodItem(nameOfFood, uriString);
+                    //String uriString = imageUri.toString();
+                    //File file = new File(imageUri.getPath());
+
+                    /*File path = new File("image/" + UUID.randomUUID() + ".jpg");
+                    try {
+                        FileOutputStream out = new FileOutputStream(path);
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, out); //100-best quality
+                        assert(out !=null);
+
+                    } catch (Exception e) {
+
+                    }*/
+
+                    //String bitString = bitmapToString(bitmap);
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byte[] data = baos.toByteArray();
+                    FoodItem post = new FoodItem(nameOfFood, data);
                     Log.d("debug", "food post created");
                     for(int i = 0; i < restrictions.size(); i++) {
                         if (restrictions.get(i).isChecked()) {
@@ -169,9 +195,10 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                         }
                     }
                     usersPost.add(post);
+
                     Log.d("debug", "added to usersPost");
                     myRef.child(email).setValue(usersPost);
-
+                    //myRef.child(email).child(usersPost.get(usersPost.size()-1).getName()).child("image").setValue("url" + path);
                     Log.d("debug", "done with db");
 
                     clearContent();
@@ -194,7 +221,8 @@ public class AddFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onActivityResult(Uri result) {
                 imageUri = result;
-                imageView.setImageURI(result);
+                //imageView.setImageURI(result);
+                bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
                 setImage = true;
                 imageView2.setVisibility(View.INVISIBLE);
             }
@@ -209,6 +237,19 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
         return root;
     }
+
+    public static String bitmapToString(Bitmap bitmap) {
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 300, outputStream);
+            byte[] byteArray = outputStream.toByteArray();
+            return Base64.encodeToString(byteArray, Base64.DEFAULT);
+        } catch (Exception e) {
+            Log.d("App", "Failed to decode image " + e.getMessage());
+            return null;
+        }
+    }
+
 
     private void clearContent () {
         name.setText("");

@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,12 +37,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
 import android.widget.ArrayAdapter;
+
 
 import com.example.peanuts.RestrictionItem;
 
@@ -91,7 +94,7 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
                 Log.d("debug", "in onDataChange");
 
                 if (dataSnapshot.getValue() != null) {
-                    Log.d("retrieve_success", dataSnapshot.toString());
+s                    Log.d("retrieve_success", dataSnapshot.toString());
                     for (DataSnapshot posts: dataSnapshot.getChildren()) {
                         usersPost.add(posts.getValue(FoodItem.class));
                         Log.d("debug", "added child in adapt");
@@ -119,26 +122,32 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
             textView.setText(name);
         }
 
-        if (it.getImageUri() != null ) {
+        /*if (it.getImageUri() != null ) {
             Log.d("debug", "in if set image");
             String str = it.getImageUri();
-            Uri foodImage = Uri.parse(str);
+            //Uri foodImage = Uri.parse(str);
 
+            File file = it.getFile();
+            if (file.exists()) {
+                Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                image.setImageBitmap(myBitmap);
+            }
             Log.d("debug", "set image, converted");
 
-            Bitmap bitmap = loadFromUri(foodImage);
+            //Bitmap bitmap = stringToBitmap(str);
             Log.d("debug", "set image, converted to bitmap");
-            image.setImageBitmap(bitmap);
+
+            image.setVisibility(View.VISIBLE);
             //image.setImageURI(foodImage);
             //image.setImageURI(foodImage);
             //image.setImageDrawable(foodImage);
             Log.d("debug", "set image");
-        }
+        }*/
         Log.d("debug", "set image");
         return itemView;
     }
 
-    public Bitmap loadFromUri(Uri photoUri) {
+    /*public Bitmap loadFromUri(Uri photoUri) {
         Log.d("debug", "in loadFromUri");
         Bitmap image = null;
         try {
@@ -159,6 +168,21 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
         }
         Log.d("debug", "returned");
         return image;
+    }*/
+
+    public static Bitmap stringToBitmap(String encodedString){
+        try{
+            //String base64Image = encodedString.split(",")[1];
+            String base64Image = encodedString.substring(8);
+            byte [] encodeByte = Base64.decode(base64Image,Base64.URL_SAFE);
+
+            Log.d("debug", "converted");
+            return BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+        }
+        catch(Exception e){
+            Log.d("App", "Failed to decode image " + e.getMessage());
+            return null;
+        }
     }
 
 }

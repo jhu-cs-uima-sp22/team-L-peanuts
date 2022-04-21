@@ -5,6 +5,7 @@ import android.media.Image;
 import android.util.Log;
 import android.widget.ImageView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class FoodItem {
@@ -13,7 +14,9 @@ public class FoodItem {
     private ArrayList<String> allergens;
     private String imageUri;
     private Drawable picture;
+    private File file;
     int index;
+    private byte[] data;
 
     FoodItem() {}
 
@@ -30,10 +33,30 @@ public class FoodItem {
         index = 0;
     }
 
+    public FoodItem(String name, byte[] b) {
+        this.name = name;
+        this.data = b;
+        Log.d("debug", "name is set");
+        allergens = new ArrayList<>();
+        index = 0;
+    }
+
+    public FoodItem(String name, File file) {
+        this.name = name;
+        Log.d("debug", "name is set");
+        this.file = file;
+        allergens = new ArrayList<>();
+        index = 0;
+    }
+
     FoodItem(String name, boolean[] restrictions, Drawable picture) {
         this.name = name;
         this.restrictions = restrictions;
         this.picture = picture;
+    }
+
+    public byte[] getData() {
+        return data;
     }
 
     public String getName() {
@@ -55,6 +78,10 @@ public class FoodItem {
     public void addAllergens (String al) {
         allergens.add(index, al);
         index++;
+    }
+
+    public File getFile () {
+        return file;
     }
 
     public ArrayList<String> getAllergens () {
