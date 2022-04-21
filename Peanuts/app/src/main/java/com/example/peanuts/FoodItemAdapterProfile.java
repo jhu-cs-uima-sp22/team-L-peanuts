@@ -1,6 +1,8 @@
 package com.example.peanuts;
 
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +12,34 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class FoodItemAdapterProfile extends ArrayAdapter<FoodItem> {
 
     int resource;
+    private String user;
+    private DatabaseReference myRefForFoods;
+    private FirebaseDatabase databaseForFoods;
+    private String imageUri;
 
-    public FoodItemAdapterProfile(Context ctx, int res, List<FoodItem> items)
+
+    public FoodItemAdapterProfile(Context ctx, int res, List<FoodItem> items, String user)
     {
         super(ctx, res, items);
         resource = res;
+        this.user = user;
+        databaseForFoods = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
+        myRefForFoods = databaseForFoods.getReference("Users");
+        //imageUri = "content://com.android.providers.media.documents/document/image%3A35";
     }
 
     @Override
@@ -36,8 +56,30 @@ public class FoodItemAdapterProfile extends ArrayAdapter<FoodItem> {
             foodItemView = (LinearLayout) convertView;
         }
 
+        myRefForFoods.child(user).child("" + position).child("imageUri").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("debug", "in onDataChange");
+
+                if (dataSnapshot.getValue() != null) {
+                    Log.d("retrieve_success", dataSnapshot.toString());
+                    imageUri = (String) dataSnapshot.getValue();
+
+                    //usersPost.remove(usersPost.size()-1);
+
+                } else {
+                    imageUri = "";
+                    Log.d("debug", "in empty");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("retrieve_fail", databaseError.toString());
+            }
+        });
+
         ImageView foodButton = (ImageView) foodItemView.findViewById(R.id.food_item_image_profile);
-        foodButton.setImageDrawable(it.getImage());
+        foodButton.setImageURI(Uri.parse(imageUri));
 
         return foodItemView;
     }
