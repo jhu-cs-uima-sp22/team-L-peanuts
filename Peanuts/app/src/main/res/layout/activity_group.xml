@@ -25,7 +25,7 @@
         android:id="@+id/MealPlanSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +95,7 @@
         android:layout_height="60sp"
         android:layout_marginTop="8sp"
         android:background="#CDDC39"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MealPlanSection"
         tools:ignore="SpeakableTextPresentCheck">
@@ -171,7 +171,7 @@
         android:layout_width="match_parent"
         android:layout_height="368sp"
         android:background="#4F8BC34A"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/MealPlan">
 
         <TextView

@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,18 +60,12 @@ public class FoodItemAdapterProfile extends ArrayAdapter<FoodItem> {
         myRefForFoods.child(user).child("" + position).child("imageUri").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("debug", "in onDataChange");
+                Log.d("debug", "Position: " + position );
+                Log.d("debug", "Data: " + dataSnapshot);
 
-                if (dataSnapshot.getValue() != null) {
-                    Log.d("retrieve_success", dataSnapshot.toString());
-                    imageUri = (String) dataSnapshot.getValue();
-
-                    //usersPost.remove(usersPost.size()-1);
-
-                } else {
-                    imageUri = "";
-                    Log.d("debug", "in empty");
-                }
+                imageUri = (String) dataSnapshot.getValue();
+                ImageView foodButton = (ImageView) foodItemView.findViewById(R.id.food_item_image_profile);
+                foodButton.setImageURI(Uri.parse(imageUri));
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -78,8 +73,6 @@ public class FoodItemAdapterProfile extends ArrayAdapter<FoodItem> {
             }
         });
 
-        ImageView foodButton = (ImageView) foodItemView.findViewById(R.id.food_item_image_profile);
-        //foodButton.setImageURI(Uri.parse(imageUri));
 
         return foodItemView;
     }
