@@ -79,7 +79,7 @@ public class FoodItemAdapterProfile extends ArrayAdapter<FoodItem> {
         });
 
         ImageView foodButton = (ImageView) foodItemView.findViewById(R.id.food_item_image_profile);
-        foodButton.setImageURI(Uri.parse(imageUri));
+        //foodButton.setImageURI(Uri.parse(imageUri));
 
         return foodItemView;
     }
