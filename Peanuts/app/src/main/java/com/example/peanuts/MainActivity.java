@@ -71,8 +71,10 @@ public class MainActivity extends AppCompatActivity {
 
         groupItems = new ArrayList<>();
         ArrayList<NewAccount.User> members = new ArrayList<>();
-        groupItems.add(new GroupItem("Birthday Party", members));
-        groupItems.add(new GroupItem("Weekly Scrum", members));
+        //TODO: set groupItems equal to
+
+        groupItems.add(new GroupItem("Birthday Party", members, true));
+        groupItems.add(new GroupItem("Weekly Scrum", members, false));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

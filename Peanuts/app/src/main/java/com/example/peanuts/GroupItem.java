@@ -10,8 +10,9 @@ public class GroupItem {
     private List<String> restrictions;
     private List<FoodItem> foods;
     private String groupName;
+    private boolean isHost;
 
-    public GroupItem(String name, List<NewAccount.User> members) {
+    public GroupItem(String name, List<NewAccount.User> members, boolean isHost) {
         this.groupName = name;
         this.members = members;
         restrictions = new ArrayList<>();
@@ -19,6 +20,7 @@ public class GroupItem {
             //use database to populate restrictions
         }
         foods = new ArrayList<>();
+        this.isHost = isHost;
     }
 
     public String getGroupName() { return groupName;}
@@ -28,6 +30,10 @@ public class GroupItem {
     public List<String> getRestrictions() { return  restrictions; }
 
     public List<FoodItem> getFoods() { return foods; }
+
+    public boolean isHost() {
+        return isHost;
+    }
 
 
 
