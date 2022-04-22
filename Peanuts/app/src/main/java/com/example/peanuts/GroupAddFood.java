@@ -5,17 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
-public class GroupActivity extends AppCompatActivity {
+public class GroupAddFood extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group);
+        setContentView(R.layout.activity_group_add_food);
         Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
-        setTitle(name);
+        setTitle("Add Item");
     }
 
     @Override
@@ -25,10 +23,5 @@ public class GroupActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void toAddFoodInGroup(View v) {
-        Intent intent = new Intent(this, GroupAddFood.class);
-        startActivity(intent);
     }
 }

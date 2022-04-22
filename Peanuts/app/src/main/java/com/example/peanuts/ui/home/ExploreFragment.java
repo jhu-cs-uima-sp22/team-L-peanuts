@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.peanuts.FoodItem;
-//import com.example.peanuts.Item;
+import com.example.peanuts.RestrictionItem;
 import com.example.peanuts.MainActivity;
 import com.example.peanuts.R;
 import com.example.peanuts.databinding.FragmentExploreBinding;

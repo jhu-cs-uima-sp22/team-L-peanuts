@@ -32,8 +32,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.peanuts.FoodItem;
-//import com.example.peanuts.Item;
-//import com.example.peanuts.ItemAdapter;
+
+import com.example.peanuts.RestrictionItem;
 import com.example.peanuts.Login;
 import com.example.peanuts.RestrictionItem;
 import com.example.peanuts.R;
