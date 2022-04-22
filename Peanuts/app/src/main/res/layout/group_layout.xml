@@ -5,7 +5,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="75dp">
+        android:layout_height="75sp">
 
         <TextView
             android:id="@+id/group_name"

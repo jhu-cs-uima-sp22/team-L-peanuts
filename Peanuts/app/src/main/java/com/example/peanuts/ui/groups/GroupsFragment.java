@@ -58,13 +58,14 @@ public class GroupsFragment extends Fragment {
                 // create intent to launch ItemDetail activity with the item's details
                 // startActivity for result so that you know the status of the toggle button when you return
 
-                //***NEED TO CHANGE BELOW***
+                //***NEED TO CHANGE BELOW*** ADD all the data needed and pass it
                 Intent intent = new Intent(myact, GroupActivity.class);
                 //String name = myact.foodItems.get(groupPosition).getName();
                 //boolean[] restrictions = myact.foodItems.get(groupPosition).getRestrictions();
                 //intent.putExtra("name", name);
                 //intent.putExtra("restrictions", restrictions);
                 //intent.putExtra("image", R.drawable.spaghetti);
+                intent.putExtra("isHost", myact.groupItems.get(groupPosition).isHost());
                 intent.putExtra("name", myact.groupItems.get(groupPosition).getGroupName());
                 startActivity(intent);
             }

@@ -75,7 +75,12 @@ public class MainActivity extends AppCompatActivity {
         foodItems.add(new FoodItem("Spaghetti", restrictions, image));
 
         ArrayList<NewAccount.User> members = new ArrayList<>();
+      
+        //TODO: set groupItems equal to
+
         groupItems = new ArrayList<>();
+        groupItems.add(new GroupItem("Birthday Party", members, true));
+        groupItems.add(new GroupItem("Weekly Scrum", members, false));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
