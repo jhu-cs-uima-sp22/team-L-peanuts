@@ -65,7 +65,7 @@ public class FoodItemAdapterProfile extends ArrayAdapter<FoodItem> {
 
                 imageUri = (String) dataSnapshot.getValue();
                 ImageView foodButton = (ImageView) foodItemView.findViewById(R.id.food_item_image_profile);
-                foodButton.setImageURI(Uri.parse(imageUri));
+//                foodButton.setImageURI(Uri.parse(imageUri));
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
