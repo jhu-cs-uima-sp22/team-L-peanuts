@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.example.peanuts.EditFoods;
 import com.example.peanuts.EditRestrictions;
 import com.example.peanuts.FoodDetail;
+import com.example.peanuts.FoodItem;
 import com.example.peanuts.FoodItemAdapterProfile;
 import com.example.peanuts.Login;
 import com.example.peanuts.MainActivity;
@@ -64,9 +65,12 @@ public class ProfileFragment extends Fragment {
     private String user;
     private ArrayList<String> checkedItem;
     private String name = "";
+    private ArrayList<FoodItem> usersPost = new ArrayList<>();
 
     private DatabaseReference myRef;
+    private DatabaseReference myRefForFoods;
     private FirebaseDatabase database;
+    private FirebaseDatabase databaseForFoods;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -77,6 +81,8 @@ public class ProfileFragment extends Fragment {
 
         database = FirebaseDatabase.getInstance("https://peanuts-e9a7c-default-rtdb.firebaseio.com/");
         myRef = database.getReference("users");
+        databaseForFoods = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
+        myRefForFoods = databaseForFoods.getReference("Users");
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -174,6 +180,31 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        myRefForFoods.child(user).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("debug", "in onDataChange");
+
+                if (dataSnapshot.getValue() != null) {
+                    Log.d("retrieve_success", dataSnapshot.toString());
+                    for (DataSnapshot posts: dataSnapshot.getChildren()) {
+                        usersPost.add(posts.getValue(FoodItem.class));
+                        Log.d("debug", "added child");
+                    }
+
+                    //usersPost.remove(usersPost.size()-1);
+
+                } else {
+                    usersPost = new ArrayList<>();
+                    Log.d("debug", "in empty");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("retrieve_fail", databaseError.toString());
+            }
+        });
+
         final TextView textView = binding.textProfile;
         profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         ImageButton btn = (ImageButton) root.findViewById(R.id.settings_button);
@@ -206,7 +237,7 @@ public class ProfileFragment extends Fragment {
 
         myList = (GridView) root.findViewById(R.id.myFoodListProfile);
 
-        adapter = new FoodItemAdapterProfile(this.getContext(), R.layout.food_layout_profile, myact.foodItems);
+        adapter = new FoodItemAdapterProfile(this.getContext(), R.layout.food_layout_profile, myact.foodItems, user);
 
         myList.setAdapter(adapter);
 
