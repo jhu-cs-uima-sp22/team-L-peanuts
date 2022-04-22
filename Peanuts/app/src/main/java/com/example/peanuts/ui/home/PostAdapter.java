@@ -79,6 +79,7 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
 
         TextView textView = (TextView) itemView.findViewById(R.id.name_text);
         ImageView image = (ImageView) itemView.findViewById(R.id.image);
+        TextView allergenText = (TextView) itemView.findViewById(R.id.allergens);
 //Fill arraylist
         //database = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
         //myRef = database.getReference("Users");
@@ -119,6 +120,17 @@ s                    Log.d("retrieve_success", dataSnapshot.toString());
         } else {
             name = "Untitled";
             textView.setText(name);
+        }
+        ArrayList<String> foods = it.getAllergens();
+        String str = "Allergens: ";
+        if (!foods.isEmpty()) {
+            for (int i = 0; i < foods.size(); i++) {
+                if (i < foods.size() - 1) {
+                    str = str.concat(foods.get(i) + ", \n");
+                }
+            }
+
+            allergenText.setText(str);
         }
 
         /*if (it.getImageUri() != null ) {
