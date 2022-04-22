@@ -85,6 +85,9 @@ public class FoodItem {
     }
 
     public ArrayList<String> getAllergens () {
+        if (allergens == null) {
+            return null;
+        }
         return allergens;
     }
 }

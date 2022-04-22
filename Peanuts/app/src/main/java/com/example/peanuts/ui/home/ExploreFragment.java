@@ -68,9 +68,9 @@ public class ExploreFragment extends Fragment {
         //Fill arraylist
         database = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
         //myRef = database.getReference("Users");
-        myRef = database.getReference("Users");
+        myRef = database.getReference();
 
-       myRef.child(email).addValueEventListener(new ValueEventListener() {
+       myRef.child("Users").addValueEventListener(new ValueEventListener() {
         //myRef.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -79,11 +79,14 @@ public class ExploreFragment extends Fragment {
                 if (dataSnapshot.getValue() != null) {
                     Log.d("retrieve_success", dataSnapshot.toString());
                     for (DataSnapshot user: dataSnapshot.getChildren()) {
-                        //for (DataSnapshot post: user.getChildren()) {
-                            usersPost.add(user.getValue(FoodItem.class));
+                        for (DataSnapshot post: user.getChildren()) {
+                            usersPost.add(post.getValue(FoodItem.class));
                             Log.d("debug", "added child in frag");
 
-                            adapter = new PostAdapter(getContext(), R.layout.explore_posts, usersPost);
+                            if(getContext() != null && usersPost != null) {
+
+                                adapter = new PostAdapter(getContext(), R.layout.explore_posts, usersPost);
+                            }
                             list = root.findViewById(R.id.posts_list);
                             Log.d("debug", "set list");
                             list.setAdapter(adapter);
@@ -92,7 +95,7 @@ public class ExploreFragment extends Fragment {
                             // refresh view
                             adapter.notifyDataSetChanged();
                             Log.d("debug", "done");
-                       // }
+                        }
                     }
 
                     //usersPost.remove(usersPost.size()-1);

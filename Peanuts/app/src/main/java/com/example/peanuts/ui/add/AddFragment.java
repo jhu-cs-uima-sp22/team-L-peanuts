@@ -47,11 +47,15 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 
 public class AddFragment extends Fragment implements View.OnClickListener{
@@ -74,6 +78,9 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     protected DatabaseReference myRef;
     private ArrayList<FoodItem> usersPost = new ArrayList<>();
 
+    // instance for firebase storage and StorageReference
+
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
     private Uri imageUri;
     private Bitmap bitmap;
 
@@ -85,12 +92,14 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         Log.d("FRAG", "addFood");
 
         database = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
+
         Context context = getContext();
         sp = PreferenceManager.getDefaultSharedPreferences(context);
         String email = sp.getString("user_email", "email");
         myRef = database.getReference("Users");
         binding = FragmentAddBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
 
         name = (EditText) root.findViewById(R.id.item_text);
         name.setHint("Name of food");
@@ -168,7 +177,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                 } else {
                     text = "Food Added!";
                     myRef.child(email).setValue(new ArrayList<>());
-                    //String uriString = imageUri.toString();
+                    String uriString = imageUri.toString();
                     //File file = new File(imageUri.getPath());
 
                     /*File path = new File("image/" + UUID.randomUUID() + ".jpg");
@@ -183,10 +192,10 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
                     //String bitString = bitmapToString(bitmap);
 
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte[] data = baos.toByteArray();
-                    FoodItem post = new FoodItem(nameOfFood, data);
+                    //ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    //bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    //byte[] data = baos.toByteArray();
+                    FoodItem post = new FoodItem(nameOfFood, uriString);
                     Log.d("debug", "food post created");
                     for(int i = 0; i < restrictions.size(); i++) {
                         if (restrictions.get(i).isChecked()) {
@@ -220,8 +229,8 @@ public class AddFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onActivityResult(Uri result) {
                 imageUri = result;
-                //imageView.setImageURI(result);
-                bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                imageView.setImageURI(result);
+                //bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
                 setImage = true;
                 imageView2.setVisibility(View.INVISIBLE);
             }
@@ -237,7 +246,26 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         return root;
     }
 
-    public static String bitmapToString(Bitmap bitmap) {
+    public void convertImage () {
+        /*imageView.setDrawingCacheEnabled(true);
+        imageView.buildDrawingCache();
+        Bitmap bitmap = imageView.getDrawingCache();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        imageView.setDrawingCacheEnabled(false);
+        byte[] data = baos.toByteArray();*/
+    }
+
+    public void upload (Uri image) {
+        /*FirebaseStorage storage = FirebaseStorage.getInstance();
+        // Create a storage reference from our app
+        StorageReference storageRef = storage.getReference();
+
+// Create a reference to "mountains.jpg"
+        StorageReference mountainsRef = storageRef.child("mountains.jpg");*/
+    }
+
+    /*public static String bitmapToString(Bitmap bitmap) {
         try {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 300, outputStream);
@@ -247,7 +275,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
             Log.d("App", "Failed to decode image " + e.getMessage());
             return null;
         }
-    }
+    }*/
 
 
     private void clearContent () {
@@ -285,6 +313,22 @@ public class AddFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         Log.d("Save", "save");
+
+        //NEW
+
+        imageView.setDrawingCacheEnabled(true);
+        imageView.buildDrawingCache();
+        Bitmap bitmap = imageView.getDrawingCache();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        imageView.setDrawingCacheEnabled(false);
+        byte[] data = baos.toByteArray();
+
+        String path = "images/" + UUID.randomUUID() + ".png";
+        StorageReference fireRef = storage.getReference(path);
+
+        UploadTask uploadTask = fireRef.putBytes(data, null);
+
         //create post
         //save data in database
         //transaction = getSupportFragmentManager().beginTransaction();

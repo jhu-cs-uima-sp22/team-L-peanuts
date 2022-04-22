@@ -124,7 +124,7 @@ s                    Log.d("retrieve_success", dataSnapshot.toString());
         }
         ArrayList<String> foods = it.getAllergens();
         String str = "Allergens: ";
-        if (!foods.isEmpty()) {
+        if (foods != null) {
             for (int i = 0; i < foods.size(); i++) {
                 if (i < foods.size() - 1) {
                     str = str.concat(foods.get(i) + ", \n");
