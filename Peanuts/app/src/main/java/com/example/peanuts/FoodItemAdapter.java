@@ -73,7 +73,9 @@ public class FoodItemAdapter extends ArrayAdapter<FoodItem> {
                 foodName = (String) dataSnapshot.child("name").getValue();
                 name.setText(foodName);
                 imageUri = (String) dataSnapshot.child("imageUri").getValue();
-                image.setImageURI(Uri.parse(imageUri));
+                if (imageUri != null) {
+                    image.setImageURI(Uri.parse(imageUri));
+                }
                 close.setOnClickListener(new View.OnClickListener() {
 
                     @Override
