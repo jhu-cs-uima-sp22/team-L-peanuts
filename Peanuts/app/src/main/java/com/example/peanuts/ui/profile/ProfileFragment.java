@@ -192,8 +192,6 @@ public class ProfileFragment extends Fragment {
                         Log.d("debug", "added child");
                     }
 
-                    //usersPost.remove(usersPost.size()-1);
-
                 } else {
                     usersPost = new ArrayList<>();
                     Log.d("debug", "in empty");
