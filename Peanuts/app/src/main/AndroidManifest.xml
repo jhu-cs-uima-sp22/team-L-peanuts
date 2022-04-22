@@ -9,13 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Peanuts">
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/searchable" />
+
         <activity
             android:name=".GroupActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".NewGroup"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".GroupActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
         <activity
             android:name=".FoodDetail"
             android:exported="false"
@@ -34,7 +45,8 @@
         <activity
             android:name=".EditRestrictions"
             android:exported="false"
-            android:label="Edit Restrictions" />
+            android:label="Edit Restrictions"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".NewAccount"
             android:exported="false" />
