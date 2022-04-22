@@ -1,10 +1,14 @@
 package com.example.peanuts;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +17,11 @@ import android.widget.ListView;
 
 import com.example.peanuts.MainActivity;
 import com.example.peanuts.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -21,30 +30,43 @@ public class EditFoods extends AppCompatActivity {
     private ListView myList;
     protected ArrayList<FoodItem> foodItems;
     protected FoodItemAdapter adapter;
+    private DatabaseReference myRefForFoods;
+    private FirebaseDatabase databaseForFoods;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_foods);
 
+        databaseForFoods = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
+        myRefForFoods = databaseForFoods.getReference("Users");
+
         foodItems = new ArrayList<>();
-        boolean[] restrictions = new boolean[12];
-        restrictions[1] = true;
-        restrictions[6] = true;
-        restrictions[8] = true;
-        restrictions[9] = true;
-        Drawable image = getDrawable(R.drawable.spaghetti);
-        foodItems.add(new FoodItem("Spaghetti", restrictions, image));
 
+        Context context = getApplicationContext();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        String email = preferences.getString("user_email", "");
         myList = (ListView) this.findViewById(R.id.myFoodList);
+        myRefForFoods.child(email).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                foodItems = (ArrayList<FoodItem>) dataSnapshot.getValue();
+                if (foodItems == null) {
+                    foodItems = new ArrayList<>();
+                }
+                Context context = getApplicationContext();
+                adapter = new FoodItemAdapter(context, R.layout.food_layout, foodItems, email);
+                myList.setAdapter(adapter);
+                registerForContextMenu(myList);
+                adapter.notifyDataSetChanged();
+            }
 
-        adapter = new FoodItemAdapter(this, R.layout.food_layout, foodItems);
-
-        myList.setAdapter(adapter);
-
-        registerForContextMenu(myList);
-
-        adapter.notifyDataSetChanged();
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                foodItems = new ArrayList<>();
+            }
+        });
     }
 
     @Override
