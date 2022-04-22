@@ -24,6 +24,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -36,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     public ArrayList<FoodItem> foodItems;
     public ArrayList<GroupItem> groupItems;
+
+    private FirebaseDatabase database = FirebaseDatabase.getInstance("https://peanuts-e9a7c-default-rtdb.firebaseio.com/");
+    private DatabaseReference myRef = database.getReference("groups");
 
 
     @Override
@@ -69,10 +74,11 @@ public class MainActivity extends AppCompatActivity {
         Drawable image = getDrawable(R.drawable.spaghetti);
         foodItems.add(new FoodItem("Spaghetti", restrictions, image));
 
-        groupItems = new ArrayList<>();
         ArrayList<NewAccount.User> members = new ArrayList<>();
+      
         //TODO: set groupItems equal to
 
+        groupItems = new ArrayList<>();
         groupItems.add(new GroupItem("Birthday Party", members, true));
         groupItems.add(new GroupItem("Weekly Scrum", members, false));
 
@@ -119,5 +125,38 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NewGroup.class);
         startActivity(intent);
     }
+
+    /*
+    public ArrayList<GroupItem> getGroup() {
+        groupItems = new ArrayList<>();
+
+        Context context = this.getApplicationContext();
+        SharedPreferences myPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String user = myPrefs.getString("user_email", "");
+
+        myRef.child(user).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    Log.d("retrieve_success", dataSnapshot.toString());
+                    members = (ArrayList<NewAccount.User>) dataSnapshot.child("members").getValue();
+                    groupRestrictions = (ArrayList<String>) dataSnapshot.child("restrictions").getValue();
+                } else {
+                    members = new ArrayList<>();
+                    groupRestrictions = new ArrayList<>();
+                }
+                return groupItems;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("retrieve_fail", databaseError.toString());
+                members = new ArrayList<>();
+                groupRestrictions = new ArrayList<>();
+            }
+            });
+        }
+
+     */
 
 }

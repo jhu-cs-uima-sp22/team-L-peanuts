@@ -23,6 +23,7 @@
         android:layout_marginBottom="75dp"
         android:backgroundTint="@color/dark_main"
         android:clickable="true"
+        android:contentDescription="@string/add_new_group"
         android:onClick="launchNewGroup"
         android:scaleType="fitXY"
         android:src="@android:drawable/ic_input_add"
@@ -30,9 +31,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="SpeakableTextPresentCheck"
-        tools:tint="@color/white" />
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        tools:tint="@color/white"
+        android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

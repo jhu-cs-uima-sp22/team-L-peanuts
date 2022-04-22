@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
@@ -32,7 +33,7 @@ public class FoodDetail extends AppCompatActivity {
 
         Intent intent = getIntent();
         name.setText(intent.getStringExtra("name"));
-        image.setImageDrawable(getResources().getDrawable(intent.getIntExtra("image", R.drawable.spaghetti)));
+        image.setImageURI(Uri.parse(intent.getStringExtra("image")));
         boolean[] restrictions = intent.getBooleanArrayExtra("restrictions");
         String restrictionsText = "";
         for (int i = 0; i < restrictions.length; i++) {

@@ -34,6 +34,7 @@ import com.example.peanuts.EditFoods;
 import com.example.peanuts.EditRestrictions;
 import com.example.peanuts.FoodDetail;
 import com.example.peanuts.FoodItem;
+import com.example.peanuts.FoodItemAdapter;
 import com.example.peanuts.FoodItemAdapterProfile;
 import com.example.peanuts.Login;
 import com.example.peanuts.MainActivity;
@@ -65,7 +66,7 @@ public class ProfileFragment extends Fragment {
     private String user;
     private ArrayList<String> checkedItem;
     private String name = "";
-    private ArrayList<FoodItem> usersPost = new ArrayList<>();
+    protected ArrayList<FoodItem> foodItems;
 
     private DatabaseReference myRef;
     private DatabaseReference myRefForFoods;
@@ -180,31 +181,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        myRefForFoods.child(user).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("debug", "in onDataChange");
-
-                if (dataSnapshot.getValue() != null) {
-                    Log.d("retrieve_success", dataSnapshot.toString());
-                    for (DataSnapshot posts: dataSnapshot.getChildren()) {
-                        usersPost.add(posts.getValue(FoodItem.class));
-                        Log.d("debug", "added child");
-                    }
-
-                    //usersPost.remove(usersPost.size()-1);
-
-                } else {
-                    usersPost = new ArrayList<>();
-                    Log.d("debug", "in empty");
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("retrieve_fail", databaseError.toString());
-            }
-        });
-
         final TextView textView = binding.textProfile;
         profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         ImageButton btn = (ImageButton) root.findViewById(R.id.settings_button);
@@ -235,32 +211,34 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        foodItems = new ArrayList<>();
+
         myList = (GridView) root.findViewById(R.id.myFoodListProfile);
+        myRefForFoods.child(user).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                foodItems = (ArrayList<FoodItem>) dataSnapshot.getValue();
+                if (foodItems == null) {
+                    foodItems = new ArrayList<>();
+                }
+                Context context = getContext();
+                adapter = new FoodItemAdapterProfile(context, R.layout.food_layout_profile, foodItems, user);
+                myList.setAdapter(adapter);
+                registerForContextMenu(myList);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                foodItems = new ArrayList<>();
+            }
+        });
 
         adapter = new FoodItemAdapterProfile(this.getContext(), R.layout.food_layout_profile, myact.foodItems, user);
 
         myList.setAdapter(adapter);
 
         registerForContextMenu(myList);
-
-        adapter.notifyDataSetChanged();
-
-        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                foodPosition = position;
-                Snackbar.make(view, "Selected #" + id, Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
-                // create intent to launch ItemDetail activity with the item's details
-                // startActivity for result so that you know the status of the toggle button when you return
-                Intent intent = new Intent(myact, FoodDetail.class);
-                String name = myact.foodItems.get(foodPosition).getName();
-                boolean[] restrictions = myact.foodItems.get(foodPosition).getRestrictions();
-                intent.putExtra("name", name);
-                intent.putExtra("restrictions", restrictions);
-                intent.putExtra("image", R.drawable.spaghetti);
-                startActivity(intent);
-            }
-        });
 
         return root;
     }
