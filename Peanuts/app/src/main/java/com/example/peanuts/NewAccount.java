@@ -89,12 +89,25 @@ public class NewAccount extends AppCompatActivity {
         public String email;
         public ArrayList<String> restrictions;
 
-        public User(String username, String email, String password, ArrayList<String> restrictions) {
+        User(String username, String email, String password, ArrayList<String> restrictions) {
             this.name = username;
             this.password = password;
             this.email = email;
             this.restrictions = restrictions;
         }
+
+        public User(String username, String email, ArrayList<String> restrictions) {
+            this.name = username;
+            this.email = email;
+            this.restrictions = restrictions;
+        }
+
+//        @Override
+//        public boolean equals(Object o) {
+//            if (o == null) return false;
+//            String query = o.toString();
+//            return this.getName().contains(query) || this.getEmail().contains(query);
+//        }
 
         public String getName() { return name; }
 

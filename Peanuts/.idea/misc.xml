@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/activity_edit_restrictions.xml" value="0.25" />
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/activity_food_detail.xml" value="0.4" />
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/activity_new_group.xml" value="0.264" />
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/fragment_group.xml" value="0.4" />
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/item_restriction.xml" value="0.536" />
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/item_user.xml" value="0.536" />
+        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/user_search.xml" value="0.6" />
         <entry key="app/src/main/res/drawable/baseline_edit_24.xml" value="0.2355" />
         <entry key="app/src/main/res/drawable/baseline_search_24.xml" value="0.1525" />
         <entry key="app/src/main/res/drawable/outline_add_circle_outline_24.xml" value="0.1525" />

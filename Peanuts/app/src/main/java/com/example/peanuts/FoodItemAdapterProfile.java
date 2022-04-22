@@ -93,6 +93,7 @@ public class FoodItemAdapterProfile extends ArrayAdapter<FoodItem> {
                         notifyDataSetChanged();
                     }
                 });
+//                foodButton.setImageURI(Uri.parse(imageUri));
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
