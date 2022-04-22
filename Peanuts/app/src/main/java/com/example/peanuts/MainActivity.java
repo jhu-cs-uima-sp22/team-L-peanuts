@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<NewAccount.User> members = new ArrayList<>();
         ArrayList<String> groupRestrictions = new ArrayList<>();
       
-        //TODO: set groupItems equal to
+        //TODO: set groupItems equal to, hi JAMES, implement this part
 
         groupItems = new ArrayList<>();
         groupItems.add(new GroupItem("Birthday Party", members, groupRestrictions,true, "Email"));
