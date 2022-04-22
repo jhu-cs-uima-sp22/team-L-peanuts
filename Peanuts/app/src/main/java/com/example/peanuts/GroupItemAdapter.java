@@ -44,4 +44,6 @@ public class GroupItemAdapter extends ArrayAdapter<GroupItem> {
         return groupItemView;
     }
 
+
+
 }

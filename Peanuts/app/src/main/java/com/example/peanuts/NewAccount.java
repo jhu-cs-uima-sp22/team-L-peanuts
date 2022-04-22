@@ -96,6 +96,13 @@ public class NewAccount extends AppCompatActivity {
             this.restrictions = restrictions;
         }
 
+//        @Override
+//        public boolean equals(Object o) {
+//            if (o == null) return false;
+//            String query = o.toString();
+//            return this.getName().contains(query) || this.getEmail().contains(query);
+//        }
+
         public String getName() { return name; }
 
         public String getEmail() { return email; }
