@@ -100,7 +100,7 @@ public class NewAccount extends AppCompatActivity {
         public boolean equals(Object o) {
             if (o == null) return false;
             String query = o.toString();
-            return this.getName().equals(query) || this.getEmail().equals(query);
+            return this.getName().contains(query) || this.getEmail().contains(query);
         }
 
         public String getName() { return name; }
