@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.peanuts.FoodItem;
 import com.example.peanuts.RestrictionItem;
@@ -34,11 +35,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExploreFragment extends Fragment {
 
     private FragmentExploreBinding binding;
     private ListView list;
+    //RecyclerView
     private CardView card;
     private ImageView image;
     private TextView title;
@@ -67,11 +70,9 @@ public class ExploreFragment extends Fragment {
         String email = sp.getString("user_email", "email");
         //Fill arraylist
         database = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
-        //myRef = database.getReference("Users");
         myRef = database.getReference();
 
        myRef.child("Users").addValueEventListener(new ValueEventListener() {
-        //myRef.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("debug", "in onDataChange");
@@ -97,11 +98,10 @@ public class ExploreFragment extends Fragment {
                             Log.d("debug", "done");
                         }
                     }
-
-                    //usersPost.remove(usersPost.size()-1);
-
+                    FoodItem item = new FoodItem("food", "");
+                    usersPost.add(item);
+                    //FIX
                 } else {
-                    //usersPost = new ArrayList<>();
                     Log.d("debug", "in empty");
                 }
             }
@@ -111,15 +111,6 @@ public class ExploreFragment extends Fragment {
             }
         });
 
-        /*adapter = new PostAdapter(getContext(), R.layout.explore_posts, usersPost);
-        list = root.findViewById(R.id.posts_list);
-        Log.d("debug", "set list");
-        list.setAdapter(adapter);
-        Log.d("debug", "set adapter");
-        registerForContextMenu(list);
-        // refresh view
-        adapter.notifyDataSetChanged();
-        Log.d("debug", "done");*/
         return root;
 
     }
