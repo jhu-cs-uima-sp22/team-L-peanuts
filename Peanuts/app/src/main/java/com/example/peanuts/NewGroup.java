@@ -93,12 +93,15 @@ public class NewGroup extends AppCompatActivity {
         @Override
          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             for (DataSnapshot userItem: dataSnapshot.getChildren()) {
-                String name = (String) userItem.child("name").getValue();
                 String email = (String) userItem.child("email").getValue();
-                ArrayList<String> restrictions = (ArrayList<String>) userItem.child("restrictions").getValue();
 
-                NewAccount.User item = new NewAccount.User(name, email, restrictions);
-                users.add(item);
+                if (!email.equals(user)) {
+                    String name = (String) userItem.child("name").getValue();
+                    ArrayList<String> restrictions = (ArrayList<String>) userItem.child("restrictions").getValue();
+
+                    NewAccount.User item = new NewAccount.User(name, email, restrictions);
+                    users.add(item);
+                }
 
                 adapter = new UsersAdapter(context, users, uuid);
                 myList.setAdapter(adapter);
@@ -153,7 +156,6 @@ public class NewGroup extends AppCompatActivity {
                         return false;
                     }
                 });
-
     }
 
     @Override
@@ -181,13 +183,15 @@ public class NewGroup extends AppCompatActivity {
             usersDB.child(user).child("groups").updateChildren(map);
 
 
-
             for (NewAccount.User groupMember : member) {
-//                DatabaseReference updateGroup = usersDB.child(groupMember.getEmail()).child("groups").push();
-//                String key = updateGroup.getKey();
-                Map<String, Object> groupMap = new HashMap<>();
-                groupMap.put("0", uuid);
+//                Map<String, Object> groupMap = new HashMap<>();
+//                groupMap.put("0", uuid);
+
+                Map<String, Object> notifications = new HashMap<>();
+                //group as id, true for group notification
+                notifications.put(uuid, true);
                 usersDB.child(groupMember.getEmail()).child("groups").updateChildren(map);
+                usersDB.child(groupMember.getEmail()).child("notifications").updateChildren(notifications);
             }
 
             finish();
