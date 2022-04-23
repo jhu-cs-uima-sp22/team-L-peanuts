@@ -24,8 +24,11 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -37,11 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private Fragment profile;
     private SharedPreferences preferences;
     public ArrayList<FoodItem> foodItems;
-    public ArrayList<GroupItem> groupItems;
-
-    private FirebaseDatabase database = FirebaseDatabase.getInstance("https://peanuts-e9a7c-default-rtdb.firebaseio.com/");
-    private DatabaseReference myRef = database.getReference("groups");
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,15 +71,6 @@ public class MainActivity extends AppCompatActivity {
         restrictions[9] = true;
         Drawable image = getDrawable(R.drawable.spaghetti);
         foodItems.add(new FoodItem("Spaghetti", restrictions, image));
-
-        ArrayList<NewAccount.User> members = new ArrayList<>();
-        ArrayList<String> groupRestrictions = new ArrayList<>();
-      
-        //TODO: set groupItems equal to
-
-        groupItems = new ArrayList<>();
-        groupItems.add(new GroupItem("Birthday Party", members, groupRestrictions,true, "Email"));
-        groupItems.add(new GroupItem("Weekly Scrum", members, groupRestrictions, false, "We"));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

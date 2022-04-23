@@ -41,13 +41,12 @@ public class EditFoods extends AppCompatActivity {
         databaseForFoods = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
         myRefForFoods = databaseForFoods.getReference("Users");
 
-        foodItems = new ArrayList<>();
-
         Context context = getApplicationContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         String email = preferences.getString("user_email", "");
         myList = (ListView) this.findViewById(R.id.myFoodList);
+        foodItems = new ArrayList<>();
         myRefForFoods.child(email).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
