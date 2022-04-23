@@ -19,7 +19,7 @@ public class FoodItem {
     int index;
     private byte[] data;
     private String randomID;
-    private boolean hasImage;
+
 
     FoodItem() {}
 
@@ -101,9 +101,5 @@ public class FoodItem {
             return null;
         }
         return allergens;
-    }
-
-    public boolean getHasImage () {
-        return hasImage;
     }
 }
