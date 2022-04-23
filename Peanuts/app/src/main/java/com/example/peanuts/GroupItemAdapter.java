@@ -1,6 +1,7 @@
 package com.example.peanuts;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
 
 import java.security.acl.Group;
 import java.util.List;
@@ -43,6 +46,25 @@ public class GroupItemAdapter extends ArrayAdapter<GroupItem> {
         else
             groupName.setText(it.getGroupName());
         memberCount.setText("" + it.getMembers().size() + " members");
+
+        CardView groupCard = (CardView) groupItemView.findViewById(R.id.group_card);
+        groupCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //***NEED TO CHANGE BELOW*** ADD all the data needed and pass it
+                Context context = getContext();
+                Intent intent = new Intent(context, GroupActivity.class);
+                //String name = myact.foodItems.get(groupPosition).getName();
+                //boolean[] restrictions = myact.foodItems.get(groupPosition).getRestrictions();
+                //intent.putExtra("name", name);
+                //intent.putExtra("restrictions", restrictions);
+                //intent.putExtra("image", R.drawable.spaghetti);
+                intent.putExtra("isHost", it.isHost());
+                intent.putExtra("name", it.getGroupName());
+                context.startActivity(intent);
+            }
+        });
+
         return groupItemView;
     }
 }

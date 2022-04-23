@@ -1,7 +1,10 @@
 package com.example.peanuts.ui.groups;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +20,19 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.peanuts.FoodDetail;
 import com.example.peanuts.FoodItemAdapterProfile;
 import com.example.peanuts.GroupActivity;
+import com.example.peanuts.GroupItem;
 import com.example.peanuts.GroupItemAdapter;
 import com.example.peanuts.MainActivity;
 import com.example.peanuts.R;
 import com.example.peanuts.databinding.FragmentGroupBinding;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class GroupsFragment extends Fragment {
 
@@ -29,7 +40,12 @@ public class GroupsFragment extends Fragment {
     private MainActivity myact;
     private ListView myList;
     protected GroupItemAdapter adapter;
-    public int groupPosition = 0;
+    private SharedPreferences preferences;
+    public ArrayList<GroupItem> groupItems;
+    public ArrayList<String> groupIds;
+
+    private FirebaseDatabase database = FirebaseDatabase.getInstance("https://peanuts-e9a7c-default-rtdb.firebaseio.com/");
+    private DatabaseReference myRef = database.getReference();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,36 +54,29 @@ public class GroupsFragment extends Fragment {
 
         myact = (MainActivity) getActivity();
 
+        Context context = getContext();
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
         binding = FragmentGroupBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         myList = (ListView) root.findViewById(R.id.groups_list);
-
-        adapter = new GroupItemAdapter(this.getContext(), R.layout.group_layout, myact.groupItems);
-
-        myList.setAdapter(adapter);
-
-        registerForContextMenu(myList);
-
-        adapter.notifyDataSetChanged();
-
-        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                groupPosition = position;
-                //Snackbar.make(view, "Selected #" + id, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-                // create intent to launch ItemDetail activity with the item's details
-                // startActivity for result so that you know the status of the toggle button when you return
-
-                //***NEED TO CHANGE BELOW*** ADD all the data needed and pass it
-                Intent intent = new Intent(myact, GroupActivity.class);
-                //String name = myact.foodItems.get(groupPosition).getName();
-                //boolean[] restrictions = myact.foodItems.get(groupPosition).getRestrictions();
-                //intent.putExtra("name", name);
-                //intent.putExtra("restrictions", restrictions);
-                //intent.putExtra("image", R.drawable.spaghetti);
-                intent.putExtra("isHost", myact.groupItems.get(groupPosition).isHost());
-                intent.putExtra("name", myact.groupItems.get(groupPosition).getGroupName());
-                startActivity(intent);
+        groupItems = new ArrayList<>();
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                groupIds = (ArrayList<String>) dataSnapshot.child("users").child(preferences.getString("user_email", "")).child("groups").getValue();
+                for (String id : groupIds) {
+                    groupItems.add((GroupItem) dataSnapshot.child("groups").child(id).getValue());
+                }
+                adapter = new GroupItemAdapter(context, R.layout.group_layout, groupItems);
+                myList.setAdapter(adapter);
+                registerForContextMenu(myList);
+                adapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                groupIds = new ArrayList<>();
             }
         });
 

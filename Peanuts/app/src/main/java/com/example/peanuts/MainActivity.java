@@ -40,11 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private Fragment profile;
     private SharedPreferences preferences;
     public ArrayList<FoodItem> foodItems;
-    public ArrayList<GroupItem> groupItems;
-    public ArrayList<String> groupIds;
-
-    private FirebaseDatabase database = FirebaseDatabase.getInstance("https://peanuts-e9a7c-default-rtdb.firebaseio.com/");
-    private DatabaseReference myRef = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,22 +71,6 @@ public class MainActivity extends AppCompatActivity {
         restrictions[9] = true;
         Drawable image = getDrawable(R.drawable.spaghetti);
         foodItems.add(new FoodItem("Spaghetti", restrictions, image));
-
-        groupItems = new ArrayList<>();
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                groupIds = (ArrayList<String>) dataSnapshot.child("users").child(preferences.getString("user_email", "")).child("groups").getValue();
-                for (String id : groupIds) {
-                    groupItems.add((GroupItem) dataSnapshot.child("groups").child(id).getValue());
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                groupIds = new ArrayList<>();
-            }
-        });
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
