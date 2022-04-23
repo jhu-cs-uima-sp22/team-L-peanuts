@@ -1,24 +1,33 @@
 package com.example.peanuts;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import kotlin.collections.ArrayDeque;
 
 public class GroupItem {
     private List<NewAccount.User> members;
     private List<String> restrictions;
     private List<FoodItem> foods;
     private String groupName;
+    private String host;
 
-    public GroupItem(String name, List<NewAccount.User> members) {
-        this.groupName = name;
+    public GroupItem(String groupName, List<NewAccount.User> members, List<String> restrictions, String host) {
+        this.groupName = groupName;
         this.members = members;
-        restrictions = new ArrayList<>();
-        for (NewAccount.User member : members) {
-            //use database to populate restrictions
-        }
+        this.restrictions = restrictions;
+        this.host = host;
         foods = new ArrayList<>();
+    }
+
+    public GroupItem(String groupName, List<NewAccount.User> members, List<String> restrictions, String host, List<FoodItem> foods) {
+        this.groupName = groupName;
+        this.members = members;
+        this.restrictions = restrictions;
+        this.host = host;
+        this.foods = foods;
     }
 
     public String getGroupName() { return groupName;}
@@ -27,8 +36,8 @@ public class GroupItem {
 
     public List<String> getRestrictions() { return  restrictions; }
 
+    public String getHost() { return host; }
+
     public List<FoodItem> getFoods() { return foods; }
-
-
 
 }

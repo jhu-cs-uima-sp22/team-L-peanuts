@@ -35,27 +35,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/close"
-            app:srcCompat="@drawable/baseline_edit_24"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-        <ImageButton
             android:id="@+id/close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
             android:contentDescription="Close_Button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/outline_close_24"
-            tools:ignore="TouchTargetSizeCheck" />
+            app:srcCompat="@drawable/outline_close_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

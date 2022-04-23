@@ -6,8 +6,10 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.peanuts.databinding.ActivityMainBinding;
 import com.example.peanuts.ui.add.AddFragment;
@@ -25,6 +27,11 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -36,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private Fragment profile;
     private SharedPreferences preferences;
     public ArrayList<FoodItem> foodItems;
-    public ArrayList<GroupItem> groupItems;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +74,6 @@ public class MainActivity extends AppCompatActivity {
         restrictions[9] = true;
         Drawable image = getDrawable(R.drawable.spaghetti);
         foodItems.add(new FoodItem("Spaghetti", restrictions, image));
-
-        groupItems = new ArrayList<>();
-        ArrayList<NewAccount.User> members = new ArrayList<>();
-        groupItems.add(new GroupItem("Birthday Party", members));
-        groupItems.add(new GroupItem("Weekly Scrum", members));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -118,5 +118,38 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NewGroup.class);
         startActivity(intent);
     }
+
+    /*
+    public ArrayList<GroupItem> getGroup() {
+        groupItems = new ArrayList<>();
+
+        Context context = this.getApplicationContext();
+        SharedPreferences myPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String user = myPrefs.getString("user_email", "");
+
+        myRef.child(user).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    Log.d("retrieve_success", dataSnapshot.toString());
+                    members = (ArrayList<NewAccount.User>) dataSnapshot.child("members").getValue();
+                    groupRestrictions = (ArrayList<String>) dataSnapshot.child("restrictions").getValue();
+                } else {
+                    members = new ArrayList<>();
+                    groupRestrictions = new ArrayList<>();
+                }
+                return groupItems;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("retrieve_fail", databaseError.toString());
+                members = new ArrayList<>();
+                groupRestrictions = new ArrayList<>();
+            }
+            });
+        }
+
+     */
 
 }
