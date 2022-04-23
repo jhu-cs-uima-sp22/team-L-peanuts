@@ -180,13 +180,14 @@ public class NewGroup extends AppCompatActivity {
             usersDB.child(user).child("groups").updateChildren(map);
 
 
-
             for (NewAccount.User groupMember : member) {
-//                DatabaseReference updateGroup = usersDB.child(groupMember.getEmail()).child("groups").push();
-//                String key = updateGroup.getKey();
                 Map<String, Object> groupMap = new HashMap<>();
+                Map<String, Object> notifications = new HashMap<>();
                 groupMap.put("0", uuid);
+                //group as id, true for group notification
+                notifications.put(uuid, true);
                 usersDB.child(groupMember.getEmail()).child("groups").updateChildren(map);
+                usersDB.child(groupMember.getEmail()).child("notifications").updateChildren(notifications);
             }
 
             finish();

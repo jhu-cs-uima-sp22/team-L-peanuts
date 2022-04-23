@@ -75,7 +75,6 @@ public class GroupsFragment extends Fragment {
 //                }
                 for (DataSnapshot groupId : dataSnapshot.child("users").child(email).child("groups").getChildren()) {
                     String id = groupId.getValue().toString();
-                    Log.d("ONE GROUP", String.valueOf(id));
 
                     String groupName = (String) dataSnapshot.child("groups").child(id).child("groupName").getValue();
                     List<NewAccount.User> members = (List<NewAccount.User>) dataSnapshot.child("groups").child(id).child("members").getValue();
@@ -83,7 +82,6 @@ public class GroupsFragment extends Fragment {
                     String host = (String) dataSnapshot.child("groups").child(id).child("host").getValue();
                     groupItems.add(new GroupItem(groupName, members, restrictions, host));
                 }
-                Log.d("GROUP", String.valueOf(groupItems));
                 adapter = new GroupItemAdapter(context, R.layout.group_layout, groupItems);
                 myList.setAdapter(adapter);
                 registerForContextMenu(myList);
