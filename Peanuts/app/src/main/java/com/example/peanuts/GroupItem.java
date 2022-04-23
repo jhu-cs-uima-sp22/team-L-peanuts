@@ -1,22 +1,33 @@
 package com.example.peanuts;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class GroupItem {
-    private final List<NewAccount.User> members;
-    private final List<String> restrictions;
-    private final List<FoodItem> foods;
-    private final String groupName;
-    private final String host;
+    private List<NewAccount.User> members;
+    private List<String> restrictions;
+    private List<FoodItem> foods;
+    private String groupName;
+    private String host;
 
-    public GroupItem(String name, List<NewAccount.User> members, List<String> restrictions, String user) {
-        this.groupName = name;
+    public GroupItem(String groupName, List<NewAccount.User> members, List<String> restrictions, String host) {
+        this.groupName = groupName;
         this.members = members;
         this.restrictions = restrictions;
-        this.host = user;
-
+        this.host = host;
         foods = new ArrayList<>();
+    }
+
+    public GroupItem(String groupName, List<NewAccount.User> members, List<String> restrictions, String host, List<FoodItem> foods) {
+        this.groupName = groupName;
+        this.members = members;
+        this.restrictions = restrictions;
+        this.host = host;
+        this.foods = foods;
     }
 
     public String getGroupName() { return groupName;}
@@ -28,7 +39,5 @@ public class GroupItem {
     public String getHost() { return host; }
 
     public List<FoodItem> getFoods() { return foods; }
-
-
 
 }

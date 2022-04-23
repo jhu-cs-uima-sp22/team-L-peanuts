@@ -42,11 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private Fragment profile;
     private SharedPreferences preferences;
     public ArrayList<FoodItem> foodItems;
-    public ArrayList<GroupItem> groupItems;
-
-    private FirebaseDatabase database = FirebaseDatabase.getInstance("https://peanuts-e9a7c-default-rtdb.firebaseio.com/");
-    private DatabaseReference myRef = database.getReference("groups");
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +73,6 @@ public class MainActivity extends AppCompatActivity {
         restrictions[9] = true;
         Drawable image = getDrawable(R.drawable.spaghetti);
         foodItems.add(new FoodItem("Spaghetti", restrictions, image));
-
-        ArrayList<NewAccount.User> members = new ArrayList<>();
-        groupItems = new ArrayList<>();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
