@@ -92,12 +92,15 @@ public class NewGroup extends AppCompatActivity {
         @Override
          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             for (DataSnapshot userItem: dataSnapshot.getChildren()) {
-                String name = (String) userItem.child("name").getValue();
                 String email = (String) userItem.child("email").getValue();
-                ArrayList<String> restrictions = (ArrayList<String>) userItem.child("restrictions").getValue();
 
-                NewAccount.User item = new NewAccount.User(name, email, restrictions);
-                users.add(item);
+                if (!email.equals(user)) {
+                    String name = (String) userItem.child("name").getValue();
+                    ArrayList<String> restrictions = (ArrayList<String>) userItem.child("restrictions").getValue();
+
+                    NewAccount.User item = new NewAccount.User(name, email, restrictions);
+                    users.add(item);
+                }
 
                 adapter = new UsersAdapter(context, users, uuid);
                 myList.setAdapter(adapter);
