@@ -31,6 +31,8 @@ import androidx.annotation.NonNull;
 import com.example.peanuts.FoodItem;
 import com.example.peanuts.R;
 import com.example.peanuts.ui.add.FoodPost;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,6 +49,9 @@ import android.widget.ArrayAdapter;
 
 
 import com.example.peanuts.RestrictionItem;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -56,6 +61,7 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
     protected DatabaseReference myRef;
     private SharedPreferences sp;
     private ArrayList<FoodItem> usersPost;
+    private StorageReference storageReference;
 
     public PostAdapter(Context ctx, int res, List<FoodItem> items) {
         super(ctx, res, items);
@@ -81,39 +87,8 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
         TextView textView = (TextView) itemView.findViewById(R.id.name_text);
         ImageView image = (ImageView) itemView.findViewById(R.id.image);
         TextView allergenText = (TextView) itemView.findViewById(R.id.allergens);
-//Fill arraylist
-        //database = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
-        //myRef = database.getReference("Users");
-        //usersPost = new ArrayList<>();
-        //Context context = getContext();
-        //sp = PreferenceManager.getDefaultSharedPreferences(context);
-        //String email = sp.getString("user_email", "email");
 
-        /*myRef.child(email).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("debug", "in onDataChange");
-
-                if (dataSnapshot.getValue() != null) {
-s                    Log.d("retrieve_success", dataSnapshot.toString());
-                    for (DataSnapshot posts: dataSnapshot.getChildren()) {
-                        usersPost.add(posts.getValue(FoodItem.class));
-                        Log.d("debug", "added child in adapt");
-                    }
-
-                    //usersPost.remove(usersPost.size()-1);
-
-                } else {
-                    //usersPost = new ArrayList<>();
-                    Log.d("debug", "in empty");
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("retrieve_fail", databaseError.toString());
-            }
-        });*/
-
+        //Title
         String name = it.getName();
         if (name != null) {
             textView.setText(name);
@@ -122,9 +97,46 @@ s                    Log.d("retrieve_success", dataSnapshot.toString());
             name = "Untitled";
             textView.setText(name);
         }
-        ArrayList<String> foods = it.getAllergens();
+
+        //Image
+        //it.getHasImage()
+        /*if (true) {
+            String path = it.getImageUri();
+            Log.d("debug", "got path");
+            storageReference = FirebaseStorage.getInstance("gs://peanuts-e9a7c.appspot.com").getReference().child(path);
+            Log.d("debug", "got storage ref");
+            try {
+                String prefix = path.substring(6, path.length()-4);
+                Log.d("debug", "prefix: " + prefix);
+                        // it.getRandomID().toString();
+                Log.d("debug", "got random");
+                final File file = File.createTempFile(prefix, "png");
+                Log.d("debug", "got fileEm");
+                storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        Log.d("debug", "in on success for retrieving image");
+                        Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                        image.setImageBitmap(bitmap);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("debug", "in on failure for retrieving image");
+
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Log.d("debug", "didn't have image");
+        }*/
+
+        //Allergens
+        /*ArrayList<String> foods = it.getAllergens();
         String str = "Allergens: ";
-        if (!foods.isEmpty()) {
+        if (foods != null) {
             for (int i = 0; i < foods.size(); i++) {
                 if (i < foods.size() - 1) {
                     str = str.concat(foods.get(i) + ", \n");
@@ -132,7 +144,7 @@ s                    Log.d("retrieve_success", dataSnapshot.toString());
             }
 
             allergenText.setText(str);
-        }
+        }*/
 
         /*if (it.getImageUri() != null ) {
             Log.d("debug", "in if set image");
@@ -158,29 +170,6 @@ s                    Log.d("retrieve_success", dataSnapshot.toString());
         Log.d("debug", "set image");
         return itemView;
     }
-
-    /*public Bitmap loadFromUri(Uri photoUri) {
-        Log.d("debug", "in loadFromUri");
-        Bitmap image = null;
-        try {
-            if(Build.VERSION.SDK_INT > 27){
-                Log.d("debug", "in first if");
-                // on newer versions of Android, use the new decodeBitmap method
-                ImageDecoder.Source source = ImageDecoder.createSource(this.getContext().getContentResolver(), photoUri);
-                Log.d("debug", "set source");
-                image = ImageDecoder.decodeBitmap(source);
-                Log.d("debug", "set image");
-            } else {
-                Log.d("debug", "in else");
-                // support older versions of Android by using getBitmap
-                image = MediaStore.Images.Media.getBitmap(this.getContext().getContentResolver(), photoUri);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Log.d("debug", "returned");
-        return image;
-    }*/
 
     public static Bitmap stringToBitmap(String encodedString){
         try{
