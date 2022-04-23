@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,17 +69,21 @@ public class GroupsFragment extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                groupIds = (ArrayList<String>) dataSnapshot.child("users").child(email).child("groups").getValue();
-                if (groupIds == null) {
-                    groupIds = new ArrayList<>();
-                }
-                for (String id : groupIds) {
+//                groupIds =  dataSnapshot.child("users").child(email).child("groups").getValue();
+//                if (groupIds == null) {
+//                    groupIds = new ArrayList<>();
+//                }
+                for (DataSnapshot groupId : dataSnapshot.child("users").child(email).child("groups").getChildren()) {
+                    String id = groupId.getValue().toString();
+                    Log.d("ONE GROUP", String.valueOf(id));
+
                     String groupName = (String) dataSnapshot.child("groups").child(id).child("groupName").getValue();
                     List<NewAccount.User> members = (List<NewAccount.User>) dataSnapshot.child("groups").child(id).child("members").getValue();
                     List<String> restrictions = (List<String>) dataSnapshot.child("groups").child(id).child("restrictions").getValue();
                     String host = (String) dataSnapshot.child("groups").child(id).child("host").getValue();
                     groupItems.add(new GroupItem(groupName, members, restrictions, host));
                 }
+                Log.d("GROUP", String.valueOf(groupItems));
                 adapter = new GroupItemAdapter(context, R.layout.group_layout, groupItems);
                 myList.setAdapter(adapter);
                 registerForContextMenu(myList);
