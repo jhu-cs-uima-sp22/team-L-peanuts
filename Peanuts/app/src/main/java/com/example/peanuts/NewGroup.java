@@ -152,7 +152,6 @@ public class NewGroup extends AppCompatActivity {
                         return false;
                     }
                 });
-
     }
 
     @Override
@@ -181,9 +180,10 @@ public class NewGroup extends AppCompatActivity {
 
 
             for (NewAccount.User groupMember : member) {
-                Map<String, Object> groupMap = new HashMap<>();
+//                Map<String, Object> groupMap = new HashMap<>();
+//                groupMap.put("0", uuid);
+
                 Map<String, Object> notifications = new HashMap<>();
-                groupMap.put("0", uuid);
                 //group as id, true for group notification
                 notifications.put(uuid, true);
                 usersDB.child(groupMember.getEmail()).child("groups").updateChildren(map);
