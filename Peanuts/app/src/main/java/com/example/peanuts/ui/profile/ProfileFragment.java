@@ -188,7 +188,7 @@ public class ProfileFragment extends Fragment {
                 if (dataSnapshot.getValue() != null) {
                     Log.d("retrieve_success", dataSnapshot.toString());
                     for (DataSnapshot posts: dataSnapshot.getChildren()) {
-                        usersPost.add(posts.getValue(FoodItem.class));
+                        //usersPost.add(posts.getValue(FoodItem.class));
                         Log.d("debug", "added child");
                     }
 

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class FoodItem {
     private String name;
@@ -17,6 +18,8 @@ public class FoodItem {
     private File file;
     int index;
     private byte[] data;
+    private String randomID;
+    private boolean hasImage;
 
     FoodItem() {}
 
@@ -80,6 +83,15 @@ public class FoodItem {
         index++;
     }
 
+    /*public void setRandomID (String str) {
+        randomID = str;
+        hasImage = true;
+    }*/
+
+    /*public String getRandomID () {
+        return randomID;
+    }*/
+
     public File getFile () {
         return file;
     }
@@ -89,5 +101,9 @@ public class FoodItem {
             return null;
         }
         return allergens;
+    }
+
+    public boolean getHasImage () {
+        return hasImage;
     }
 }

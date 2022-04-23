@@ -47,6 +47,8 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,6 +56,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -80,7 +83,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
     // instance for firebase storage and StorageReference
 
-    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private FirebaseStorage storage = FirebaseStorage.getInstance("gs://peanuts-e9a7c.appspot.com");
     private Uri imageUri;
     private Bitmap bitmap;
 
@@ -178,6 +181,52 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                     text = "Food Added!";
                     myRef.child(email).setValue(new ArrayList<>());
                     String uriString = imageUri.toString();
+
+                    imageView.setDrawingCacheEnabled(true);
+                    imageView.buildDrawingCache();
+                    Bitmap bitmap = imageView.getDrawingCache();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                    imageView.setDrawingCacheEnabled(false);
+                    byte[] data = baos.toByteArray();
+
+                    UUID random = UUID.randomUUID();
+                    String path = "images/" + random + ".png";
+                    StorageReference fireRef = storage.getReference(path);
+
+                    //StorageMetadata metadata = new StorageMetadata.Builder().setCustomMetadata("food post", email).build();
+                   // assert (metadata != null);
+
+                    // Create file metadata including the content type
+                    StorageMetadata metadata = new StorageMetadata.Builder()
+                            .setContentType("image/jpg")
+                            .setCustomMetadata("myCustomProperty", "myValue")
+                            .build();
+
+// Update metadata properties
+                    fireRef.updateMetadata(metadata)
+                            .addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
+                                @Override
+                                public void onSuccess(StorageMetadata storageMetadata) {
+                                    // Updated metadata is in storageMetadata
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Uh-oh, an error occurred!
+                                }
+                            });
+
+                    UploadTask uploadTask = fireRef.putBytes(data, metadata);
+                    Log.d("debug", "uploaded");
+
+                    uploadTask.addOnSuccessListener(getActivity(), new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Log.d("debug", "in on success");
+                        }
+                    });
                     //File file = new File(imageUri.getPath());
 
                     /*File path = new File("image/" + UUID.randomUUID() + ".jpg");
@@ -195,7 +244,9 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                     //ByteArrayOutputStream baos = new ByteArrayOutputStream();
                     //bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     //byte[] data = baos.toByteArray();
-                    FoodItem post = new FoodItem(nameOfFood, uriString);
+                    FoodItem post = new FoodItem(nameOfFood, path);
+                    //String str = random.toString();
+                    //post.setRandomID(str);
                     Log.d("debug", "food post created");
                     for(int i = 0; i < restrictions.size(); i++) {
                         if (restrictions.get(i).isChecked()) {
@@ -316,7 +367,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
 
         //NEW
 
-        imageView.setDrawingCacheEnabled(true);
+        /*imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
         Bitmap bitmap = imageView.getDrawingCache();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -328,6 +379,14 @@ public class AddFragment extends Fragment implements View.OnClickListener{
         StorageReference fireRef = storage.getReference(path);
 
         UploadTask uploadTask = fireRef.putBytes(data, null);
+        Log.d("debug", "uploaded");
+
+        uploadTask.addOnSuccessListener(getActivity(), new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Log.d("debug", "in on success");
+            }
+        });*/
 
         //create post
         //save data in database
