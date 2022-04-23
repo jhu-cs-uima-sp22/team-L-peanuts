@@ -28,7 +28,7 @@
 
     <LinearLayout
         android:id="@+id/added_users"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="1dp"
         android:orientation="horizontal"
@@ -41,11 +41,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/users_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:isScrollContainer="true"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/added_users"
-        tools:layout_editor_absoluteX="1dp" />
+        tools:layout_editor_absoluteX="1dp"
+        android:layout_height="0dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -181,6 +181,30 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        myRefForFoods.child(user).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("debug", "in onDataChange");
+
+                if (dataSnapshot.getValue() != null) {
+                    Log.d("retrieve_success", dataSnapshot.toString());
+                    for (DataSnapshot posts: dataSnapshot.getChildren()) {
+                        usersPost.add(posts.getValue(FoodItem.class));
+                        Log.d("debug", "added child");
+                    }
+
+                } else {
+                    usersPost = new ArrayList<>();
+                    Log.d("debug", "in empty");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("retrieve_fail", databaseError.toString());
+            }
+        });
+
+
         final TextView textView = binding.textProfile;
         profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         ImageButton btn = (ImageButton) root.findViewById(R.id.settings_button);

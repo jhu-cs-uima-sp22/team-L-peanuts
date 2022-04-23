@@ -6,8 +6,10 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.peanuts.databinding.ActivityMainBinding;
 import com.example.peanuts.ui.add.AddFragment;
