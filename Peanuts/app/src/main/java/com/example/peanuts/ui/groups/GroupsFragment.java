@@ -23,6 +23,7 @@ import com.example.peanuts.GroupActivity;
 import com.example.peanuts.GroupItem;
 import com.example.peanuts.GroupItemAdapter;
 import com.example.peanuts.MainActivity;
+import com.example.peanuts.NewAccount;
 import com.example.peanuts.R;
 import com.example.peanuts.databinding.FragmentGroupBinding;
 import com.google.android.material.snackbar.Snackbar;
@@ -33,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GroupsFragment extends Fragment {
 
@@ -60,14 +62,22 @@ public class GroupsFragment extends Fragment {
         binding = FragmentGroupBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        String email = preferences.getString("user_email", "");
         myList = (ListView) root.findViewById(R.id.groups_list);
         groupItems = new ArrayList<>();
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                groupIds = (ArrayList<String>) dataSnapshot.child("users").child(preferences.getString("user_email", "")).child("groups").getValue();
+                groupIds = (ArrayList<String>) dataSnapshot.child("users").child(email).child("groups").getValue();
+                if (groupIds == null) {
+                    groupIds = new ArrayList<>();
+                }
                 for (String id : groupIds) {
-                    groupItems.add((GroupItem) dataSnapshot.child("groups").child(id).getValue());
+                    String groupName = (String) dataSnapshot.child("groups").child(id).child("groupName").getValue();
+                    List<NewAccount.User> members = (List<NewAccount.User>) dataSnapshot.child("groups").child(id).child("members").getValue();
+                    List<String> restrictions = (List<String>) dataSnapshot.child("groups").child(id).child("restrictions").getValue();
+                    String host = (String) dataSnapshot.child("groups").child(id).child("host").getValue();
+                    groupItems.add(new GroupItem(groupName, members, restrictions, host));
                 }
                 adapter = new GroupItemAdapter(context, R.layout.group_layout, groupItems);
                 myList.setAdapter(adapter);
