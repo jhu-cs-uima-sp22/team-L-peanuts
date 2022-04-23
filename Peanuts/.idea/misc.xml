@@ -3,51 +3,36 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/activity_edit_restrictions.xml" value="0.25" />
-        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/activity_food_detail.xml" value="0.4" />
-        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/activity_group.xml" value="0.264" />
-        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/activity_new_group.xml" value="0.25" />
-        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/fragment_group.xml" value="0.4" />
-        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/item_restriction.xml" value="0.536" />
-        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/item_user.xml" value="0.24403669724770644" />
-        <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/user_search.xml" value="0.6" />
         <entry key="app/src/main/res/drawable/baseline_edit_24.xml" value="0.2355" />
         <entry key="app/src/main/res/drawable/baseline_search_24.xml" value="0.1525" />
-        <entry key="app/src/main/res/drawable/outline_add_circle_outline_24.xml" value="0.1525" />
         <entry key="app/src/main/res/drawable/outline_close_24.xml" value="0.1175" />
         <entry key="app/src/main/res/layout/activity_edit_foods.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_edit_restrictions.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_food_detail.xml" value="0.22916666666666666" />
-        <entry key="app/src/main/res/layout/activity_group.xml" value="0.23072916666666668" />
-        <entry key="app/src/main/res/layout/activity_group_add_food.xml" value="0.23072916666666668" />
+        <entry key="app/src/main/res/layout/activity_group.xml" value="0.1778342187932107" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.22916666666666666" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.23072916666666668" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22533111572265624" />
         <entry key="app/src/main/res/layout/activity_new_account.xml" value="0.16944444444444445" />
+        <entry key="app/src/main/res/layout/activity_new_group.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.2539993286132813" />
         <entry key="app/src/main/res/layout/explore_posts.xml" value="0.226890756302521" />
-        &gt;&gt;&gt;&gt;&gt;&gt;&gt; main
         <entry key="app/src/main/res/layout/food_layout.xml" value="0.22916666666666666" />
-        <entry key="app/src/main/res/layout/activity_new_group.xml" value="0.23072916666666668" />
-        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.2539993286132813" />
-        <entry key="app/src/main/res/layout/food_layout.xml" value="0.16944444444444445" />
         <entry key="app/src/main/res/layout/food_layout_profile.xml" value="0.16944444444444445" />
         <entry key="app/src/main/res/layout/fragment_add.xml" value="0.2671249389648438" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.1787037037037037" />
-        <entry key="app/src/main/res/layout/fragment_explore.xml" value="0.22916666666666666" />
-        <entry key="app/src/main/res/layout/fragment_group.xml" value="0.16944444444444445" />
+        <entry key="app/src/main/res/layout/fragment_explore.xml" value="0.23412628173828126" />
+        <entry key="app/src/main/res/layout/fragment_group.xml" value="0.18611378977820636" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.18611378977820636" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.18611378977820636" />
-        <entry key="app/src/main/res/layout/notifications_layout.xml" value="0.4177777777777778" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.15058898925781256" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.16944444444444445" />
         <entry key="app/src/main/res/layout/group_layout.xml" value="0.3727087576374745" />
-        <entry key="app/src/main/res/layout/group_users_layout.xml" value="0.3859603881835938" />
+        <entry key="app/src/main/res/layout/group_users_layout.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/item_restriction.xml" value="0.3756218905472637" />
+        <entry key="app/src/main/res/layout/item_user.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/notifications_layout.xml" value="0.4177777777777778" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.25391540527343753" />
       </map>
     </option>
-  </component>
-  <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="web" url="file://$PROJECT_DIR$" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
@@ -58,7 +43,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.23632507324218752" />
+        <option name="scale" value="0.13969573974609373" />
       </ProjectState>
     </option>
   </component>
