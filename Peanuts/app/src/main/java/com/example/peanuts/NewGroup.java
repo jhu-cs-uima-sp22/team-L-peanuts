@@ -173,7 +173,7 @@ public class NewGroup extends AppCompatActivity {
             List<NewAccount.User> member = adapter.getMembers();
             List<String> restrictions = adapter.getRestrictions();
 
-            GroupItem group = new GroupItem(groupName, member, restrictions, user);
+            GroupItem group = new GroupItem(groupName, member, restrictions, user, uuid);
             groupsDB.child(uuid).setValue(group);
 
             DatabaseReference userGroup = usersDB.child(user).child("groups").push();
