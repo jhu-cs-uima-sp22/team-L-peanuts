@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ExploreFragment extends Fragment {
 
@@ -72,6 +74,7 @@ public class ExploreFragment extends Fragment {
         database = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
         myRef = database.getReference();
 
+        initSearch(root);
        myRef.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -98,9 +101,6 @@ public class ExploreFragment extends Fragment {
                             Log.d("debug", "done");
                         }
                     }
-                    FoodItem item = new FoodItem("food", "");
-                    usersPost.add(item);
-                    //FIX
                 } else {
                     Log.d("debug", "in empty");
                 }
@@ -119,5 +119,32 @@ public class ExploreFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void initSearch (View root) {
+       SearchView searchView = (SearchView) root.findViewById(R.id.searchView);
+
+       searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+           @Override
+           public boolean onQueryTextSubmit(String s) {
+               return false;
+           }
+
+           @Override
+           public boolean onQueryTextChange(String s) {
+               ArrayList<FoodItem> filteredPosts = new ArrayList<>();
+               for (FoodItem post: usersPost) {
+                   if (post.getName().toLowerCase().contains(s.toLowerCase())) {
+                       filteredPosts.add(post);
+                   }
+               }
+
+               PostAdapter filteredAdapter = new PostAdapter(getContext(), R.layout.explore_posts, filteredPosts);
+               if (list != null) {
+                   list.setAdapter(filteredAdapter);
+               }
+               return false;
+           }
+       });
     }
 }
