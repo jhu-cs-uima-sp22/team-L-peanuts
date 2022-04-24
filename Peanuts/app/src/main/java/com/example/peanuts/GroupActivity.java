@@ -5,14 +5,12 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -55,12 +53,6 @@ public class GroupActivity extends AppCompatActivity {
                 addMealPlanButton.setVisibility(View.INVISIBLE);
             }
         }
-        Context ctx = getApplicationContext();
-        GroupMemberAdapter memberAdapter = new GroupMemberAdapter(ctx, R.layout.group_users_layout, members);
-        ListView membersList = (ListView) this.findViewById(R.id.MembersList);
-        membersList.setAdapter(memberAdapter);
-        registerForContextMenu(membersList);
-        memberAdapter.notifyDataSetChanged();
     }
 
     @Override
