@@ -40,7 +40,7 @@ public class GroupAddFood extends AppCompatActivity {
     protected Context context;
     private Button done;
     private ArrayList<FoodItem> addedItems;
-    protected SharedPreferences sp;
+    //protected SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
