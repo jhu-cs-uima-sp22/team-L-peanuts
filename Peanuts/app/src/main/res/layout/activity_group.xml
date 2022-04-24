@@ -149,11 +149,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MealPlanResponse" />
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <ListView
+    <ScrollView
         android:id="@+id/ResponsesSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -167,12 +163,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ListView
-                android:id="@+id/MembersList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
         </LinearLayout>
-    </ListView>
+    </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/PlaceHolder"
