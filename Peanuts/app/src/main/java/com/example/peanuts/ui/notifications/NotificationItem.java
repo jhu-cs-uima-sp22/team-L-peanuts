@@ -3,17 +3,19 @@ package com.example.peanuts.ui.notifications;
 public class NotificationItem {
 
     String groupName;
-    boolean type; //true for new group, false for menu change
+    boolean isGroupInvite; //true for new group, false for menu change
     String owner;
+    String group;
 
-    NotificationItem (String groupName, boolean type) { //menu change
+    public NotificationItem(String groupName, String type, String group) { //menu change
         this.groupName = groupName;
-        this.type = type;
+        this.isGroupInvite = type.equals("true");
+        this.group = group;
     }
 
     NotificationItem (String groupName, boolean type, String owner) { //new group
         this.groupName = groupName;
-        this.type = type;
+        this.isGroupInvite = type;
         this.owner = owner;
     }
 
@@ -21,9 +23,11 @@ public class NotificationItem {
         return groupName;
     }
 
-    public boolean getType() {
-        return type;
+    public boolean isGroupInvite() {
+        return isGroupInvite;
     }
+
+    public String getGroup() { return group; }
 
     public String getOwner() {
         return owner;

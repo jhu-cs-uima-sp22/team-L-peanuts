@@ -59,7 +59,7 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
 
         memberName.setText(name);
         memberEmail.setText(email);
-        
+
         Context context = getContext();
         memberImage.setImageDrawable(context.getDrawable(R.drawable.baseline_account_circle_24));
 
