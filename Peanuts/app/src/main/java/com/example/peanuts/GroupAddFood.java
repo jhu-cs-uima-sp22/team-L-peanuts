@@ -106,13 +106,18 @@ public class GroupAddFood extends AppCompatActivity {
                 //myRefGroups.child(id).setValue(addedItems);
                 addedItems = adapter.getAddedItems();
                 preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                String user = preferences.getString("user_email", "");
-                DatabaseReference userGroup = myRefPosts.child("groups").push();
-                String userKey = userGroup.getKey();
+                DatabaseReference userGroup = myRefGroups.child(id).child("foods").push();
                 Map<String, Object> map = new HashMap<>();
-                map.put(userKey, addedItems);
+                String userKey = userGroup.getKey();
+
+                for (FoodItem food : addedItems) {
+                    userKey = userKey + 1;
+                    map.put(userKey, food);
+                }
+                myRefGroups.child(id).child("foods").updateChildren(map);
+
                 Log.d("map", String.valueOf(map));
-                userGroup.child(id).child("foods").updateChildren(map);
+
                 finish();
             }
         });
