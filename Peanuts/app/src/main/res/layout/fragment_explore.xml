@@ -42,6 +42,7 @@
         android:soundEffectsEnabled="true"
         app:layout_constraintTop_toBottomOf="@+id/added_users"
         tools:layout_editor_absoluteX="1dp"
+        android:paddingBottom="180sp"
         />
 
     <SearchView

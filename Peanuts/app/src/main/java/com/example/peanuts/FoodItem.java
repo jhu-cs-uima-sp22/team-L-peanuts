@@ -1,11 +1,22 @@
 package com.example.peanuts;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.util.Log;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -19,6 +30,8 @@ public class FoodItem {
     int index;
     private byte[] data;
     private String randomID;
+    private StorageReference storageReference;
+    private boolean isChecked;
 
 
     FoodItem() {}
@@ -101,5 +114,45 @@ public class FoodItem {
             return null;
         }
         return allergens;
+    }
+
+    public boolean changeChecked(boolean b) {
+        isChecked = b;
+        return isChecked;
+    }
+
+    public void setImage (String path, ImageView image) {
+        if (path != null && !path.equals("")) {
+            //get the storage reference
+            storageReference = FirebaseStorage.getInstance("gs://peanuts-e9a7c.appspot.com").getReference().child(path);
+            Log.d("debug", "got storage ref");
+
+            //create temp file for image
+            File file = null;
+            try {
+                file = File.createTempFile("images", "jpg");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            File finalLocalFile = file;
+            Log.d("debug", "got file");
+
+            //store to storage
+            storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Log.d("debug", "in on success for retrieving image");
+                    Bitmap bitmap = BitmapFactory.decodeFile(finalLocalFile.getAbsolutePath());
+                    image.setImageBitmap(bitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("debug", "in on failure for retrieving image");
+
+                }
+            });
+        }
     }
 }

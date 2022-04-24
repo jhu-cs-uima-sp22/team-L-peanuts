@@ -1,6 +1,7 @@
 package com.example.peanuts.ui.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,8 +19,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.peanuts.FoodDetail;
 import com.example.peanuts.FoodItem;
 import com.example.peanuts.R;
 import com.example.peanuts.UsersAdapter;
@@ -49,6 +52,7 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
     private final List<FoodItem> fullPosts = new ArrayList<>();
     private List<FoodItem> posts;
     private final UsersAdapter.Listener listener = new UsersAdapter.Listener();
+    private CardView cardView;
 
 
 
@@ -57,7 +61,7 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
         Log.d("debug", "in post constructor");
         resource = res;
         this.posts = items;
-        fullPosts.addAll(items);
+        //fullPosts.addAll(items);
 
 
     }
@@ -90,54 +94,45 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
 
         //Title
         String name = it.getName();
-        if (name != null) {
-            textView.setText(name);
-            Log.d("debug", "set name");
-        } else {
-            name = "Untitled";
-            textView.setText(name);
+        if (textView != null) {
+            if (name != null) {
+                textView.setText(name);
+                Log.d("debug", "set name");
+            } else {
+                name = "Untitled";
+                textView.setText(name);
+            }
         }
 
         //Image
         //it.getHasImage()
 
-            String path = it.getImageUri();
-            Log.d("debug", "got path");
-            Log.d("debug", path);
-        if (path != null && !path.equals("")) {
-            //get the storage reference
-            storageReference = FirebaseStorage.getInstance("gs://peanuts-e9a7c.appspot.com").getReference().child(path);
-            Log.d("debug", "got storage ref");
+        String path = it.getImageUri();
+        Log.d("debug", "got path");
+        Log.d("debug", path);
 
-            //create temp file for image
-            File file = null;
-            try {
-                file = File.createTempFile("images", "jpg");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (image != null) {
+            it.setImage(path, image);
+        }
 
-            File finalLocalFile = file;
-            Log.d("debug", "got file");
-
-            //store to storage
-            storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+        cardView = (CardView) itemView.findViewById(R.id.card_view);
+        if (cardView != null) {
+            cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Log.d("debug", "in on success for retrieving image");
-                    Bitmap bitmap = BitmapFactory.decodeFile(finalLocalFile.getAbsolutePath());
-                    image.setImageBitmap(bitmap);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d("debug", "in on failure for retrieving image");
-
+                public void onClick(View view) {
+                    Log.d("debug", "in on click");
+                    Context context = getContext();
+                    Intent intent = new Intent(context, FoodDetail.class);
+                    intent.putExtra("name", it.getName());
+                    intent.putExtra("allergens", it.getAllergens());
+                    intent.putExtra("image", it.getImageUri());
+                    context.startActivity(intent);
+                    Log.d("debug", "started activity");
+                    notifyDataSetChanged();
                 }
             });
         }
-
-        Log.d("debug", "didn't have image");
+        //Log.d("debug", "didn't have image");
         return itemView;
     }
 
