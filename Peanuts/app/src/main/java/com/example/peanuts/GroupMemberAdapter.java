@@ -38,7 +38,6 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LinearLayout groupMemberView;
-        Log.d("IT", String.valueOf(getItem(position)));
 
         if (convertView == null) {
             groupMemberView = new LinearLayout(getContext());
@@ -60,6 +59,7 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
 
         memberName.setText(name);
         memberEmail.setText(email);
+        
         Context context = getContext();
         memberImage.setImageDrawable(context.getDrawable(R.drawable.baseline_account_circle_24));
 
