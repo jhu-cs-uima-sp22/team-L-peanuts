@@ -49,7 +49,7 @@ public class GroupItemAdapter extends ArrayAdapter<GroupItem> {
         TextView memberCount = (TextView) groupItemView.findViewById(R.id.member_count);
         Context context = getContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (it.getHost().equals(preferences.getString("user_email", "")))
+        if (it.getHost() != null && it.getHost().equals(preferences.getString("user_email", "")))
             groupName.setText(it.getGroupName() + " (Host)");
         else
             groupName.setText(it.getGroupName());
@@ -78,6 +78,7 @@ public class GroupItemAdapter extends ArrayAdapter<GroupItem> {
                 args.putSerializable("restrictions", (Serializable) it.getRestrictions());
                 args.putSerializable("members", (Serializable) it.getMembers());
                 intent.putExtra("bundle", args);
+                intent.putExtra("id", it.getId());
                 context.startActivity(intent);
             }
         });

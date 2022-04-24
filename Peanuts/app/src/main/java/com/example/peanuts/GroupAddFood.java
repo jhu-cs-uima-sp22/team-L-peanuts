@@ -25,13 +25,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GroupAddFood extends AppCompatActivity {
 
     protected FirebaseDatabase databasePosts;
     protected DatabaseReference myRefPosts;
-    protected FirebaseDatabase databaseGroups;
-    protected DatabaseReference myRefGroups;
     private ArrayList<FoodItem> usersPost;
     private TextView title;
     private Icon icon;
@@ -40,7 +40,10 @@ public class GroupAddFood extends AppCompatActivity {
     protected Context context;
     private Button done;
     private ArrayList<FoodItem> addedItems;
-    //protected SharedPreferences sp;
+    private String id;
+    private FirebaseDatabase databaseGroups = FirebaseDatabase.getInstance("https://peanuts-e9a7c-default-rtdb.firebaseio.com/");
+    private DatabaseReference myRefGroups = databaseGroups.getReference("groups");
+    protected SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class GroupAddFood extends AppCompatActivity {
         setContentView(R.layout.activity_group_add_food);
         Intent intent = getIntent();
         setTitle("Add Item");
+        id = intent.getStringExtra("id");
 
         context = getApplicationContext();
         usersPost = new ArrayList<>();
@@ -99,6 +103,16 @@ public class GroupAddFood extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //add addedItems to group database
+                //myRefGroups.child(id).setValue(addedItems);
+                addedItems = adapter.getAddedItems();
+                preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                String user = preferences.getString("user_email", "");
+                DatabaseReference userGroup = myRefPosts.child("groups").push();
+                String userKey = userGroup.getKey();
+                Map<String, Object> map = new HashMap<>();
+                map.put(userKey, addedItems);
+                Log.d("map", String.valueOf(map));
+                userGroup.child(id).child("foods").updateChildren(map);
                 finish();
             }
         });

@@ -80,7 +80,7 @@ public class GroupsFragment extends Fragment {
                     List<NewAccount.User> members = (List<NewAccount.User>) dataSnapshot.child("groups").child(id).child("members").getValue();
                     List<String> restrictions = (List<String>) dataSnapshot.child("groups").child(id).child("restrictions").getValue();
                     String host = (String) dataSnapshot.child("groups").child(id).child("host").getValue();
-                    groupItems.add(new GroupItem(groupName, members, restrictions, host));
+                    groupItems.add(new GroupItem(groupName, members, restrictions, host, id));
                 }
                 adapter = new GroupItemAdapter(context, R.layout.group_layout, groupItems);
                 myList.setAdapter(adapter);

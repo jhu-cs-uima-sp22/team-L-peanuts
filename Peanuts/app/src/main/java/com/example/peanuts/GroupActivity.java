@@ -16,6 +16,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GroupActivity extends AppCompatActivity {
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class GroupActivity extends AppCompatActivity {
         HorizontalScrollView restrictionsView = (HorizontalScrollView) findViewById(R.id.RestrictionsInGroups);
         ConstraintLayout response = (ConstraintLayout) findViewById(R.id.MealPlanResponse);
         Bundle args = intent.getBundleExtra("bundle");
+        id = intent.getStringExtra("id");
         ArrayList<FoodItem> foods = (ArrayList<FoodItem>) args.getSerializable("foods");
         ArrayList<String> restrictions = (ArrayList<String>) args.getSerializable("restrictions");
         ArrayList<NewAccount.User> members = (ArrayList<NewAccount.User>) args.getSerializable("members");
@@ -66,6 +68,7 @@ public class GroupActivity extends AppCompatActivity {
 
     public void toAddFoodInGroup(View v) {
         Intent intent = new Intent(this, GroupAddFood.class);
+        intent.putExtra("id", id);
         startActivity(intent);
     }
 }
