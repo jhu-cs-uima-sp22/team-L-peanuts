@@ -55,6 +55,55 @@ public class GroupActivity extends AppCompatActivity {
                 addMealPlanButton.setVisibility(View.INVISIBLE);
             }
         }
+        ConstraintLayout cardView;
+        if (!restrictions.contains("Peanuts")) {
+            cardView = (ConstraintLayout) this.findViewById(R.id.peanuts);
+            cardView.setMaxWidth(0);
+        }
+        if (!restrictions.contains("Dairy")) {
+            cardView = (ConstraintLayout) this.findViewById(R.id.dairy);
+            cardView.setMaxWidth(0);
+        }
+        if (!restrictions.contains("Seafood")) {
+            cardView = (ConstraintLayout) this.findViewById(R.id.seafood);
+            cardView.setMaxWidth(0);
+        }
+        if (!restrictions.contains("Soy")) {
+            cardView = (ConstraintLayout) this.findViewById(R.id.soy);
+            cardView.setMaxWidth(0);
+        }
+        if (!restrictions.contains("Strawberries")) {
+            cardView = (ConstraintLayout) this.findViewById(R.id.strawberries);
+            cardView.setMaxWidth(0);
+        }
+        if (!restrictions.contains("Shellfish")) {
+            cardView = (ConstraintLayout) this.findViewById(R.id.shellfish);
+            cardView.setMaxWidth(0);
+        }
+        if (!restrictions.contains("Eggs")) {
+            cardView = (ConstraintLayout) this.findViewById(R.id.eggs);
+            cardView.setMaxWidth(0);
+        }
+        if (!restrictions.contains("Tree Nuts")) {
+            cardView = (ConstraintLayout) this.findViewById(R.id.treenuts);
+            cardView.setMaxWidth(0);
+        }
+        if (!restrictions.contains("Wheat")) {
+            cardView = (ConstraintLayout) this.findViewById(R.id.wheat);
+            cardView.setMaxWidth(0);
+        }
+        if (!restrictions.contains("Gluten")) {
+            cardView = (ConstraintLayout) this.findViewById(R.id.gluten);
+            cardView.setMaxWidth(0);
+        }
+        if (!restrictions.contains("Avocado")) {
+            cardView = (ConstraintLayout) this.findViewById(R.id.avocado);
+            cardView.setMaxWidth(0);
+        }
+        if (!restrictions.contains("Sesame")) {
+            cardView = (ConstraintLayout) this.findViewById(R.id.sesame);
+            cardView.setMaxWidth(0);
+        }
         Context ctx = getApplicationContext();
         GroupMemberAdapter memberAdapter = new GroupMemberAdapter(ctx, R.layout.group_users_layout, members);
         ListView membersList = (ListView) this.findViewById(R.id.ResponseList);
