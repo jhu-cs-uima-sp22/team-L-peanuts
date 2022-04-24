@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,22 +18,27 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
 
-
     int resource;
 
-    public GroupMemberAdapter(Context ctx, int res, List<NewAccount.User> members) {
-        super(ctx, res, members);
+    ArrayList<NewAccount.User> members = new ArrayList<>();
+
+    public GroupMemberAdapter(Context ctx, int res, List<NewAccount.User> member) {
+        super(ctx, res, member);
         resource = res;
+        this.members.addAll(member);
+        Log.d("MEMBERS", String.valueOf(members));
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LinearLayout groupMemberView;
-        NewAccount.User it = getItem(position);
+        Log.d("IT", String.valueOf(getItem(position)));
 
         if (convertView == null) {
             groupMemberView = new LinearLayout(getContext());
@@ -47,8 +53,13 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
         TextView memberEmail = (TextView) groupMemberView.findViewById(R.id.UserEmail);
         ImageView memberImage = (ImageView) groupMemberView.findViewById(R.id.UserImage);
 
-        memberName.setText(it.getName());
-        memberEmail.setText(it.getEmail());
+        Map<String, String> user = (Map<String, String>) getItem(position);
+
+        String name = user.get("name");
+        String email = user.get("email");
+
+        memberName.setText(name);
+        memberEmail.setText(email);
         Context context = getContext();
         memberImage.setImageDrawable(context.getDrawable(R.drawable.baseline_account_circle_24));
 
