@@ -69,6 +69,7 @@ public class GroupsFragment extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                groupItems = new ArrayList<>();
 //                groupIds =  dataSnapshot.child("users").child(email).child("groups").getValue();
 //                if (groupIds == null) {
 //                    groupIds = new ArrayList<>();
@@ -90,6 +91,7 @@ public class GroupsFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 groupIds = new ArrayList<>();
+                groupItems = new ArrayList<>();
             }
         });
 
