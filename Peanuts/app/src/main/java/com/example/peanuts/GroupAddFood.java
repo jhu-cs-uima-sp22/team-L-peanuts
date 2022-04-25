@@ -18,6 +18,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.peanuts.ui.home.PostAdapter;
+import com.example.peanuts.ui.notifications.NotificationItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,7 +43,7 @@ public class GroupAddFood extends AppCompatActivity {
     private ArrayList<FoodItem> addedItems;
     private String id;
     private FirebaseDatabase databaseGroups = FirebaseDatabase.getInstance("https://peanuts-e9a7c-default-rtdb.firebaseio.com/");
-    private DatabaseReference myRefGroups = databaseGroups.getReference("groups");
+    private DatabaseReference myRefGroups = databaseGroups.getReference();
     protected SharedPreferences preferences;
 
     @Override
@@ -106,7 +107,7 @@ public class GroupAddFood extends AppCompatActivity {
                 //myRefGroups.child(id).setValue(addedItems);
                 addedItems = adapter.getAddedItems();
                 preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                DatabaseReference userGroup = myRefGroups.child(id).child("foods").push();
+                DatabaseReference userGroup = myRefGroups.child("groups").child(id).child("foods").push();
                 Map<String, Object> map = new HashMap<>();
                 String userKey = userGroup.getKey();
 
@@ -114,7 +115,29 @@ public class GroupAddFood extends AppCompatActivity {
                     userKey = userKey + 1;
                     map.put(userKey, food);
                 }
-                myRefGroups.child(id).child("foods").updateChildren(map);
+
+                myRefGroups.child("groups").child(id).child("foods").updateChildren(map);
+
+                myRefGroups.child("groups").child(id).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String group = dataSnapshot.child("groupName").getValue().toString();
+                        NotificationItem notif = new NotificationItem(group, "false", id);
+                        Map<String, Object> map = new HashMap<>();
+                        map.put(id, notif);
+                        for (DataSnapshot user : dataSnapshot.child("members").getChildren()) {
+                            myRefGroups.child("users").child(user.child("email").getValue().toString()).child("notifications").updateChildren(map);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                }
+            );
+
 
                 Log.d("map", String.valueOf(map));
 
