@@ -36,7 +36,7 @@ public class GroupItem {
 
     public List<NewAccount.User> getMembers() { return members; }
 
-    public List<String> getRestrictions() { return  restrictions; }
+    public List<String> getRestrictions() { return restrictions; }
 
     public String getHost() { return host; }
 
