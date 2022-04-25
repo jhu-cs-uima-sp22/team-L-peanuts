@@ -88,6 +88,7 @@ public class NewAccount extends AppCompatActivity {
         public String password;
         public String email;
         public ArrayList<String> restrictions;
+        public String path;
 
         User(String username, String email, String password, ArrayList<String> restrictions) {
             this.name = username;
@@ -112,6 +113,14 @@ public class NewAccount extends AppCompatActivity {
         public String getName() { return name; }
 
         public String getEmail() { return email; }
+
+        public void setPath(String path) {
+            this.path = path;
+        }
+
+        public String getPath() {
+            return path;
+        }
 
         public ArrayList<String> getRestrictions() { return restrictions; }
 

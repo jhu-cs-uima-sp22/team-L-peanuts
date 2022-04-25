@@ -95,7 +95,7 @@ public class NewGroup extends AppCompatActivity {
             for (DataSnapshot userItem: dataSnapshot.getChildren()) {
                 String email = (String) userItem.child("email").getValue();
 
-                if (!email.equals(user)) {
+                if (email != null && !email.equals(user)) {
                     String name = (String) userItem.child("name").getValue();
                     ArrayList<String> restrictions = (ArrayList<String>) userItem.child("restrictions").getValue();
 
