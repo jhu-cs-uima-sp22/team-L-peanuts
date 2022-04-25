@@ -86,4 +86,8 @@ public class GroupAddFoodAdapter extends ArrayAdapter<FoodItem> {
         //Log.d("debug", "didn't have image");
         return itemView;
     }
+
+    public ArrayList<FoodItem> getAddedItems () {
+        return addedItems;
+    }
 }
