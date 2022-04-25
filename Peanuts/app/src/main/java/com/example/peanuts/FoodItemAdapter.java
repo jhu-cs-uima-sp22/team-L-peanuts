@@ -61,8 +61,7 @@ public class FoodItemAdapter extends ArrayAdapter<FoodItem> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LinearLayout foodItemView;
-        //ArrayList<Integer> foods =
-        FoodItem it = getItem(position);
+//        FoodItem it = getItem(position);
 
         if (convertView == null) {
             foodItemView = new LinearLayout(getContext());
