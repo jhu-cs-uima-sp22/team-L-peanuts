@@ -108,6 +108,7 @@ public class NewGroup extends AppCompatActivity {
                 myList.setAdapter(adapter);
                 // refresh view
                 adapter.notifyDataSetChanged();
+                //test
             }
         }
         @Override
