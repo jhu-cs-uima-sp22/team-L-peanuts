@@ -4,15 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -32,7 +38,14 @@ public class GroupActivity extends AppCompatActivity {
         HorizontalScrollView restrictionsView = (HorizontalScrollView) findViewById(R.id.RestrictionsInGroups);
         ConstraintLayout response = (ConstraintLayout) findViewById(R.id.MealPlanResponse);
         Bundle args = intent.getBundleExtra("bundle");
-        ArrayList<FoodItem> foods = (ArrayList<FoodItem>) args.getSerializable("foods");
+        //ArrayList<FoodItem> foods = (ArrayList<FoodItem>) args.getSerializable("foods");
+        //for testing
+        ArrayList<FoodItem> foods = new ArrayList<>();
+        boolean[] booleans = new boolean[12];
+        booleans[5] = true;
+        foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
+        foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
+
         ArrayList<String> restrictions = (ArrayList<String>) args.getSerializable("restrictions");
         ArrayList<NewAccount.User> members = (ArrayList<NewAccount.User>) args.getSerializable("members");
         if (isHost) {
@@ -110,6 +123,12 @@ public class GroupActivity extends AppCompatActivity {
         membersList.setAdapter(memberAdapter);
         registerForContextMenu(membersList);
         memberAdapter.notifyDataSetChanged();
+
+        //populate the meal plan with current foods
+        GroupMealPlanAdapter mealPlanAdapter = new GroupMealPlanAdapter(ctx, R.layout.mealplan_layout, foods);
+        ListView meals = (ListView) this.findViewById(R.id.meals);
+        meals.setRotation(-90);
+        meals.setAdapter(mealPlanAdapter);
     }
 
     @Override
