@@ -34,7 +34,6 @@ public class GroupActivity extends AppCompatActivity {
         setTitle(name);
         boolean isHost = intent.getBooleanExtra("isHost", false);
         ConstraintLayout placeholder = (ConstraintLayout) findViewById(R.id.PlaceHolder);
-        HorizontalScrollView mealPlan = (HorizontalScrollView) findViewById(R.id.MealPlanSection);
         HorizontalScrollView restrictionsView = (HorizontalScrollView) findViewById(R.id.RestrictionsInGroups);
         ConstraintLayout response = (ConstraintLayout) findViewById(R.id.MealPlanResponse);
         Bundle args = intent.getBundleExtra("bundle");
@@ -45,27 +44,25 @@ public class GroupActivity extends AppCompatActivity {
         booleans[5] = true;
         foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
         foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
+        foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
+        foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
+        foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
 
         ArrayList<String> restrictions = (ArrayList<String>) args.getSerializable("restrictions");
         ArrayList<NewAccount.User> members = (ArrayList<NewAccount.User>) args.getSerializable("members");
         if (isHost) {
             placeholder.setVisibility(View.INVISIBLE);
-            mealPlan.setVisibility(View.VISIBLE);
             restrictionsView.setVisibility(View.VISIBLE);
         } else {
             if (foods.isEmpty()) { //check if meal plan is empty
                 //if meal plan is empty
                 placeholder.setVisibility(View.VISIBLE);
-                mealPlan.setVisibility(View.INVISIBLE);
                 response.setVisibility(View.INVISIBLE);
                 restrictionsView.setVisibility(View.INVISIBLE);
             } else {
                 //if meal plan exists
                 placeholder.setVisibility(View.INVISIBLE);
-                mealPlan.setVisibility(View.VISIBLE);
                 response.setVisibility(View.VISIBLE);
-                ImageButton addMealPlanButton = (ImageButton) findViewById(R.id.AddToMealPlan);
-                addMealPlanButton.setVisibility(View.INVISIBLE);
             }
         }
         ConstraintLayout cardView;

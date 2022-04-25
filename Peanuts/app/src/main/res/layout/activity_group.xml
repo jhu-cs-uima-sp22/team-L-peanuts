@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#FFFFFF"
     tools:context=".GroupActivity">
 
     <TextView
@@ -24,49 +25,26 @@
     <ListView
         android:id="@+id/meals"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="500dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="-60dp"
+        android:divider="@null"
+        android:dividerHeight="5dp"
+        android:isScrollContainer="true"
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        android:scrollbars="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MealPlan" />
-
-    <HorizontalScrollView
-        android:id="@+id/MealPlanSection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/meals"
-        app:layout_constraintTop_toBottomOf="@+id/MealPlan"
-        tools:ignore="SpeakableTextPresentCheck">
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="300dp">
-
-            <ImageButton
-                android:id="@+id/AddToMealPlan"
-                android:layout_width="250dp"
-                android:layout_height="300dp"
-                android:layout_weight="1"
-                android:onClick="toAddFoodInGroup"
-                android:outlineProvider="paddedBounds"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/add_food_to_meal_plan"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-        </LinearLayout>
-    </HorizontalScrollView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <HorizontalScrollView
         android:id="@+id/RestrictionsInGroups"
         android:layout_width="match_parent"
         android:layout_height="80sp"
-        android:layout_marginTop="8sp"
+        android:layout_marginTop="-70dp"
         android:background="#FFFFFF"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MealPlanSection"
+        app:layout_constraintTop_toBottomOf="@+id/meals"
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
@@ -415,13 +393,13 @@
         android:id="@+id/MealPlanResponse"
         android:layout_width="match_parent"
         android:layout_height="80sp"
-        android:layout_marginTop="8sp"
+        android:layout_marginTop="-70dp"
         android:background="#FF9800"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MealPlanSection">
+        app:layout_constraintTop_toBottomOf="@+id/meals">
 
         <TextView
             android:id="@+id/textView17"
@@ -484,5 +462,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="100dp"
+        app:layout_constraintStart_toEndOf="@+id/MealPlan"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/outline_add_circle_outline_24"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
