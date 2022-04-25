@@ -191,7 +191,7 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                     byte[] data = baos.toByteArray();
 
                     UUID random = UUID.randomUUID();
-                    String path = "images/" + random + ".jpg";
+                    String path = "images/" + random + ".png";
                     StorageReference fireRef = storage.getReference(path);
 
                     //StorageMetadata metadata = new StorageMetadata.Builder().setCustomMetadata("food post", email).build();

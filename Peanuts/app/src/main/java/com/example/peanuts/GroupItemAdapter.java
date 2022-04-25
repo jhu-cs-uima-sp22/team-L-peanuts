@@ -66,11 +66,7 @@ public class GroupItemAdapter extends ArrayAdapter<GroupItem> {
                 //***NEED TO CHANGE BELOW*** ADD all the data needed and pass it
                 Context context = getContext();
                 Intent intent = new Intent(context, GroupActivity.class);
-                //String name = myact.foodItems.get(groupPosition).getName();
-                //boolean[] restrictions = myact.foodItems.get(groupPosition).getRestrictions();
-                //intent.putExtra("name", name);
-                //intent.putExtra("restrictions", restrictions);
-                //intent.putExtra("image", R.drawable.spaghetti);
+
                 intent.putExtra("name", it.getGroupName());
                 intent.putExtra("isHost", it.getHost().equals(preferences.getString("user_email", "")));
                 Bundle args = new Bundle();

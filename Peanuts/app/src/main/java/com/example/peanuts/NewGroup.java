@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.peanuts.ui.notifications.NotificationItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -95,7 +96,7 @@ public class NewGroup extends AppCompatActivity {
             for (DataSnapshot userItem: dataSnapshot.getChildren()) {
                 String email = (String) userItem.child("email").getValue();
 
-                if (email != null && !email.equals(user)) {
+                if (!email.equals(user)) {
                     String name = (String) userItem.child("name").getValue();
                     ArrayList<String> restrictions = (ArrayList<String>) userItem.child("restrictions").getValue();
 
@@ -184,12 +185,11 @@ public class NewGroup extends AppCompatActivity {
 
 
             for (NewAccount.User groupMember : member) {
-//                Map<String, Object> groupMap = new HashMap<>();
-//                groupMap.put("0", uuid);
 
                 Map<String, Object> notifications = new HashMap<>();
                 //group as id, true for group notification
-                notifications.put(uuid, true);
+                NotificationItem notif = new NotificationItem(groupName, "true", uuid);
+                notifications.put(uuid, notif);
                 usersDB.child(groupMember.getEmail()).child("groups").updateChildren(map);
                 usersDB.child(groupMember.getEmail()).child("notifications").updateChildren(notifications);
             }
