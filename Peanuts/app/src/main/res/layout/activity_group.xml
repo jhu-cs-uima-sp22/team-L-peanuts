@@ -468,6 +468,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="100dp"
+        android:onClick="toAddFoodInGroup"
         app:layout_constraintStart_toEndOf="@+id/MealPlan"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/outline_add_circle_outline_24"
