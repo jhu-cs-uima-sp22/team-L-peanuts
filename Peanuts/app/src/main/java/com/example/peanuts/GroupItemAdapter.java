@@ -78,6 +78,7 @@ public class GroupItemAdapter extends ArrayAdapter<GroupItem> {
                 args.putSerializable("restrictions", (Serializable) it.getRestrictions());
                 args.putSerializable("members", (Serializable) it.getMembers());
                 intent.putExtra("bundle", args);
+                intent.putExtra("id", it.getId());
                 context.startActivity(intent);
             }
         });

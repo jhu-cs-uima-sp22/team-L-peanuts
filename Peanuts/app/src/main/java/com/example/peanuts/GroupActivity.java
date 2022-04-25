@@ -24,6 +24,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GroupActivity extends AppCompatActivity {
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,9 @@ public class GroupActivity extends AppCompatActivity {
         foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
         foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
 
+        id = intent.getStringExtra("id");
+        //ArrayList<FoodItem> foods = (ArrayList<FoodItem>) args.getSerializable("foods"); **REAL CODE**
+      
         ArrayList<String> restrictions = (ArrayList<String>) args.getSerializable("restrictions");
         ArrayList<NewAccount.User> members = (ArrayList<NewAccount.User>) args.getSerializable("members");
         if (isHost) {
@@ -139,6 +143,7 @@ public class GroupActivity extends AppCompatActivity {
 
     public void toAddFoodInGroup(View v) {
         Intent intent = new Intent(this, GroupAddFood.class);
+        intent.putExtra("id", id);
         startActivity(intent);
     }
 }
