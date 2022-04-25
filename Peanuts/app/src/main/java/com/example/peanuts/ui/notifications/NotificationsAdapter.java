@@ -10,10 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.peanuts.GroupItem;
 import com.example.peanuts.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NotificationsAdapter extends ArrayAdapter<NotificationItem> {
@@ -47,8 +45,9 @@ public class NotificationsAdapter extends ArrayAdapter<NotificationItem> {
         ImageView accept = (ImageView) itemView.findViewById(R.id.group_accept);
         ImageView decline = (ImageView) itemView.findViewById(R.id.group_decline);
 
-        if (it.getType()) { //new group notification
-            message.setText(it.getGroupName());
+
+        if (it.isGroupInvite()) { //new group notification
+            message.setText("New Group Invite" + it.getGroupName());
             owner.setText(it.getOwner());
 
             //need to add onClickListener
@@ -60,7 +59,6 @@ public class NotificationsAdapter extends ArrayAdapter<NotificationItem> {
             String str = "Menu Change!";
             message.setText(str);
             owner.setVisibility(View.INVISIBLE);
-
 
             accept.setVisibility(View.INVISIBLE);
             decline.setVisibility(View.INVISIBLE);
