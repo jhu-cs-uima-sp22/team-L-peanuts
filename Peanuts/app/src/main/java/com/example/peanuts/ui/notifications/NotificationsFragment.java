@@ -67,11 +67,14 @@ public class NotificationsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot notification : dataSnapshot.getChildren()) {
                     Log.d("NOTIF", String.valueOf(notification));
-                    String name = notification.child("groupName").getValue().toString();
-                    String invite = notification.child("groupInvite").getValue().toString();
-                    String id = notification.getKey().toString();
-                    NotificationItem notif = new NotificationItem(name, invite, id);
-                    notifications.add(notif);
+                    String name;
+                    if (notification.child("groupName").getValue() != null && notification.child("groupInvite").getValue() != null) {
+                        name = notification.child("groupName").getValue().toString();
+                        String invite = notification.child("groupInvite").getValue().toString();
+                        String id = notification.getKey().toString();
+                        NotificationItem notif = new NotificationItem(name, invite, id);
+                        notifications.add(notif);
+                    }
                 }
                 adapter = new NotificationsAdapter(getContext(), R.layout.notifications_layout, notifications);
 
