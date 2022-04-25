@@ -63,21 +63,8 @@ public class GroupItemAdapter extends ArrayAdapter<GroupItem> {
         groupCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //***NEED TO CHANGE BELOW*** ADD all the data needed and pass it
                 Context context = getContext();
                 Intent intent = new Intent(context, GroupActivity.class);
-                //String name = myact.foodItems.get(groupPosition).getName();
-                //boolean[] restrictions = myact.foodItems.get(groupPosition).getRestrictions();
-                //intent.putExtra("name", name);
-                //intent.putExtra("restrictions", restrictions);
-                //intent.putExtra("image", R.drawable.spaghetti);
-                intent.putExtra("name", it.getGroupName());
-                intent.putExtra("isHost", it.getHost().equals(preferences.getString("user_email", "")));
-                Bundle args = new Bundle();
-                args.putSerializable("foods", (Serializable) it.getFoods());
-                args.putSerializable("restrictions", (Serializable) it.getRestrictions());
-                args.putSerializable("members", (Serializable) it.getMembers());
-                intent.putExtra("bundle", args);
                 intent.putExtra("id", it.getId());
                 context.startActivity(intent);
             }

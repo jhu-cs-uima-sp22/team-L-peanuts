@@ -1,6 +1,7 @@
 package com.example.peanuts.ui.notifications;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.peanuts.GroupActivity;
 import com.example.peanuts.R;
 
 import java.util.List;
@@ -102,9 +104,12 @@ public class NotificationsAdapter extends ArrayAdapter<NotificationItem> {
         changeGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //go to group page
                 notifications.remove(it);
                 notifyDataSetChanged();
+                Context context = getContext();
+                Intent intent = new Intent(context, GroupActivity.class);
+                intent.putExtra("id", it.getGroup());
+                context.startActivity(intent);
             }
         });
 
