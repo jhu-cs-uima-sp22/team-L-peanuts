@@ -9,6 +9,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -26,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,8 +46,12 @@ import com.example.peanuts.R;
 
 import com.example.peanuts.Settings;
 import com.example.peanuts.databinding.FragmentProfileBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.example.peanuts.databinding.FragmentProfileBinding;
@@ -53,6 +60,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
 public class ProfileFragment extends Fragment {
@@ -72,6 +82,8 @@ public class ProfileFragment extends Fragment {
     private DatabaseReference myRefForFoods;
     private FirebaseDatabase database;
     private FirebaseDatabase databaseForFoods;
+    private StorageReference storageReference;
+    private String path;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -258,6 +270,27 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        myRef.child(user).child("profile_image").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    path = dataSnapshot.getValue().toString();
+                    Log.d("debug", path);
+                    assert (path != null);
+                    ImageView image = (ImageView) root.findViewById(R.id.profile_photo);
+                    Log.d("debug", "before set image");
+                    setImage(path, image);
+                    Log.d("debug", "after set image");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("debug", "didnt work");
+            }
+        });
+
+
         adapter = new FoodItemAdapterProfile(this.getContext(), R.layout.food_layout_profile, myact.foodItems, user);
 
         myList.setAdapter(adapter);
@@ -287,6 +320,44 @@ public class ProfileFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void setImage (String path, ImageView image) {
+        Log.d("debug", "in set image");
+        //Log.d("debug", path);
+        if (path != null && !path.equals("")) {
+            Log.d("debug", "in if statment");
+            //get the storage reference
+            storageReference = FirebaseStorage.getInstance("gs://peanuts-e9a7c.appspot.com").getReference().child(path);
+            Log.d("debug", "got storage ref");
+
+            //create temp file for image
+            File file = null;
+            try {
+                file = File.createTempFile("images", "jpg");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            File finalLocalFile = file;
+            Log.d("debug", "got file");
+
+            //store to storage
+            storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Log.d("debug", "in on success for retrieving image");
+                    Bitmap bitmap = BitmapFactory.decodeFile(finalLocalFile.getAbsolutePath());
+                    image.setImageBitmap(bitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("debug", "in on failure for retrieving image");
+
+                }
+            });
+        }
     }
 
 }
