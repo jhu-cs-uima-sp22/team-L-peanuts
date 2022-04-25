@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.peanuts.ui.notifications.NotificationItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.security.acl.Group;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -185,12 +187,12 @@ public class NewGroup extends AppCompatActivity {
 
 
             for (NewAccount.User groupMember : member) {
-//                Map<String, Object> groupMap = new HashMap<>();
-//                groupMap.put("0", uuid);
+                String date = new Date().toString();
 
                 Map<String, Object> notifications = new HashMap<>();
+                NotificationItem notif = new NotificationItem(groupName, "true", uuid, date);
                 //group as id, true for group notification
-                notifications.put(uuid, true);
+                notifications.put(uuid, notif);
                 usersDB.child(groupMember.getEmail()).child("groups").updateChildren(map);
                 usersDB.child(groupMember.getEmail()).child("notifications").updateChildren(notifications);
             }
