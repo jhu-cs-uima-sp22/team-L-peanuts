@@ -69,8 +69,7 @@ public class NotificationsFragment extends Fragment {
                     Log.d("NOTIF", String.valueOf(notification));
                     String name = notification.child("groupName").getValue().toString();
                     String invite = notification.child("groupInvite").getValue().toString();
-//                    String id = notification.child("group").getValue().toString();
-                    String id = "1";
+                    String id = notification.getKey().toString();
                     NotificationItem notif = new NotificationItem(name, invite, id);
                     notifications.add(notif);
                 }
@@ -87,16 +86,6 @@ public class NotificationsFragment extends Fragment {
                 notifications = new ArrayList<>();
             }
         });
-
-
-//        notifications.add(new NotificationItem("Group1", true, "owner1"));
-//        notifications.add(new NotificationItem("Group2", true, "owner2"));
-//        notifications.add(new NotificationItem("Group3", true, "owner3"));
-//        notifications.add(new NotificationItem("Group4", false));
-//        notifications.add(new NotificationItem("Group5", true, "owner5"));
-//        notifications.add(new NotificationItem("Group6", false));
-
-
 
         /*ImageView accept = (ImageView) root.findViewById(R.id.group_accept);
         ImageView decline = (ImageView) root.findViewById(R.id.group_decline);
