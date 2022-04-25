@@ -69,7 +69,8 @@ public class NotificationsFragment extends Fragment {
                     Log.d("NOTIF", String.valueOf(notification));
                     String name = notification.child("groupName").getValue().toString();
                     String invite = notification.child("groupInvite").getValue().toString();
-                    String id = notification.getKey().toString();
+                    String id = notification.child("group").getValue().toString();
+//                    String id = notification.getKey().toString();
                     NotificationItem notif = new NotificationItem(name, invite, id);
                     notifications.add(notif);
                 }
