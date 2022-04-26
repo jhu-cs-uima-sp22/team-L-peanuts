@@ -31,7 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GroupActivity extends AppCompatActivity {
     private String id;
@@ -40,7 +42,7 @@ public class GroupActivity extends AppCompatActivity {
     private DatabaseReference myRef = database.getReference();
     private List<String> foodIds;
     private List<FoodItem> foods;
-    private List<String> restrictions;
+    private Map<String, List<String>> restrictions;
     private List<NewAccount.User> members;
 
 
@@ -58,7 +60,7 @@ public class GroupActivity extends AppCompatActivity {
         ConstraintLayout response = (ConstraintLayout) findViewById(R.id.MealPlanResponse);
         foodIds = new ArrayList<>();
         foods = new ArrayList<>();
-        restrictions = new ArrayList<>();
+        restrictions = new HashMap<>();
         members = new ArrayList<>();
         myRef.child("groups").child(id).addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,7 +84,7 @@ public class GroupActivity extends AppCompatActivity {
                 //**FOR TESTING**
 
                 members = (ArrayList<NewAccount.User>) dataSnapshot.child("members").getValue();
-                restrictions = (ArrayList<String>) dataSnapshot.child("restrictions").getValue();
+                restrictions = (Map<String, List<String>>) dataSnapshot.child("restrictions").getValue();
                 if (isHost) {
                     placeholder.setVisibility(View.INVISIBLE);
                     restrictionsView.setVisibility(View.VISIBLE);
@@ -99,51 +101,51 @@ public class GroupActivity extends AppCompatActivity {
                     }
                 }
                 ConstraintLayout cardView;
-                if (!restrictions.contains("Peanuts")) {
+                if (!restrictions.containsKey("Peanuts")) {
                     cardView = (ConstraintLayout) findViewById(R.id.peanuts);
                     cardView.setMaxWidth(0);
                 }
-                if (!restrictions.contains("Dairy")) {
+                if (!restrictions.containsKey("Dairy")) {
                     cardView = (ConstraintLayout) findViewById(R.id.dairy);
                     cardView.setMaxWidth(0);
                 }
-                if (!restrictions.contains("Seafood")) {
+                if (!restrictions.containsKey("Seafood")) {
                     cardView = (ConstraintLayout) findViewById(R.id.seafood);
                     cardView.setMaxWidth(0);
                 }
-                if (!restrictions.contains("Soy")) {
+                if (!restrictions.containsKey("Soy")) {
                     cardView = (ConstraintLayout) findViewById(R.id.soy);
                     cardView.setMaxWidth(0);
                 }
-                if (!restrictions.contains("Strawberries")) {
+                if (!restrictions.containsKey("Strawberries")) {
                     cardView = (ConstraintLayout) findViewById(R.id.strawberries);
                     cardView.setMaxWidth(0);
                 }
-                if (!restrictions.contains("Shellfish")) {
+                if (!restrictions.containsKey("Shellfish")) {
                     cardView = (ConstraintLayout) findViewById(R.id.shellfish);
                     cardView.setMaxWidth(0);
                 }
-                if (!restrictions.contains("Eggs")) {
+                if (!restrictions.containsKey("Eggs")) {
                     cardView = (ConstraintLayout) findViewById(R.id.eggs);
                     cardView.setMaxWidth(0);
                 }
-                if (!restrictions.contains("Tree Nuts")) {
+                if (!restrictions.containsKey("Tree Nuts")) {
                     cardView = (ConstraintLayout) findViewById(R.id.treenuts);
                     cardView.setMaxWidth(0);
                 }
-                if (!restrictions.contains("Wheat")) {
+                if (!restrictions.containsKey("Wheat")) {
                     cardView = (ConstraintLayout) findViewById(R.id.wheat);
                     cardView.setMaxWidth(0);
                 }
-                if (!restrictions.contains("Gluten")) {
+                if (!restrictions.containsKey("Gluten")) {
                     cardView = (ConstraintLayout) findViewById(R.id.gluten);
                     cardView.setMaxWidth(0);
                 }
-                if (!restrictions.contains("Avocado")) {
+                if (!restrictions.containsKey("Avocado")) {
                     cardView = (ConstraintLayout) findViewById(R.id.avocado);
                     cardView.setMaxWidth(0);
                 }
-                if (!restrictions.contains("Sesame")) {
+                if (!restrictions.containsKey("Sesame")) {
                     cardView = (ConstraintLayout) findViewById(R.id.sesame);
                     cardView.setMaxWidth(0);
                 }

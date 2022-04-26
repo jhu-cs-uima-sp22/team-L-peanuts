@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class NotificationsFragment extends Fragment {
 
@@ -68,10 +69,11 @@ public class NotificationsFragment extends Fragment {
                 for (DataSnapshot notification : dataSnapshot.getChildren()) {
                     Log.d("NOTIF", String.valueOf(notification));
                     if (notification.child("groupName").getValue() != null && notification.child("groupInvite").getValue() != null) {
-                        String name = notification.child("groupName").getValue().toString();
-                        String invite = notification.child("groupInvite").getValue().toString();
-                        String id = notification.getKey().toString();
-                        NotificationItem notif = new NotificationItem(name, invite, id, "");
+                        String name = Objects.requireNonNull(notification.child("groupName").getValue()).toString();
+                        String invite = Objects.requireNonNull(notification.child("groupInvite").getValue()).toString();
+                        String id = notification.getKey();
+                        String date = Objects.requireNonNull(notification.child("date").getValue()).toString();
+                        NotificationItem notif = new NotificationItem(name, invite, id, date);
                         notifications.add(notif);
                     }
                 }
@@ -88,32 +90,6 @@ public class NotificationsFragment extends Fragment {
                 notifications = new ArrayList<>();
             }
         });
-
-        /*ImageView accept = (ImageView) root.findViewById(R.id.group_accept);
-        ImageView decline = (ImageView) root.findViewById(R.id.group_decline);
-
-        accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //add to database
-                notifications.remove(it);
-            }
-        });
-
-        decline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                notifications.remove(it);
-            }
-        });
-
-        changeGroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //go to group page
-                notifications.remove(it);
-            }
-        });*/
 
         return root;
     }

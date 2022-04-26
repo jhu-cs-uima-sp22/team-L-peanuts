@@ -134,7 +134,7 @@ public class GroupAddFood extends AppCompatActivity {
                         String uuid = UUID.randomUUID().toString();
                         map.put(uuid, notif);
                         for (DataSnapshot user : dataSnapshot.child("members").getChildren()) {
-//                            myRefGroups.child("users").child(user.child("email").getValue().toString()).child("notifications").updateChildren(map);
+                            myRefGroups.child("users").child(user.child("email").getValue().toString()).child("notifications").updateChildren(map);
                         }
 
                     }
