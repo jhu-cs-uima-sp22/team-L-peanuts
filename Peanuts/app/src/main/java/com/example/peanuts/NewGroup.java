@@ -174,28 +174,31 @@ public class NewGroup extends AppCompatActivity {
             List<NewAccount.User> member = adapter.getMembers();
             Map<String, List<String>> restrictions = adapter.getRestrictions();
 
-            GroupItem group = new GroupItem(groupName, member, restrictions, user, uuid);
-            groupsDB.child(uuid).setValue(group);
+            if (member.isEmpty()) {
+                Toast toast = Toast.makeText(context, "Missing members", Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
 
-            DatabaseReference userGroup = usersDB.child(user).child("groups").push();
-            String userKey = userGroup.getKey();
-            Map<String, Object> map = new HashMap<>();
-            map.put(userKey, uuid);
-            usersDB.child(user).child("groups").updateChildren(map);
+                GroupItem group = new GroupItem(groupName, member, restrictions, user, uuid);
+                groupsDB.child(uuid).setValue(group);
+
+                DatabaseReference userGroup = usersDB.child(user).child("groups").push();
+                String userKey = userGroup.getKey();
+                Map<String, Object> map = new HashMap<>();
+                map.put(userKey, uuid);
+                usersDB.child(user).child("groups").updateChildren(map);
 
 
-            for (NewAccount.User groupMember : member) {
-//                Map<String, Object> groupMap = new HashMap<>();
-//                groupMap.put("0", uuid);
+                for (NewAccount.User groupMember : member) {
+                    Map<String, Object> notifications = new HashMap<>();
+                    //group as id, true for group notification
+                    notifications.put(uuid, true);
+                    usersDB.child(groupMember.getEmail()).child("groups").updateChildren(map);
+                    usersDB.child(groupMember.getEmail()).child("notifications").updateChildren(notifications);
+                }
 
-                Map<String, Object> notifications = new HashMap<>();
-                //group as id, true for group notification
-                notifications.put(uuid, true);
-                usersDB.child(groupMember.getEmail()).child("groups").updateChildren(map);
-                usersDB.child(groupMember.getEmail()).child("notifications").updateChildren(notifications);
+                finish();
             }
-
-            finish();
 
             return true;
         } else {
