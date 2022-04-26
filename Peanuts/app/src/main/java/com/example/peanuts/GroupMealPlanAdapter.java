@@ -2,6 +2,7 @@ package com.example.peanuts;
 
 import android.content.Context;
 import android.media.Image;
+import android.media.session.PlaybackState;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,38 +21,46 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GroupMealPlanAdapter extends ArrayAdapter<FoodItem> {
-    int resource;
+public class GroupMealPlanAdapter extends RecyclerView.Adapter<GroupMealPlanAdapter.MyViewHolder> {
 
-    ArrayList<FoodItem> foods = new ArrayList<>();
+    private LayoutInflater inflater;
+    private Context context;
+    private List<FoodItem> foodItems;
 
-    public GroupMealPlanAdapter(Context ctx, int res, List<FoodItem> food) {
-        super(ctx, res, food);
-        resource = res;
-        this.foods.addAll(food);
-        Log.d("MEMBERS", String.valueOf(foods));
+    public GroupMealPlanAdapter(Context context,List<FoodItem> foodItems) {
+        inflater = LayoutInflater.from(context);
+        this.context = context;
+        this.foodItems = foodItems;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LinearLayout groupMealPlanView;
+    public GroupMealPlanAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mealplan_layout, parent, false);
+        MyViewHolder holder = new MyViewHolder(view);
+        return holder;
+    }
 
-        if (convertView == null) {
-            groupMealPlanView = new LinearLayout(getContext());
-            String inflater = Context.LAYOUT_INFLATER_SERVICE;
-            LayoutInflater vi = (LayoutInflater) getContext().getSystemService(inflater);
-            vi.inflate(resource, groupMealPlanView, true);
-        } else {
-            groupMealPlanView = (LinearLayout) convertView;
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        holder.name.setText(foodItems.get(position).getName());
+        holder.image.setImageDrawable(foodItems.get(position).getImage());
+    }
+
+    @Override
+    public int getItemCount() {
+        return foodItems.size();
+    }
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder
+    {
+        final TextView name;
+        final ImageView image;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            name = (TextView)itemView.findViewById(R.id.FoodName1);
+            image = (ImageView)itemView.findViewById(R.id.FoodImage);
         }
-
-        ImageView mealPlanImage = (ImageView) groupMealPlanView.findViewById(R.id.FoodImage);
-        TextView mealPlanName = (TextView) groupMealPlanView.findViewById(R.id.FoodName1);
-
-        mealPlanImage.setImageDrawable(getItem(position).getImage());
-        mealPlanName.setText(getItem(position).getName());
-
-
-        return groupMealPlanView;
     }
 }
+
