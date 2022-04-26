@@ -2,8 +2,10 @@ package com.example.peanuts;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.media.session.PlaybackState;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,9 +50,19 @@ public class GroupMealPlanAdapter extends RecyclerView.Adapter<GroupMealPlanAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, Pop.class); //not sure here
+                Intent intent = new Intent(context, Pop.class);
                 String foodName = foodItems.get(holder.getAdapterPosition()).getName();
+                boolean[] data = foodItems.get(holder.getAdapterPosition()).getRestrictions();
+                ArrayList<String> stringData = new ArrayList<>();
+                stringData.add("\nAllergens/Restrictions:\n");
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                for (int i = 0; i < 12; i++) {
+                    if (data[i]) {
+                        stringData.add(preferences.getString("" + i, ""));
+                    }
+                }
                 intent.putExtra("foodName", foodName);
+                intent.putExtra("data", stringData);
                 context.startActivity(intent);
             }
         });
