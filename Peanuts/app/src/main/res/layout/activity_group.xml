@@ -29,7 +29,6 @@
         android:layout_height="300dp"
         android:isScrollContainer="true"
         android:orientation="horizontal"
-        android:scrollbarAlwaysDrawHorizontalTrack="true"
         android:scrollbars="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MealPlan" />
