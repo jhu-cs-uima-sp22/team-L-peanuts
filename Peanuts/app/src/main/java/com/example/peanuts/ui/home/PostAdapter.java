@@ -51,10 +51,7 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
     private StorageReference storageReference;
     private final List<FoodItem> fullPosts = new ArrayList<>();
     private List<FoodItem> posts;
-    private final UsersAdapter.Listener listener = new UsersAdapter.Listener();
     private CardView cardView;
-
-
 
     public PostAdapter(Context ctx, int res, List<FoodItem> items) {
         super(ctx, res, items);
