@@ -71,10 +71,7 @@ public class GroupsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 groupItems = new ArrayList<>();
-//                groupIds =  dataSnapshot.child("users").child(email).child("groups").getValue();
-//                if (groupIds == null) {
-//                    groupIds = new ArrayList<>();
-//                }
+
                 for (DataSnapshot groupId : dataSnapshot.child("users").child(email).child("groups").getChildren()) {
                     String id = groupId.getValue().toString();
 

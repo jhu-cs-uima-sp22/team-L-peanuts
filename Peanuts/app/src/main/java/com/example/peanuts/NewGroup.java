@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,9 +16,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
 
+import com.example.peanuts.ui.notifications.NotificationItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.security.acl.Group;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -174,31 +173,28 @@ public class NewGroup extends AppCompatActivity {
             List<NewAccount.User> member = adapter.getMembers();
             Map<String, List<String>> restrictions = adapter.getRestrictions();
 
-            if (member.isEmpty()) {
-                Toast toast = Toast.makeText(context, "Missing members", Toast.LENGTH_SHORT);
-                toast.show();
-            } else {
+            GroupItem group = new GroupItem(groupName, member, restrictions, user, uuid);
+            groupsDB.child(uuid).setValue(group);
 
-                GroupItem group = new GroupItem(groupName, member, restrictions, user, uuid);
-                groupsDB.child(uuid).setValue(group);
-
-                DatabaseReference userGroup = usersDB.child(user).child("groups").push();
-                String userKey = userGroup.getKey();
-                Map<String, Object> map = new HashMap<>();
-                map.put(userKey, uuid);
-                usersDB.child(user).child("groups").updateChildren(map);
+            DatabaseReference userGroup = usersDB.child(user).child("groups").push();
+            String userKey = userGroup.getKey();
+            Map<String, Object> map = new HashMap<>();
+            map.put(userKey, uuid);
+            usersDB.child(user).child("groups").updateChildren(map);
 
 
-                for (NewAccount.User groupMember : member) {
-                    Map<String, Object> notifications = new HashMap<>();
-                    //group as id, true for group notification
-                    notifications.put(uuid, true);
-                    usersDB.child(groupMember.getEmail()).child("groups").updateChildren(map);
-                    usersDB.child(groupMember.getEmail()).child("notifications").updateChildren(notifications);
-                }
+            for (NewAccount.User groupMember : member) {
+                String date = new Date().toString();
 
-                finish();
+                Map<String, Object> notifications = new HashMap<>();
+                NotificationItem notif = new NotificationItem(groupName, "true", uuid, date);
+                //group as id, true for group notification
+                notifications.put(uuid, notif);
+                usersDB.child(groupMember.getEmail()).child("groups").updateChildren(map);
+                usersDB.child(groupMember.getEmail()).child("notifications").updateChildren(notifications);
             }
+
+            finish();
 
             return true;
         } else {
