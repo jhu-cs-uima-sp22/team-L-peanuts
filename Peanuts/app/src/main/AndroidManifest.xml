@@ -72,7 +72,7 @@
             android:label="Profile" />
         <activity
             android:name=".Pop"
-            android:theme="@style/AppTheme.customTheme"/>
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog.NoActionBar"/>
     </application>
 
 </manifest>
