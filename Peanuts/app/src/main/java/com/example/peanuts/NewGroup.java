@@ -174,7 +174,7 @@ public class NewGroup extends AppCompatActivity {
             groupName = ((EditText) findViewById(R.id.groupName)).getText().toString();
 
             List<NewAccount.User> member = adapter.getMembers();
-            List<String> restrictions = adapter.getRestrictions();
+            Map<String, List<String>> restrictions = adapter.getRestrictions();
 
             GroupItem group = new GroupItem(groupName, member, restrictions, user, uuid);
             groupsDB.child(uuid).setValue(group);

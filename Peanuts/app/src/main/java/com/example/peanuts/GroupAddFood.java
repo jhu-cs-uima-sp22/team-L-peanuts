@@ -122,7 +122,6 @@ public class GroupAddFood extends AppCompatActivity {
                 }
 
                 myRefGroups.child("groups").child(id).child("foods").updateChildren(map);
-
                 myRefGroups.child("groups").child(id).addValueEventListener(new ValueEventListener() {
 
                     @Override
@@ -146,10 +145,6 @@ public class GroupAddFood extends AppCompatActivity {
                     }
                 }
             );
-
-
-                Log.d("map", String.valueOf(map));
-
                 finish();
             }
         });

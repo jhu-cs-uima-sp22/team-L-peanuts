@@ -36,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GroupsFragment extends Fragment {
 
@@ -69,6 +70,7 @@ public class GroupsFragment extends Fragment {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                groupItems = new ArrayList<>();
 //                groupIds =  dataSnapshot.child("users").child(email).child("groups").getValue();
 //                if (groupIds == null) {
 //                    groupIds = new ArrayList<>();
@@ -78,7 +80,7 @@ public class GroupsFragment extends Fragment {
 
                     String groupName = (String) dataSnapshot.child("groups").child(id).child("groupName").getValue();
                     List<NewAccount.User> members = (List<NewAccount.User>) dataSnapshot.child("groups").child(id).child("members").getValue();
-                    List<String> restrictions = (List<String>) dataSnapshot.child("groups").child(id).child("restrictions").getValue();
+                    Map<String, List<String>> restrictions = (Map<String, List<String>>) dataSnapshot.child("groups").child(id).child("restrictions").getValue();
                     String host = (String) dataSnapshot.child("groups").child(id).child("host").getValue();
                     groupItems.add(new GroupItem(groupName, members, restrictions, host, id));
                 }
@@ -90,6 +92,7 @@ public class GroupsFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 groupIds = new ArrayList<>();
+                groupItems = new ArrayList<>();
             }
         });
 

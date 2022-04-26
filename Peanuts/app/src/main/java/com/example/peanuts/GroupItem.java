@@ -6,16 +6,17 @@ import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GroupItem {
     private List<NewAccount.User> members;
-    private List<String> restrictions;
+    private Map<String, List<String>> restrictions;
     private List<FoodItem> foods;
     private String groupName;
     private String host;
     private String id;
 
-    public GroupItem(String groupName, List<NewAccount.User> members, List<String> restrictions, String host, String id) {
+    public GroupItem(String groupName, List<NewAccount.User> members, Map<String, List<String>> restrictions, String host, String id) {
         this.groupName = groupName;
         this.members = members;
         this.restrictions = restrictions;
@@ -24,7 +25,7 @@ public class GroupItem {
         this.id = id;
     }
 
-    public GroupItem(String groupName, List<NewAccount.User> members, List<String> restrictions, String host, List<FoodItem> foods) {
+    public GroupItem(String groupName, List<NewAccount.User> members, Map<String, List<String>> restrictions, String host, List<FoodItem> foods) {
         this.groupName = groupName;
         this.members = members;
         this.restrictions = restrictions;
@@ -36,7 +37,7 @@ public class GroupItem {
 
     public List<NewAccount.User> getMembers() { return members; }
 
-    public List<String> getRestrictions() { return  restrictions; }
+    public Map<String, List<String>> getRestrictions() { return restrictions; }
 
     public String getHost() { return host; }
 
