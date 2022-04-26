@@ -44,62 +44,49 @@ public class NotificationsAdapter extends ArrayAdapter<NotificationItem> {
         TextView message = (TextView) itemView.findViewById(R.id.notification);
         TextView changeGroup = (TextView) itemView.findViewById(R.id.menu_change);
         TextView owner = (TextView) itemView.findViewById(R.id.owner_text);
-        ImageView accept = (ImageView) itemView.findViewById(R.id.group_accept);
-        ImageView decline = (ImageView) itemView.findViewById(R.id.group_decline);
-
+        TextView date = (TextView) itemView.findViewById(R.id.date);
 
         if (it.isGroupInvite()) { //new group notification
-            message.setText("New Group Invite" + it.getGroupName());
+            message.setText("New Group Invite!");
             owner.setText(it.getOwner());
-
-            //need to add onClickListener
-            accept.setVisibility(View.VISIBLE);
-            decline.setVisibility(View.VISIBLE);
-
-            changeGroup.setVisibility(View.INVISIBLE);
         } else {
             String str = "Menu Change!";
             message.setText(str);
             owner.setVisibility(View.INVISIBLE);
-
-            accept.setVisibility(View.INVISIBLE);
-            decline.setVisibility(View.INVISIBLE);
-
-            //need to add onClickListener
-            changeGroup.setVisibility(View.VISIBLE);
-            changeGroup.setText(it.getGroupName());
         }
+        changeGroup.setText(it.getGroupName());
+        date.setText(it.getDate());
 
-        Context context = getContext();
-        int duration = Toast.LENGTH_SHORT;
-
-        accept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //add to database
-                CharSequence text;
-                text = "Joined group " + it.getGroupName();
-
-                notifications.remove(it);
-                notifyDataSetChanged();
-
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-            }
-        });
-
-        decline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CharSequence text;
-                text = "Declined group " + it.getGroupName();
-
-                notifications.remove(it);
-                notifyDataSetChanged();
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-            }
-        });
+//        Context context = getContext();
+//        int duration = Toast.LENGTH_SHORT;
+//
+//        accept.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //add to database
+//                CharSequence text;
+//                text = "Joined group " + it.getGroupName();
+//
+//                notifications.remove(it);
+//                notifyDataSetChanged();
+//
+//                Toast toast = Toast.makeText(context, text, duration);
+//                toast.show();
+//            }
+//        });
+//
+//        decline.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                CharSequence text;
+//                text = "Declined group " + it.getGroupName();
+//
+//                notifications.remove(it);
+//                notifyDataSetChanged();
+//                Toast toast = Toast.makeText(context, text, duration);
+//                toast.show();
+//            }
+//        });
 
         changeGroup.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -25,9 +25,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 public class GroupAddFood extends AppCompatActivity {
 
@@ -118,12 +123,16 @@ public class GroupAddFood extends AppCompatActivity {
 
                 myRefGroups.child("groups").child(id).child("foods").updateChildren(map);
                 myRefGroups.child("groups").child(id).addValueEventListener(new ValueEventListener() {
+
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String date = new Date().toString();
+                        Log.d("DATE", date);
                         String group = dataSnapshot.child("groupName").getValue().toString();
-                        NotificationItem notif = new NotificationItem(group, "false", id);
+                        NotificationItem notif = new NotificationItem(group, "false", id, date);
                         Map<String, Object> map = new HashMap<>();
-                        map.put(id, notif);
+                        String uuid = UUID.randomUUID().toString();
+                        map.put(uuid, notif);
                         for (DataSnapshot user : dataSnapshot.child("members").getChildren()) {
                             myRefGroups.child("users").child(user.child("email").getValue().toString()).child("notifications").updateChildren(map);
                         }
