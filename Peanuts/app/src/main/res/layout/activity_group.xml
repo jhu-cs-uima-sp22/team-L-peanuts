@@ -27,7 +27,6 @@
         android:id="@+id/MealPlanList"
         android:layout_width="wrap_content"
         android:layout_height="300dp"
-        android:layout_margin="5dp"
         android:isScrollContainer="true"
         android:orientation="horizontal"
         android:scrollbarAlwaysDrawHorizontalTrack="true"

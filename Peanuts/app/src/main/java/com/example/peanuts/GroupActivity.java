@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -159,7 +160,10 @@ public class GroupActivity extends AppCompatActivity {
                 //populate the meal plan with current foods
                 GroupMealPlanAdapter mealPlanAdapter = new GroupMealPlanAdapter(context, foods);
                 RecyclerView meals = (RecyclerView) findViewById(R.id.MealPlanList);
-                meals.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+                LinearLayoutManager llm = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+                meals.setLayoutManager(llm);
+                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(meals.getContext(), llm.getOrientation());
+                meals.addItemDecoration(dividerItemDecoration);
                 meals.setAdapter(mealPlanAdapter);
                 registerForContextMenu(meals);
                 mealPlanAdapter.notifyDataSetChanged();
