@@ -1,6 +1,7 @@
 package com.example.peanuts;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.media.session.PlaybackState;
 import android.util.Log;
@@ -44,6 +45,15 @@ public class GroupMealPlanAdapter extends RecyclerView.Adapter<GroupMealPlanAdap
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.name.setText(foodItems.get(position).getName());
         holder.image.setImageDrawable(foodItems.get(position).getImage());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, Pop.class); //not sure here
+                String foodName = foodItems.get(holder.getAdapterPosition()).getName();
+                intent.putExtra("foodName", foodName);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
