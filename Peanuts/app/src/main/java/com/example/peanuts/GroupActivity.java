@@ -113,6 +113,11 @@ public class GroupActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             Intent intent = new Intent(context, Pop.class);
                             intent.putExtra("foodName", "Peanut Allergy");
+                            ArrayList<String> temp = new ArrayList<>();
+                            for (int i = 0; i < 100; i++) {
+                                temp.add("hello");
+                            }
+                            intent.putStringArrayListExtra("data", /*(ArrayList<String>) restrictions.get("Peanuts")*/temp);
                             context.startActivity(intent);
                         }
                     });
@@ -127,6 +132,7 @@ public class GroupActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             Intent intent = new Intent(context, Pop.class);
                             intent.putExtra("foodName", "Dairy Allergy");
+                            intent.putStringArrayListExtra("data", (ArrayList<String>) restrictions.get("Dairy"));
                             context.startActivity(intent);
                         }
                     });
@@ -141,6 +147,7 @@ public class GroupActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             Intent intent = new Intent(context, Pop.class);
                             intent.putExtra("foodName", "Seafood Allergy");
+                            intent.putStringArrayListExtra("data", (ArrayList<String>) restrictions.get("Seafood"));
                             context.startActivity(intent);
                         }
                     });
@@ -155,6 +162,7 @@ public class GroupActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             Intent intent = new Intent(context, Pop.class);
                             intent.putExtra("foodName", "Soy Allergy");
+                            intent.putStringArrayListExtra("data", (ArrayList<String>) restrictions.get("Soy"));
                             context.startActivity(intent);
                         }
                     });
@@ -169,6 +177,7 @@ public class GroupActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             Intent intent = new Intent(context, Pop.class);
                             intent.putExtra("foodName", "Strawberry Allergy");
+                            intent.putStringArrayListExtra("data", (ArrayList<String>) restrictions.get("Strawberries"));
                             context.startActivity(intent);
                         }
                     });
@@ -183,6 +192,7 @@ public class GroupActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             Intent intent = new Intent(context, Pop.class);
                             intent.putExtra("foodName", "Shellfish Allergy");
+                            intent.putStringArrayListExtra("data", (ArrayList<String>) restrictions.get("Shellfish"));
                             context.startActivity(intent);
                         }
                     });
@@ -197,6 +207,7 @@ public class GroupActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             Intent intent = new Intent(context, Pop.class);
                             intent.putExtra("foodName", "Egg Allergy");
+                            intent.putStringArrayListExtra("data", (ArrayList<String>) restrictions.get("Eggs"));
                             context.startActivity(intent);
                         }
                     });
@@ -211,6 +222,7 @@ public class GroupActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             Intent intent = new Intent(context, Pop.class);
                             intent.putExtra("foodName", "Tree Nut Allergy");
+                            intent.putStringArrayListExtra("data", (ArrayList<String>) restrictions.get("Tree Nuts"));
                             context.startActivity(intent);
                         }
                     });
@@ -225,6 +237,7 @@ public class GroupActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             Intent intent = new Intent(context, Pop.class);
                             intent.putExtra("foodName", "Wheat Allergy");
+                            intent.putStringArrayListExtra("data", (ArrayList<String>) restrictions.get("Wheat"));
                             context.startActivity(intent);
                         }
                     });
@@ -239,6 +252,7 @@ public class GroupActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             Intent intent = new Intent(context, Pop.class);
                             intent.putExtra("foodName", "Gluten Allergy");
+                            intent.putStringArrayListExtra("data", (ArrayList<String>) restrictions.get("Gluten"));
                             context.startActivity(intent);
                         }
                     });
@@ -253,6 +267,7 @@ public class GroupActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             Intent intent = new Intent(context, Pop.class);
                             intent.putExtra("foodName", "Avocado Allergy");
+                            intent.putStringArrayListExtra("data", (ArrayList<String>) restrictions.get("Avocado"));
                             context.startActivity(intent);
                         }
                     });
@@ -267,6 +282,7 @@ public class GroupActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             Intent intent = new Intent(context, Pop.class);
                             intent.putExtra("foodName", "Sesame Allergy");
+                            intent.putStringArrayListExtra("data", (ArrayList<String>) restrictions.get("Sesame"));
                             context.startActivity(intent);
                         }
                     });

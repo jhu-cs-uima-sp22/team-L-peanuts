@@ -3,8 +3,11 @@ package com.example.peanuts;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class Pop extends Activity {
 
@@ -16,7 +19,15 @@ public class Pop extends Activity {
 
         Intent intent = getIntent();
         TextView title = findViewById(R.id.PopUpTitle);
+        TextView popUpList = findViewById(R.id.pop_up_list);
+        popUpList.setMovementMethod(new ScrollingMovementMethod());
         title.setText(intent.getStringExtra("foodName"));
+        ArrayList<String> data = intent.getStringArrayListExtra("data");
+        StringBuilder dataString = new StringBuilder();
+        for (String s : data) {
+            dataString.append(s).append("\n");
+        }
+        popUpList.setText(dataString.toString());
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
