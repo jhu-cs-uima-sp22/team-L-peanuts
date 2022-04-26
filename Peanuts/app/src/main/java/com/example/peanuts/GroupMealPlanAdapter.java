@@ -48,7 +48,7 @@ public class GroupMealPlanAdapter extends RecyclerView.Adapter<GroupMealPlanAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, Pop.class); //not sure here
+                Intent intent = new Intent(context, Pop.class);
                 String foodName = foodItems.get(holder.getAdapterPosition()).getName();
                 intent.putExtra("foodName", foodName);
                 context.startActivity(intent);

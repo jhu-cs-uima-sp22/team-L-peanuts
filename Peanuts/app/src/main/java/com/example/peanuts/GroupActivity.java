@@ -106,50 +106,170 @@ public class GroupActivity extends AppCompatActivity {
                 if (!restrictions.containsKey("Peanuts")) {
                     cardView = (ConstraintLayout) findViewById(R.id.peanuts);
                     cardView.setMaxWidth(0);
+                } else {
+                    cardView = (ConstraintLayout) findViewById(R.id.peanuts);
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(context, Pop.class);
+                            intent.putExtra("foodName", "Peanut Allergy");
+                            context.startActivity(intent);
+                        }
+                    });
                 }
                 if (!restrictions.containsKey("Dairy")) {
                     cardView = (ConstraintLayout) findViewById(R.id.dairy);
                     cardView.setMaxWidth(0);
+                } else {
+                    cardView = (ConstraintLayout) findViewById(R.id.dairy);
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(context, Pop.class);
+                            intent.putExtra("foodName", "Dairy Allergy");
+                            context.startActivity(intent);
+                        }
+                    });
                 }
                 if (!restrictions.containsKey("Seafood")) {
                     cardView = (ConstraintLayout) findViewById(R.id.seafood);
                     cardView.setMaxWidth(0);
+                } else {
+                    cardView = (ConstraintLayout) findViewById(R.id.seafood);
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(context, Pop.class);
+                            intent.putExtra("foodName", "Seafood Allergy");
+                            context.startActivity(intent);
+                        }
+                    });
                 }
                 if (!restrictions.containsKey("Soy")) {
                     cardView = (ConstraintLayout) findViewById(R.id.soy);
                     cardView.setMaxWidth(0);
+                } else {
+                    cardView = (ConstraintLayout) findViewById(R.id.soy);
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(context, Pop.class);
+                            intent.putExtra("foodName", "Soy Allergy");
+                            context.startActivity(intent);
+                        }
+                    });
                 }
                 if (!restrictions.containsKey("Strawberries")) {
                     cardView = (ConstraintLayout) findViewById(R.id.strawberries);
                     cardView.setMaxWidth(0);
+                } else {
+                    cardView = (ConstraintLayout) findViewById(R.id.strawberries);
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(context, Pop.class);
+                            intent.putExtra("foodName", "Strawberry Allergy");
+                            context.startActivity(intent);
+                        }
+                    });
                 }
                 if (!restrictions.containsKey("Shellfish")) {
                     cardView = (ConstraintLayout) findViewById(R.id.shellfish);
                     cardView.setMaxWidth(0);
+                } else {
+                    cardView = (ConstraintLayout) findViewById(R.id.shellfish);
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(context, Pop.class);
+                            intent.putExtra("foodName", "Shellfish Allergy");
+                            context.startActivity(intent);
+                        }
+                    });
                 }
                 if (!restrictions.containsKey("Eggs")) {
                     cardView = (ConstraintLayout) findViewById(R.id.eggs);
                     cardView.setMaxWidth(0);
+                } else {
+                    cardView = (ConstraintLayout) findViewById(R.id.eggs);
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(context, Pop.class);
+                            intent.putExtra("foodName", "Egg Allergy");
+                            context.startActivity(intent);
+                        }
+                    });
                 }
                 if (!restrictions.containsKey("Tree Nuts")) {
                     cardView = (ConstraintLayout) findViewById(R.id.treenuts);
                     cardView.setMaxWidth(0);
+                } else {
+                    cardView = (ConstraintLayout) findViewById(R.id.treenuts);
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(context, Pop.class);
+                            intent.putExtra("foodName", "Tree Nut Allergy");
+                            context.startActivity(intent);
+                        }
+                    });
                 }
                 if (!restrictions.containsKey("Wheat")) {
                     cardView = (ConstraintLayout) findViewById(R.id.wheat);
                     cardView.setMaxWidth(0);
+                } else {
+                    cardView = (ConstraintLayout) findViewById(R.id.wheat);
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(context, Pop.class);
+                            intent.putExtra("foodName", "Wheat Allergy");
+                            context.startActivity(intent);
+                        }
+                    });
                 }
                 if (!restrictions.containsKey("Gluten")) {
                     cardView = (ConstraintLayout) findViewById(R.id.gluten);
                     cardView.setMaxWidth(0);
+                } else {
+                    cardView = (ConstraintLayout) findViewById(R.id.gluten);
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(context, Pop.class);
+                            intent.putExtra("foodName", "Gluten Allergy");
+                            context.startActivity(intent);
+                        }
+                    });
                 }
                 if (!restrictions.containsKey("Avocado")) {
                     cardView = (ConstraintLayout) findViewById(R.id.avocado);
                     cardView.setMaxWidth(0);
+                } else {
+                    cardView = (ConstraintLayout) findViewById(R.id.avocado);
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(context, Pop.class);
+                            intent.putExtra("foodName", "Avocado Allergy");
+                            context.startActivity(intent);
+                        }
+                    });
                 }
                 if (!restrictions.containsKey("Sesame")) {
                     cardView = (ConstraintLayout) findViewById(R.id.sesame);
                     cardView.setMaxWidth(0);
+                } else {
+                    cardView = (ConstraintLayout) findViewById(R.id.sesame);
+                    cardView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(context, Pop.class);
+                            intent.putExtra("foodName", "Sesame Allergy");
+                            context.startActivity(intent);
+                        }
+                    });
                 }
                 GroupMemberAdapter memberAdapter = new GroupMemberAdapter(context, R.layout.group_users_layout, members);
                 ListView membersList = (ListView) findViewById(R.id.ResponseList);
