@@ -331,6 +331,7 @@ public class GroupActivity extends AppCompatActivity {
     }
 
 
+    //***the below functions will have to be moved into onclick listeners later***
     public void onCheckClick(View view) {
         ConstraintLayout cl = findViewById(R.id.MealPlanResponse);
         cl.setBackgroundColor(Color.rgb(211, 225,175));
