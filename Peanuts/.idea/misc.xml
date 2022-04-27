@@ -5,13 +5,14 @@
       <map>
         <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/activity_group.xml" value="0.2" />
         <entry key="..\:/Users/jeani/Documents/GitHub/team-L-peanuts/Peanuts/app/src/main/res/layout/notifications_layout.xml" value="0.3894899536321484" />
+        <entry key="app/src/main/res/drawable-v24/outline_done_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/baseline_edit_24.xml" value="0.2355" />
         <entry key="app/src/main/res/drawable/baseline_search_24.xml" value="0.1525" />
         <entry key="app/src/main/res/drawable/outline_close_24.xml" value="0.1175" />
         <entry key="app/src/main/res/layout/activity_edit_foods.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_edit_restrictions.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_food_detail.xml" value="0.22916666666666666" />
-        <entry key="app/src/main/res/layout/activity_group.xml" value="0.14301801801801803" />
+        <entry key="app/src/main/res/layout/activity_group.xml" value="0.2869318181818182" />
         <entry key="app/src/main/res/layout/activity_group_add_food.xml" value="0.3118526071741961" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.22916666666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22533111572265624" />
@@ -29,11 +30,12 @@
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.18611378977820636" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.3660537719726563" />
         <entry key="app/src/main/res/layout/group_layout.xml" value="0.3727087576374745" />
-        <entry key="app/src/main/res/layout/group_users_layout.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/group_users_layout.xml" value="0.16917922948073702" />
         <entry key="app/src/main/res/layout/item_restriction.xml" value="0.3756218905472637" />
-        <entry key="app/src/main/res/layout/item_user.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/item_user.xml" value="0.13092009632299975" />
         <entry key="app/src/main/res/layout/mealplan_layout.xml" value="0.2667315134025079" />
         <entry key="app/src/main/res/layout/notifications_layout.xml" value="0.4177777777777778" />
+        <entry key="app/src/main/res/layout/popup.xml" value="0.23191070556640622" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.25391540527343753" />
       </map>
     </option>

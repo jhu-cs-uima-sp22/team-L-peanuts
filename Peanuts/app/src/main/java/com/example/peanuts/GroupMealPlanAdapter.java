@@ -1,7 +1,11 @@
 package com.example.peanuts;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
+import android.media.session.PlaybackState;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,38 +24,70 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GroupMealPlanAdapter extends ArrayAdapter<FoodItem> {
-    int resource;
+public class GroupMealPlanAdapter extends RecyclerView.Adapter<GroupMealPlanAdapter.MyViewHolder> {
 
-    ArrayList<FoodItem> foods = new ArrayList<>();
+    private LayoutInflater inflater;
+    private Context context;
+    private List<FoodItem> foodItems;
 
-    public GroupMealPlanAdapter(Context ctx, int res, List<FoodItem> food) {
-        super(ctx, res, food);
-        resource = res;
-        this.foods.addAll(food);
-        Log.d("MEMBERS", String.valueOf(foods));
+    public GroupMealPlanAdapter(Context context,List<FoodItem> foodItems) {
+        inflater = LayoutInflater.from(context);
+        this.context = context;
+        this.foodItems = foodItems;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LinearLayout groupMealPlanView;
+    public GroupMealPlanAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.mealplan_layout, parent, false);
+        MyViewHolder holder = new MyViewHolder(view);
+        return holder;
+    }
 
-        if (convertView == null) {
-            groupMealPlanView = new LinearLayout(getContext());
-            String inflater = Context.LAYOUT_INFLATER_SERVICE;
-            LayoutInflater vi = (LayoutInflater) getContext().getSystemService(inflater);
-            vi.inflate(resource, groupMealPlanView, true);
-        } else {
-            groupMealPlanView = (LinearLayout) convertView;
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        Log.d("Debug", "IN MEAL ADAPTER");
+        holder.name.setText(foodItems.get(position).getName());
+        String path = foodItems.get(position).getImageUri();
+        foodItems.get(position).setImage(path, holder.image);
+        //holder.image.setImageDrawable(foodItems.get(position).getImage());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, Pop.class);
+                String foodName = foodItems.get(holder.getAdapterPosition()).getName();
+                boolean[] data = foodItems.get(holder.getAdapterPosition()).getRestrictions();
+                ArrayList<String> allergens = foodItems.get(holder.getAdapterPosition()).getAllergens();
+                ArrayList<String> stringData = new ArrayList<>();
+                stringData.add("\nAllergens/Restrictions:\n");
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+                stringData.addAll(allergens);
+                /*for (int i = 0; i < 12; i++) {
+                    if (data[i]) {
+                        stringData.add(preferences.getString("" + i, ""));
+                    }
+                }*/
+                intent.putExtra("foodName", foodName);
+                intent.putExtra("data", stringData);
+                context.startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return foodItems.size();
+    }
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder
+    {
+        final TextView name;
+        final ImageView image;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            name = (TextView)itemView.findViewById(R.id.FoodName1);
+            image = (ImageView)itemView.findViewById(R.id.FoodImage);
         }
-
-        ImageView mealPlanImage = (ImageView) groupMealPlanView.findViewById(R.id.FoodImage);
-        TextView mealPlanName = (TextView) groupMealPlanView.findViewById(R.id.FoodName1);
-
-        mealPlanImage.setImageDrawable(getItem(position).getImage());
-        mealPlanName.setText(getItem(position).getName());
-
-
-        return groupMealPlanView;
     }
 }
+

@@ -12,8 +12,9 @@
 
         <ImageView
             android:id="@+id/UserImage"
-            android:layout_width="75sp"
+            android:layout_width="75dp"
             android:layout_height="match_parent"
+            android:background="#F44336"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_account_circle_24" />
@@ -37,5 +38,42 @@
             android:text="bobbybrown@gmail.com"
             app:layout_constraintStart_toEndOf="@+id/UserImage"
             app:layout_constraintTop_toBottomOf="@+id/UserName" />
+
+        <ImageView
+            android:id="@+id/ResponseCheckIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="20dp"
+            android:foreground="@drawable/outline_done_24"
+            android:foregroundTint="#106466"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/outline_done_24" />
+
+        <ImageView
+            android:id="@+id/ResponseCrossIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:foreground="@drawable/outline_close_24"
+            android:foregroundTint="#B71D1C"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/ResponseCheckIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/outline_close_24" />
+
+        <ImageView
+            android:id="@+id/ResponseNone"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:foreground="@android:drawable/stat_sys_warning"
+            android:foregroundTint="#80000000"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/ResponseCrossIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/stat_sys_warning" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

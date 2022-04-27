@@ -18,6 +18,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class FoodItem {
@@ -46,6 +47,15 @@ public class FoodItem {
         Log.d("debug", "name is set");
         this.imageUri = imageUri;
         allergens = new ArrayList<>();
+        index = 0;
+    }
+
+    public FoodItem(String name, String imageUri, ArrayList<String> allergens) {
+        this.name = name;
+        Log.d("debug", "name is set");
+        this.imageUri = imageUri;
+        //allergens = new ArrayList<>();
+        this.allergens = allergens;
         index = 0;
     }
 
