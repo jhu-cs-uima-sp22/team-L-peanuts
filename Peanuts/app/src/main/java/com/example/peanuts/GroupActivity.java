@@ -80,10 +80,7 @@ public class GroupActivity extends AppCompatActivity {
                 setTitle(name);
                 Log.d("Debug", "Group Name: " + name);
                 boolean isHost = preferences.getString("user_email", "").equals((String) dataSnapshot.child("host").getValue());
-                //**ISSUE HERE  TO_DO**
-                //foodIds = (ArrayList<String>) dataSnapshot.child("foods").getValue();
                 foods = new ArrayList<>();
-
                 for (DataSnapshot foodIDs : dataSnapshot.child("foods").getChildren()) {
                     String image = foodIDs.child("imageUri").getValue(String.class);
                     Log.d("Debug", "Image: " + image);
@@ -96,8 +93,8 @@ public class GroupActivity extends AppCompatActivity {
                 }
 
                 //**FOR TESTING**
-                boolean[] booleans = new boolean[12];
-                /*booleans[5] = true;
+                /*boolean[] booleans = new boolean[12];
+                booleans[5] = true;
                 foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
                 foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
                 foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));

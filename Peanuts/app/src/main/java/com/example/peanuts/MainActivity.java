@@ -63,14 +63,14 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("11", "Sesame");
         editor.apply();
 
-        foodItems = new ArrayList<>();
+        /*foodItems = new ArrayList<>();
         boolean[] restrictions = new boolean[12];
         restrictions[1] = true;
         restrictions[6] = true;
         restrictions[8] = true;
         restrictions[9] = true;
         Drawable image = getDrawable(R.drawable.spaghetti);
-        foodItems.add(new FoodItem("Spaghetti", restrictions, image));
+        foodItems.add(new FoodItem("Spaghetti", restrictions, image));*/
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
