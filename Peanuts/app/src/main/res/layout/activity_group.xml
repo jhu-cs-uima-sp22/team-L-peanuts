@@ -23,29 +23,87 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/meals"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/MealPlanList"
         android:layout_width="wrap_content"
-        android:layout_height="500dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="-60dp"
-        android:divider="@null"
-        android:dividerHeight="5dp"
+        android:layout_height="300dp"
         android:isScrollContainer="true"
-        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        android:orientation="horizontal"
         android:scrollbars="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/MealPlan" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/MealPlanResponse"
+        android:layout_width="match_parent"
+        android:layout_height="80sp"
+        android:background="#fad1a9"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/MealPlanList">
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Does this meal work for you?"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ResponseCheck"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:backgroundTint="#BCD387"
+            app:cornerRadius="50dp"
+            app:icon="?android:attr/textCheckMarkInverse"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="35dp"
+            app:iconTint="#106466"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ResponseCross"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:backgroundTint="#E0B1AF"
+            app:cornerRadius="50dp"
+            app:icon="@drawable/outline_close_24"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="35dp"
+            app:iconTint="#B71D1C"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <HorizontalScrollView
         android:id="@+id/RestrictionsInGroups"
         android:layout_width="match_parent"
         android:layout_height="80sp"
-        android:layout_marginTop="-70dp"
         android:background="#FFFFFF"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meals"
+        app:layout_constraintTop_toBottomOf="@id/MealPlanList"
         tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
@@ -390,32 +448,6 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/MealPlanResponse"
-        android:layout_width="match_parent"
-        android:layout_height="80sp"
-        android:layout_marginTop="-70dp"
-        android:background="#FF9800"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meals">
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Does this meal work for you?"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <TextView
         android:id="@+id/Responses"
         android:layout_width="wrap_content"
@@ -468,9 +500,9 @@
         android:id="@+id/imageButton2"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="100dp"
+        android:layout_marginEnd="20dp"
         android:onClick="toAddFoodInGroup"
-        app:layout_constraintStart_toEndOf="@+id/MealPlan"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/outline_add_circle_outline_24"
         tools:ignore="SpeakableTextPresentCheck" />
