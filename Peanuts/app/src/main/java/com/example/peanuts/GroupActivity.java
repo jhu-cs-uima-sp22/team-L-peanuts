@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -25,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -326,5 +328,51 @@ public class GroupActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GroupAddFood.class);
         intent.putExtra("id", id);
         startActivity(intent);
+    }
+
+
+    public void onCheckClick(View view) {
+        ConstraintLayout cl = findViewById(R.id.MealPlanResponse);
+        cl.setBackgroundColor(Color.rgb(211, 225,175));
+        MaterialButton mb = findViewById(R.id.ResponseCross);
+        mb.setVisibility(View.INVISIBLE);
+        TextView tv = findViewById(R.id.textView17);
+        tv.setVisibility(View.INVISIBLE);
+        TextView looksGood = findViewById(R.id.LooksGood);
+        looksGood.setVisibility(View.VISIBLE);
+        TextView changeResponse = findViewById(R.id.changeResponseCheck);
+        changeResponse.setVisibility(View.VISIBLE);
+    }
+
+    public void onCrossClick(View view) {
+        ConstraintLayout cl = findViewById(R.id.MealPlanResponse);
+        cl.setBackgroundColor(Color.rgb(234, 177,175)); //change
+        MaterialButton mb = findViewById(R.id.ResponseCheck);
+        mb.setVisibility(View.INVISIBLE);
+        TextView tv = findViewById(R.id.textView17);
+        tv.setVisibility(View.INVISIBLE);
+        TextView okThanks = findViewById(R.id.okThanks);
+        okThanks.setVisibility(View.VISIBLE);
+        TextView changeResponse = findViewById(R.id.changeResponseCross);
+        changeResponse.setVisibility(View.VISIBLE);
+    }
+
+    public void changeResponse(View view) {
+        ConstraintLayout cl = findViewById(R.id.MealPlanResponse);
+        cl.setBackgroundColor(Color.rgb(250, 209,169));
+        MaterialButton mbCross = findViewById(R.id.ResponseCross);
+        mbCross.setVisibility(View.VISIBLE);
+        MaterialButton mbCheck = findViewById(R.id.ResponseCheck);
+        mbCheck.setVisibility(View.VISIBLE);
+        TextView tv = findViewById(R.id.textView17);
+        tv.setVisibility(View.VISIBLE);
+        TextView looksGood = findViewById(R.id.LooksGood);
+        looksGood.setVisibility(View.INVISIBLE);
+        TextView changeResponse1 = findViewById(R.id.changeResponseCheck);
+        changeResponse1.setVisibility(View.INVISIBLE);
+        TextView okThanks = findViewById(R.id.okThanks);
+        okThanks.setVisibility(View.INVISIBLE);
+        TextView changeResponse2 = findViewById(R.id.changeResponseCross);
+        changeResponse2.setVisibility(View.INVISIBLE);
     }
 }
