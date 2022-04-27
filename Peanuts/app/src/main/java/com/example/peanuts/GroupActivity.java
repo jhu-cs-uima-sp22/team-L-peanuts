@@ -100,6 +100,7 @@ public class GroupActivity extends AppCompatActivity {
                         //if meal plan exists
                         placeholder.setVisibility(View.INVISIBLE);
                         response.setVisibility(View.VISIBLE);
+                        restrictionsView.setVisibility(View.INVISIBLE);
                     }
                 }
                 ConstraintLayout cardView;
