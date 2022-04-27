@@ -111,6 +111,8 @@ public class GroupActivity extends AppCompatActivity {
                     placeholder.setVisibility(View.INVISIBLE);
                     restrictionsView.setVisibility(View.VISIBLE);
                 } else {
+                    ImageButton addMealPlan = findViewById(R.id.AddMealPlanButton);
+                    addMealPlan.setVisibility(View.INVISIBLE);
                     if (foods.isEmpty()) { //check if meal plan is empty
                         //if meal plan is empty
                         placeholder.setVisibility(View.VISIBLE);
