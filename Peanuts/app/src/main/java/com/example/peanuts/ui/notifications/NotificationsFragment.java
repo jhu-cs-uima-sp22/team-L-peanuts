@@ -71,7 +71,7 @@ public class NotificationsFragment extends Fragment {
                     if (notification.child("groupName").getValue() != null && notification.child("groupInvite").getValue() != null) {
                         String name = Objects.requireNonNull(notification.child("groupName").getValue()).toString();
                         String invite = Objects.requireNonNull(notification.child("groupInvite").getValue()).toString();
-                        String id = notification.getKey();
+                        String id = Objects.requireNonNull(notification.child("group").getValue()).toString();
                         String date = Objects.requireNonNull(notification.child("date").getValue()).toString();
                         NotificationItem notif = new NotificationItem(name, invite, id, date);
                         notifications.add(notif);

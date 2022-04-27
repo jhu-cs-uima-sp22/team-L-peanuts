@@ -1,5 +1,8 @@
 package com.example.peanuts.ui.notifications;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class NotificationItem {
 
     String groupName;

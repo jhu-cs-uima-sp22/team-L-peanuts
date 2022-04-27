@@ -75,6 +75,7 @@ public class GroupActivity extends AppCompatActivity {
         myRef.child("groups").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("ID", id);
                 //GroupItem group = (GroupItem) dataSnapshot.getValue();
                 String name = (String) dataSnapshot.child("groupName").getValue();
                 setTitle(name);
@@ -103,7 +104,10 @@ public class GroupActivity extends AppCompatActivity {
                 //**FOR TESTING**
 
                 members = (ArrayList<NewAccount.User>) dataSnapshot.child("members").getValue();
+                Log.d("Debug", "Members1: " + String.valueOf(members));
+
                 restrictions = (Map<String, List<String>>) dataSnapshot.child("restrictions").getValue();
+                Log.d("Debug", "Restrictions1: " + String.valueOf(restrictions));
                 if (isHost) {
                     placeholder.setVisibility(View.INVISIBLE);
                     restrictionsView.setVisibility(View.VISIBLE);
@@ -309,8 +313,10 @@ public class GroupActivity extends AppCompatActivity {
                         });
                     }
                 }
+                Log.d("Debug", "Members: " + String.valueOf(members));
                 GroupMemberAdapter memberAdapter = new GroupMemberAdapter(context, R.layout.group_users_layout, members);
                 ListView membersList = (ListView) findViewById(R.id.ResponseList);
+                Log.d("Debug", String.valueOf(members));
                 membersList.setAdapter(memberAdapter);
                 registerForContextMenu(membersList);
                 memberAdapter.notifyDataSetChanged();
