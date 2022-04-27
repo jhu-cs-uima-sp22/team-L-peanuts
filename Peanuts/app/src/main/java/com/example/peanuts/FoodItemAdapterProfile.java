@@ -36,6 +36,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -67,7 +68,10 @@ public class FoodItemAdapterProfile extends ArrayAdapter<FoodItem> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LinearLayout foodItemView;
-        //FoodItem it = getItem(position);
+        Log.d("debug", "POSITION: " + position);
+
+        //FoodItem it = (FoodItem) getItem(position).;
+        //List<Integer> foods = new ArrayList<Integer>((Collection<? extends Integer>) getItem(position));
 
 
         if (convertView == null) {
@@ -112,6 +116,7 @@ public class FoodItemAdapterProfile extends ArrayAdapter<FoodItem> {
 
                 //image uri
                 imageUri = (String) dataSnapshot.child("imageUri").getValue();
+                Log.d("debug", "Path: " + imageUri);
                 ImageView foodButton = (ImageView) foodItemView.findViewById(R.id.food_item_image_profile);
                 setImage(imageUri, foodButton);
 
@@ -129,6 +134,8 @@ public class FoodItemAdapterProfile extends ArrayAdapter<FoodItem> {
                                 restrictions[i] = true;
                             }
                         }
+                        intent.putExtra("position", position);
+                        intent.putExtra("user", user);
                         intent.putExtra("name", name);
                         intent.putExtra("restrictions", restrictions);
                         intent.putExtra("image", imageUri);
