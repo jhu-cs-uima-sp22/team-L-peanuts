@@ -31,7 +31,9 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
     public GroupMemberAdapter(Context ctx, int res, List<NewAccount.User> member) {
         super(ctx, res, member);
         resource = res;
-        this.members.addAll(member);
+        if (member != null) {
+            this.members.addAll(member);
+        }
         Log.d("MEMBERS", String.valueOf(members));
     }
 
