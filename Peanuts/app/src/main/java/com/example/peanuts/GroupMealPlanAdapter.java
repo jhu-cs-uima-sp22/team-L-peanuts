@@ -45,22 +45,27 @@ public class GroupMealPlanAdapter extends RecyclerView.Adapter<GroupMealPlanAdap
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        Log.d("Debug", "IN MEAL ADAPTER");
         holder.name.setText(foodItems.get(position).getName());
-        holder.image.setImageDrawable(foodItems.get(position).getImage());
+        String path = foodItems.get(position).getImageUri();
+        foodItems.get(position).setImage(path, holder.image);
+        //holder.image.setImageDrawable(foodItems.get(position).getImage());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, Pop.class);
                 String foodName = foodItems.get(holder.getAdapterPosition()).getName();
                 boolean[] data = foodItems.get(holder.getAdapterPosition()).getRestrictions();
+                ArrayList<String> allergens = foodItems.get(holder.getAdapterPosition()).getAllergens();
                 ArrayList<String> stringData = new ArrayList<>();
                 stringData.add("\nAllergens/Restrictions:\n");
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                for (int i = 0; i < 12; i++) {
+                stringData.addAll(allergens);
+                /*for (int i = 0; i < 12; i++) {
                     if (data[i]) {
                         stringData.add(preferences.getString("" + i, ""));
                     }
-                }
+                }*/
                 intent.putExtra("foodName", foodName);
                 intent.putExtra("data", stringData);
                 context.startActivity(intent);
