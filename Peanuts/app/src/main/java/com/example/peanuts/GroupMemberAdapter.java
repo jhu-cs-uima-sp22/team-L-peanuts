@@ -53,6 +53,9 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
         TextView memberName = (TextView) groupMemberView.findViewById(R.id.UserName);
         TextView memberEmail = (TextView) groupMemberView.findViewById(R.id.UserEmail);
         ImageView memberImage = (ImageView) groupMemberView.findViewById(R.id.UserImage);
+        ImageView check = groupMemberView.findViewById(R.id.ResponseCheckIcon);
+        ImageView cross = groupMemberView.findViewById(R.id.ResponseCrossIcon);
+        ImageView noResponse = groupMemberView.findViewById(R.id.ResponseNone);
 
         Map<String, String> user = (Map<String, String>) getItem(position);
 
@@ -64,6 +67,11 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
         
         Context context = getContext();
         memberImage.setImageDrawable(context.getDrawable(R.drawable.baseline_account_circle_24));
+
+        //these should be in an if condition to see what the user responded with
+        noResponse.setVisibility(View.VISIBLE);
+        check.setVisibility(View.INVISIBLE);
+        cross.setVisibility(View.INVISIBLE);
 
         return groupMemberView;
     }
