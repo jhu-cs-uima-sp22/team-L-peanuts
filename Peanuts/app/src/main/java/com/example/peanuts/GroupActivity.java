@@ -138,11 +138,7 @@ public class GroupActivity extends AppCompatActivity {
                             public void onClick(View view) {
                                 Intent intent = new Intent(context, Pop.class);
                                 intent.putExtra("foodName", "Peanut Allergy");
-                                ArrayList<String> temp = new ArrayList<>();
-                                for (int i = 0; i < 100; i++) {
-                                    temp.add("hello");
-                                }
-                                intent.putStringArrayListExtra("data", /*(ArrayList<String>) restrictions.get("Peanuts")*/temp);
+                                intent.putStringArrayListExtra("data", (ArrayList<String>) restrictions.get("Peanuts"));
                                 context.startActivity(intent);
                             }
                         });
