@@ -112,8 +112,14 @@ public class GroupActivity extends AppCompatActivity {
                     foods.add(new FoodItem(title, image, allergens));
                 }
 
-                members = (ArrayList<NewAccount.User>) dataSnapshot.child("members").getValue();
-                Log.d("Debug", "Members1: " + String.valueOf(members));
+                for (DataSnapshot member : dataSnapshot.child("members").getChildren()) {
+                    String email = member.child("email").getValue(String.class);
+                    String memberName = member.child("name").getValue(String.class);
+                    String response = (String) member.child("response").getValue();
+                    ArrayList<String> restrictions = (ArrayList<String>) member.child("restrictions").getValue();
+                    members.add(new NewAccount.User(email, memberName, Integer.parseInt(response), restrictions));
+                }
+
 
                 restrictions = (Map<String, List<String>>) dataSnapshot.child("restrictions").getValue();
                 Log.d("Debug", "Restrictions1: " + String.valueOf(restrictions));

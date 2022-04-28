@@ -104,6 +104,13 @@ public class NewAccount extends AppCompatActivity {
             this.restrictions = restrictions;
         }
 
+        public User(String username, String email, int response, ArrayList<String> restrictions) {
+            this.name = username;
+            this.email = email;
+            this.response = response;
+            this.restrictions = restrictions;
+        }
+
 //        @Override
 //        public boolean equals(Object o) {
 //            if (o == null) return false;

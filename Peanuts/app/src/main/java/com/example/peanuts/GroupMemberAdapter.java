@@ -60,10 +60,12 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
         ImageView cross = groupMemberView.findViewById(R.id.ResponseCrossIcon);
         ImageView noResponse = groupMemberView.findViewById(R.id.ResponseNone);
 
-        Map<String, String> user = (Map<String, String>) getItem(position);
+        //Map<String, String> user = (Map<String, String>) getItem(position);
 
-        String name = user.get("name");
-        String email = user.get("email");
+        NewAccount.User user = getItem(position);
+
+        String name = user.getName();
+        String email = user.getEmail();
 
         memberName.setText(name);
         memberEmail.setText(email);
@@ -71,7 +73,9 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
         Context context = getContext();
         memberImage.setImageDrawable(context.getDrawable(R.drawable.baseline_account_circle_24));
 
-        long response = (long) Integer.parseInt(user.get("response")); //im getting a really weird error here
+        //long response = (long) Integer.parseInt(user.get("response")); //im getting a really weird error here
+
+        int response = user.getResponse();
 
         if (response == 0) {
             noResponse.setVisibility(View.VISIBLE);
