@@ -71,19 +71,19 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
         Context context = getContext();
         memberImage.setImageDrawable(context.getDrawable(R.drawable.baseline_account_circle_24));
 
-        String response = user.get("response"); //im getting a really weird error here
+        long response = (long) Integer.parseInt(user.get("response")); //im getting a really weird error here
 
-        if (response.equals("0")) {
+        if (response == 0) {
             noResponse.setVisibility(View.VISIBLE);
             check.setVisibility(View.INVISIBLE);
             cross.setVisibility(View.INVISIBLE);
         }
-        if (response.equals("1")) {
+        if (response == 1) {
             noResponse.setVisibility(View.INVISIBLE);
             check.setVisibility(View.VISIBLE);
             cross.setVisibility(View.INVISIBLE);
         }
-        if (response.equals("2")) {
+        if (response == 2) {
             noResponse.setVisibility(View.INVISIBLE);
             check.setVisibility(View.INVISIBLE);
             cross.setVisibility(View.VISIBLE);

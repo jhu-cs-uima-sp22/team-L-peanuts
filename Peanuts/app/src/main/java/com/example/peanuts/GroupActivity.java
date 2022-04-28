@@ -90,7 +90,7 @@ public class GroupActivity extends AppCompatActivity {
                     }
                 }*/
                 memberPosition = 0; //delete
-                if (memberPosition == 0)
+                if (memberPosition == 0) //these are wrong, need to go into the member, then find the response
                     changeResponse(response);
                 if (memberPosition == 1)
                     onCheckClick(response);
@@ -375,7 +375,7 @@ public class GroupActivity extends AppCompatActivity {
         looksGood.setVisibility(View.VISIBLE);
         TextView changeResponse = findViewById(R.id.changeResponseCheck);
         changeResponse.setVisibility(View.VISIBLE);
-        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue(1);
+        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue("1");
     }
 
     public void onCrossClick(View view) {
@@ -389,7 +389,7 @@ public class GroupActivity extends AppCompatActivity {
         okThanks.setVisibility(View.VISIBLE);
         TextView changeResponse = findViewById(R.id.changeResponseCross);
         changeResponse.setVisibility(View.VISIBLE);
-        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue(2);
+        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue("2");
     }
 
     public void changeResponse(View view) {
@@ -409,6 +409,6 @@ public class GroupActivity extends AppCompatActivity {
         okThanks.setVisibility(View.INVISIBLE);
         TextView changeResponse2 = findViewById(R.id.changeResponseCross);
         changeResponse2.setVisibility(View.INVISIBLE);
-        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue(0);
+        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue("0");
     }
 }
