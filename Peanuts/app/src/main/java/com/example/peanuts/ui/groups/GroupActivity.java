@@ -312,9 +312,7 @@ public class GroupActivity extends AppCompatActivity {
                 }
                 GroupMemberAdapter memberAdapter = new GroupMemberAdapter(context, R.layout.group_users_layout, members);
                 ListView membersList = (ListView) findViewById(R.id.ResponseList);
-                Log.d("DEBUG", "before set adapter");
                 membersList.setAdapter(memberAdapter);
-                Log.d("DEBUG", "after set adapter");
                 registerForContextMenu(membersList);
                 memberAdapter.notifyDataSetChanged();
 
