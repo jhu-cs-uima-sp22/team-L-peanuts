@@ -2,6 +2,7 @@ package com.example.peanuts.ui.notifications;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.peanuts.ui.groups.GroupActivity;
 import com.example.peanuts.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -18,6 +21,8 @@ public class NotificationsAdapter extends ArrayAdapter<NotificationItem> {
 
     int resource;
     List<NotificationItem> notifications;
+    //private FirebaseDatabase database = FirebaseDatabase.getInstance("https://peanuts-e9a7c-default-rtdb.firebaseio.com/");
+    //private DatabaseReference myRef = database.getReference();
 
     public NotificationsAdapter(Context ctx, int res, List<NotificationItem> notifications) {
         super(ctx, res, notifications);
@@ -94,6 +99,9 @@ public class NotificationsAdapter extends ArrayAdapter<NotificationItem> {
                 Context context = getContext();
                 Intent intent = new Intent(context, GroupActivity.class);
                 intent.putExtra("id", it.getGroup());
+
+
+                Log.d("Debug", "Notifications ID: " + it.getGroup());
                 context.startActivity(intent);
             }
         });
