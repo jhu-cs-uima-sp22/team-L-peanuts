@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
 
@@ -70,20 +71,19 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
         Context context = getContext();
         memberImage.setImageDrawable(context.getDrawable(R.drawable.baseline_account_circle_24));
 
-        //these should be in an if condition to see what the user responded with
-        int response = Integer.parseInt(user.get("response"));
+        String response = user.get("response"); //im getting a really weird error here
 
-        if (response == 0) {
+        if (response.equals("0")) {
             noResponse.setVisibility(View.VISIBLE);
             check.setVisibility(View.INVISIBLE);
             cross.setVisibility(View.INVISIBLE);
         }
-        if (response == 1) {
+        if (response.equals("1")) {
             noResponse.setVisibility(View.INVISIBLE);
             check.setVisibility(View.VISIBLE);
             cross.setVisibility(View.INVISIBLE);
         }
-        if (response == 2) {
+        if (response.equals("2")) {
             noResponse.setVisibility(View.INVISIBLE);
             check.setVisibility(View.INVISIBLE);
             cross.setVisibility(View.VISIBLE);

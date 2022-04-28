@@ -3,6 +3,7 @@ package com.example.peanuts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.utils.widget.ImageFilterButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -366,7 +367,7 @@ public class GroupActivity extends AppCompatActivity {
     public void onCheckClick(View view) {
         ConstraintLayout cl = findViewById(R.id.MealPlanResponse);
         cl.setBackgroundColor(Color.rgb(211, 225,175));
-        MaterialButton mb = findViewById(R.id.ResponseCross);
+        ImageFilterButton mb = findViewById(R.id.ResponseCross);
         mb.setVisibility(View.INVISIBLE);
         TextView tv = findViewById(R.id.textView17);
         tv.setVisibility(View.INVISIBLE);
@@ -396,7 +397,7 @@ public class GroupActivity extends AppCompatActivity {
         cl.setBackgroundColor(Color.rgb(250, 209,169));
         MaterialButton mbCross = findViewById(R.id.ResponseCross);
         mbCross.setVisibility(View.VISIBLE);
-        MaterialButton mbCheck = findViewById(R.id.ResponseCheck);
+        ImageFilterButton mbCheck = findViewById(R.id.ResponseCheck);
         mbCheck.setVisibility(View.VISIBLE);
         TextView tv = findViewById(R.id.textView17);
         tv.setVisibility(View.VISIBLE);
