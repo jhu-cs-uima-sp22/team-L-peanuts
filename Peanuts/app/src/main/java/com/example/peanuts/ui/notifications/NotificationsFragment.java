@@ -58,7 +58,6 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot notification : dataSnapshot.getChildren()) {
-                    Log.d("NOTIF", String.valueOf(notification));
                     if (notification.child("groupName").getValue() != null && notification.child("groupInvite").getValue() != null) {
                         String name = Objects.requireNonNull(notification.child("groupName").getValue()).toString();
                         String invite = Objects.requireNonNull(notification.child("groupInvite").getValue()).toString();

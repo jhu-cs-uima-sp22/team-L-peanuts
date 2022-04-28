@@ -20,8 +20,6 @@ public class EditRestrictions extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_restrictions);
-        Log.d("debug", "in edit restrictions");
-
 
         Intent intent = getIntent();
         String user = intent.getStringExtra("user");
@@ -44,15 +42,12 @@ public class EditRestrictions extends AppCompatActivity {
         adapter = new RestrictionsAdapter(this, R.layout.item_restriction, restrictions, user);
 
         ListView myList = (ListView) this.findViewById(R.id.restrictions_list);
-        Log.d("debug", "set list");
 
         myList.setAdapter(adapter);
-        Log.d("debug", "connected list and adapter");
 
         registerForContextMenu(myList);
         // refresh view
         adapter.notifyDataSetChanged();
-        Log.d("debug", "done");
 
     }
 

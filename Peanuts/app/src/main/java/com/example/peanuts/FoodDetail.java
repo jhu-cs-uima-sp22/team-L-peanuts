@@ -59,11 +59,9 @@ public class FoodDetail extends AppCompatActivity {
         Intent intent = getIntent();
         name.setText(intent.getStringExtra("name"));
         String strName = intent.getStringExtra("name");
-        Log.d("debug", "Name in detail: " + strName);
         //image.setImageURI(Uri.parse(intent.getStringExtra("image")));
 
         int position = intent.getIntExtra("position", -1);
-        Log.d("debug", "Position in detail: " + position);
 
         user = intent.getStringExtra("user");
 
@@ -111,7 +109,6 @@ public class FoodDetail extends AppCompatActivity {
         }
 
         allergens.setText(restrictionsText);
-        Log.d("debug", "Restrictions in detail: " + restrictionsText);
     }
 
     @Override

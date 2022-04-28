@@ -35,7 +35,6 @@ public class GroupAddFoodAdapter extends ArrayAdapter<FoodItem> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("debug", "in getView");
         LinearLayout itemView;
         FoodItem it = getItem(position);
 
@@ -57,15 +56,12 @@ public class GroupAddFoodAdapter extends ArrayAdapter<FoodItem> {
         String name = it.getName();
         if (name != null) {
             textView.setText(name);
-            Log.d("debug", "set name");
         } else {
             name = "Untitled";
             textView.setText(name);
         }
 
         String path = it.getImageUri();
-        Log.d("debug", "got path");
-        Log.d("debug", path);
 
         it.setImage(path, image);
 

@@ -133,7 +133,6 @@ public class Settings extends AppCompatActivity {
                 });
 
         UploadTask uploadTask = fireRef.putBytes(data, metadata);
-        Log.d("debug", "uploaded");
 
         uploadTask.addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override

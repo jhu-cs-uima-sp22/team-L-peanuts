@@ -89,7 +89,6 @@ public class GroupActivity extends AppCompatActivity {
                     String title = foodIDs.child("name").getValue(String.class);
 
                     ArrayList<String> allergens = (ArrayList<String>)foodIDs.child("allergens").getValue();
-                    Log.d("Debug", "Allergens: " + allergens);
                     foods.add(new FoodItem(title, image, allergens));
                 }
 
@@ -104,10 +103,8 @@ public class GroupActivity extends AppCompatActivity {
                 //**FOR TESTING**
 
                 members = (ArrayList<NewAccount.User>) dataSnapshot.child("members").getValue();
-                Log.d("Debug", "Members1: " + String.valueOf(members));
-
                 restrictions = (Map<String, List<String>>) dataSnapshot.child("restrictions").getValue();
-                Log.d("Debug", "Restrictions1: " + String.valueOf(restrictions));
+
                 if (isHost) {
                     placeholder.setVisibility(View.INVISIBLE);
                     restrictionsView.setVisibility(View.VISIBLE);
@@ -313,10 +310,8 @@ public class GroupActivity extends AppCompatActivity {
                         });
                     }
                 }
-                Log.d("Debug", "Members: " + String.valueOf(members));
                 GroupMemberAdapter memberAdapter = new GroupMemberAdapter(context, R.layout.group_users_layout, members);
                 ListView membersList = (ListView) findViewById(R.id.ResponseList);
-                Log.d("Debug", String.valueOf(members));
                 membersList.setAdapter(memberAdapter);
                 registerForContextMenu(membersList);
                 memberAdapter.notifyDataSetChanged();
@@ -398,6 +393,7 @@ public class GroupActivity extends AppCompatActivity {
                 }
             });
         }
+        finish();
 
         return super.onOptionsItemSelected(item);
     }

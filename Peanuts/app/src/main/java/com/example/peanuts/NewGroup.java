@@ -55,7 +55,6 @@ public class NewGroup extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("debug", "in new group");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_group);
 

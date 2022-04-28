@@ -55,7 +55,6 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
 
     public PostAdapter(Context ctx, int res, List<FoodItem> items) {
         super(ctx, res, items);
-        Log.d("debug", "in post constructor");
         resource = res;
         this.posts = items;
         //fullPosts.addAll(items);
@@ -72,7 +71,6 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("debug", "in getView");
         LinearLayout itemView;
         FoodItem it = getItem(position);
 
@@ -94,7 +92,6 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
         if (textView != null) {
             if (name != null) {
                 textView.setText(name);
-                Log.d("debug", "set name");
             } else {
                 name = "Untitled";
                 textView.setText(name);
@@ -105,8 +102,6 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
         //it.getHasImage()
 
         String path = it.getImageUri();
-        Log.d("debug", "got path");
-        Log.d("debug", path);
 
         if (image != null) {
             it.setImage(path, image);
@@ -117,14 +112,12 @@ public class PostAdapter extends ArrayAdapter<FoodItem> {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d("debug", "in on click");
                     Context context = getContext();
                     Intent intent = new Intent(context, FoodDetail.class);
                     intent.putExtra("name", it.getName());
                     intent.putExtra("allergens", it.getAllergens());
                     intent.putExtra("image", it.getImageUri());
                     context.startActivity(intent);
-                    Log.d("debug", "started activity");
                     notifyDataSetChanged();
                 }
             });

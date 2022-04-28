@@ -80,20 +80,16 @@ public class GroupAddFood extends AppCompatActivity {
                     for (DataSnapshot user: dataSnapshot.getChildren()) {
                         for (DataSnapshot post: user.getChildren()) {
                             usersPost.add(post.getValue(FoodItem.class));
-                            Log.d("debug", "added child in frag");
 
                             if(context != null && usersPost != null) {
 
                                 adapter = new GroupAddFoodAdapter(context, R.layout.item_restriction, usersPost, addedItems);
                             }
                             list = findViewById(R.id.item_list);
-                            Log.d("debug", "set list");
                             list.setAdapter(adapter);
-                            Log.d("debug", "set adapter");
                             registerForContextMenu(list);
                             // refresh view
                             adapter.notifyDataSetChanged();
-                            Log.d("debug", "done");
                         }
                     }
                 } else {

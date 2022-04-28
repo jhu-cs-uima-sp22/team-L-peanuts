@@ -45,7 +45,6 @@ public class GroupMealPlanAdapter extends RecyclerView.Adapter<GroupMealPlanAdap
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Log.d("Debug", "IN MEAL ADAPTER");
         holder.name.setText(foodItems.get(position).getName());
         String path = foodItems.get(position).getImageUri();
         foodItems.get(position).setImage(path, holder.image);

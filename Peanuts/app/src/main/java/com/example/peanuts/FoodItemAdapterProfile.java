@@ -68,7 +68,6 @@ public class FoodItemAdapterProfile extends ArrayAdapter<FoodItem> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LinearLayout foodItemView;
-        Log.d("debug", "POSITION: " + position);
 
         //FoodItem it = (FoodItem) getItem(position).;
         //List<Integer> foods = new ArrayList<Integer>((Collection<? extends Integer>) getItem(position));
@@ -111,12 +110,8 @@ public class FoodItemAdapterProfile extends ArrayAdapter<FoodItem> {
         //myRefUsers.child(user).child("" + position).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("debug", "Position: " + position );
-                Log.d("debug", "Data: " + dataSnapshot);
-
                 //image uri
                 imageUri = (String) dataSnapshot.child("imageUri").getValue();
-                Log.d("debug", "Path: " + imageUri);
                 ImageView foodButton = (ImageView) foodItemView.findViewById(R.id.food_item_image_profile);
                 setImage(imageUri, foodButton);
 
@@ -157,7 +152,6 @@ public class FoodItemAdapterProfile extends ArrayAdapter<FoodItem> {
         if (path != null && !path.equals("")) {
             //get the storage reference
             storageReference = FirebaseStorage.getInstance("gs://peanuts-e9a7c.appspot.com").getReference().child(path);
-            Log.d("debug", "got storage ref");
 
             //create temp file for image
             File file = null;
@@ -168,7 +162,6 @@ public class FoodItemAdapterProfile extends ArrayAdapter<FoodItem> {
             }
 
             File finalLocalFile = file;
-            Log.d("debug", "got file");
 
             //store to storage
             storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
