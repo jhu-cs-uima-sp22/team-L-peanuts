@@ -127,6 +127,37 @@ public class FoodItem {
         return isChecked;
     }
 
+    @Override
+    public boolean equals(Object o) {
+
+        // If the object is compared with itself then return true
+        if (o == this) {
+            return true;
+        }
+
+        /* Check if o is an instance of Complex or not
+          "null instanceof [type]" also returns false */
+        if (!(o instanceof FoodItem)) {
+            return false;
+        }
+
+        // typecast o to Complex so that we can compare data members
+        FoodItem c = (FoodItem) o;
+
+        // Compare the data members and return accordingly
+        if (this.name.equals(c.name) && this.imageUri.equals(c.imageUri)) {
+            if (allergens != null && this.allergens.size() == c.allergens.size()) {
+                for (int i = 0; i < allergens.size(); i++) {
+                    if (!allergens.get(i).equals(c.allergens.get(i))) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
     public void setImage (String path, ImageView image) {
         if (path != null && !path.equals("")) {
             //get the storage reference

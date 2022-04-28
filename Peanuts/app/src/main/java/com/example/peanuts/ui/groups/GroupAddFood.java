@@ -70,6 +70,25 @@ public class GroupAddFood extends AppCompatActivity {
         addedItems = new ArrayList<>();
 
         initSearch();
+
+        /*myRefGroups.child("groups").child(id).child("foods").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot IDs : dataSnapshot.getChildren()) {
+                    for (DataSnapshot foodsItems : IDs.getChildren()) {
+                        addedItems.add(foodsItems.getValue(FoodItem.class));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("retrieve_fail", databaseError.toString());
+            }
+        });*/
+
+        Log.d("DEBUG", "Added items: " + addedItems);
+
         myRefPosts.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -83,7 +102,7 @@ public class GroupAddFood extends AppCompatActivity {
 
                             if(context != null && usersPost != null) {
 
-                                adapter = new GroupAddFoodAdapter(context, R.layout.item_restriction, usersPost, addedItems);
+                                adapter = new GroupAddFoodAdapter(context, R.layout.item_restriction, usersPost, addedItems, id);
                             }
                             list = findViewById(R.id.item_list);
                             list.setAdapter(adapter);
@@ -177,7 +196,7 @@ public class GroupAddFood extends AppCompatActivity {
                     }
                 }
 
-                GroupAddFoodAdapter filteredAdapter = new GroupAddFoodAdapter(context, R.layout.item_restriction, filteredPosts, addedItems);
+                GroupAddFoodAdapter filteredAdapter = new GroupAddFoodAdapter(context, R.layout.item_restriction, filteredPosts, addedItems, id);
                 if (list != null) {
                     list.setAdapter(filteredAdapter);
                 }

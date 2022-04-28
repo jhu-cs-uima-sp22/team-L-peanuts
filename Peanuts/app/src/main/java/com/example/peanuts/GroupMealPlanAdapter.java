@@ -59,7 +59,9 @@ public class GroupMealPlanAdapter extends RecyclerView.Adapter<GroupMealPlanAdap
                 ArrayList<String> stringData = new ArrayList<>();
                 stringData.add("\nAllergens/Restrictions:\n");
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                stringData.addAll(allergens);
+                if (allergens != null) {
+                    stringData.addAll(allergens);
+                }
                 /*for (int i = 0; i < 12; i++) {
                     if (data[i]) {
                         stringData.add(preferences.getString("" + i, ""));

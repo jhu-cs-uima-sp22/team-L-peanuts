@@ -560,7 +560,7 @@
         android:onClick="toAddFoodInGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/outline_add_circle_outline_24"
+        android:src="@drawable/baseline_edit_24"
         tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
