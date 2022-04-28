@@ -89,6 +89,7 @@ public class NewAccount extends AppCompatActivity {
         public String email;
         public ArrayList<String> restrictions;
         public String path;
+        public int response;
 
         User(String username, String email, String password, ArrayList<String> restrictions) {
             this.name = username;
@@ -124,6 +125,14 @@ public class NewAccount extends AppCompatActivity {
 
         public ArrayList<String> getRestrictions() { return restrictions; }
 
+        public int getResponse() {
+            return response;
+        }
+
+        public void setResponse(int response) {
+            this.response = response;
+        }
+
     }
 
     public void writeNewUser(String name, String email, String password) {
@@ -138,6 +147,4 @@ public class NewAccount extends AppCompatActivity {
         editor.apply();
         myRef.child(email).setValue(user);
     }
-
-
 }

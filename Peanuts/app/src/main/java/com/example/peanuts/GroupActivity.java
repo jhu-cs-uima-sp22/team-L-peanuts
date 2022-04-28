@@ -50,6 +50,7 @@ public class GroupActivity extends AppCompatActivity {
     private Map<String, List<String>> restrictions;
     private List<NewAccount.User> members;
     private Map<String, FoodItem> foodPosts;
+    private int memberPosition;
     //private List<String> images;
     //private List<String> foodName;
     //private List<List<String>> allergens;
@@ -72,6 +73,7 @@ public class GroupActivity extends AppCompatActivity {
         restrictions = new HashMap<>();
         members = new ArrayList<>();
         foodPosts = new HashMap<>();
+
         myRef.child("groups").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -79,6 +81,22 @@ public class GroupActivity extends AppCompatActivity {
                 //GroupItem group = (GroupItem) dataSnapshot.getValue();
                 String name = (String) dataSnapshot.child("groupName").getValue();
                 setTitle(name);
+
+                //**below is attempt at retrieving response and then setting initial state**
+                /*for (DataSnapshot member : dataSnapshot.child("members").getChildren()) {
+                    if (member.child("email").getValue().toString().equals(user)) {
+                        memberPosition = Integer.parseInt(member.getKey());
+                    }
+                }*/
+                memberPosition = 0; //delete
+                if (memberPosition == 0)
+                    changeResponse(response);
+                if (memberPosition == 1)
+                    onCheckClick(response);
+                if (memberPosition == 2)
+                    onCrossClick(response);
+                //**above**
+
                 Log.d("Debug", "Group Name: " + name);
                 boolean isHost = preferences.getString("user_email", "").equals((String) dataSnapshot.child("host").getValue());
                 foods = new ArrayList<>();
@@ -92,16 +110,6 @@ public class GroupActivity extends AppCompatActivity {
                     Log.d("Debug", "Allergens: " + allergens);
                     foods.add(new FoodItem(title, image, allergens));
                 }
-
-                //**FOR TESTING**
-                /*boolean[] booleans = new boolean[12];
-                booleans[5] = true;
-                foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
-                foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
-                foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
-                foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
-                foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));*/
-                //**FOR TESTING**
 
                 members = (ArrayList<NewAccount.User>) dataSnapshot.child("members").getValue();
                 Log.d("Debug", "Members1: " + String.valueOf(members));
@@ -327,6 +335,8 @@ public class GroupActivity extends AppCompatActivity {
                 meals.setAdapter(mealPlanAdapter);
                 registerForContextMenu(meals);
                 mealPlanAdapter.notifyDataSetChanged();
+
+                //pull users reponse from database, depending on what it is, call 1 of the 3 functions below
             }
 
             @Override
@@ -364,6 +374,7 @@ public class GroupActivity extends AppCompatActivity {
         looksGood.setVisibility(View.VISIBLE);
         TextView changeResponse = findViewById(R.id.changeResponseCheck);
         changeResponse.setVisibility(View.VISIBLE);
+        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue(1);
     }
 
     public void onCrossClick(View view) {
@@ -377,6 +388,7 @@ public class GroupActivity extends AppCompatActivity {
         okThanks.setVisibility(View.VISIBLE);
         TextView changeResponse = findViewById(R.id.changeResponseCross);
         changeResponse.setVisibility(View.VISIBLE);
+        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue(2);
     }
 
     public void changeResponse(View view) {
@@ -396,5 +408,6 @@ public class GroupActivity extends AppCompatActivity {
         okThanks.setVisibility(View.INVISIBLE);
         TextView changeResponse2 = findViewById(R.id.changeResponseCross);
         changeResponse2.setVisibility(View.INVISIBLE);
+        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue(0);
     }
 }

@@ -71,10 +71,23 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
         memberImage.setImageDrawable(context.getDrawable(R.drawable.baseline_account_circle_24));
 
         //these should be in an if condition to see what the user responded with
-        noResponse.setVisibility(View.VISIBLE);
-        check.setVisibility(View.INVISIBLE);
-        cross.setVisibility(View.INVISIBLE);
+        int response = Integer.parseInt(user.get("response"));
 
+        if (response == 0) {
+            noResponse.setVisibility(View.VISIBLE);
+            check.setVisibility(View.INVISIBLE);
+            cross.setVisibility(View.INVISIBLE);
+        }
+        if (response == 1) {
+            noResponse.setVisibility(View.INVISIBLE);
+            check.setVisibility(View.VISIBLE);
+            cross.setVisibility(View.INVISIBLE);
+        }
+        if (response == 2) {
+            noResponse.setVisibility(View.INVISIBLE);
+            check.setVisibility(View.INVISIBLE);
+            cross.setVisibility(View.VISIBLE);
+        }
         return groupMemberView;
     }
 
