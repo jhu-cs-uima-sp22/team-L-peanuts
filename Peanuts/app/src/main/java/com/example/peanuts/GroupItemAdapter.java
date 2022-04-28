@@ -3,23 +3,19 @@ package com.example.peanuts;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
-import java.io.Serializable;
-import java.security.acl.Group;
-import java.util.ArrayList;
+import com.example.peanuts.ui.groups.GroupActivity;
+import com.example.peanuts.ui.groups.GroupItem;
+
 import java.util.List;
 
 public class GroupItemAdapter extends ArrayAdapter<GroupItem> {

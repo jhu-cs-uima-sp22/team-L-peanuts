@@ -1,4 +1,4 @@
-package com.example.peanuts;
+package com.example.peanuts.ui.groups;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,9 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.example.peanuts.FoodItem;
+import com.example.peanuts.GroupAddFoodAdapter;
+import com.example.peanuts.R;
 import com.example.peanuts.ui.home.PostAdapter;
 import com.example.peanuts.ui.notifications.NotificationItem;
 import com.google.firebase.database.DataSnapshot;
