@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="#FFFFFF"
     android:isScrollContainer="true"
-    tools:context=".GroupActivity">
+    tools:context=".ui.groups.GroupActivity">
 
     <TextView
         android:id="@+id/MealPlan"
