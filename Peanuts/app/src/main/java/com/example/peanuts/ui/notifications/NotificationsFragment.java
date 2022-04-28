@@ -8,21 +8,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.collection.ArrayMap;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.peanuts.GroupItem;
-import com.example.peanuts.GroupItemAdapter;
-import com.example.peanuts.NewAccount;
 import com.example.peanuts.R;
 import com.example.peanuts.databinding.FragmentNotificationsBinding;
-import com.example.peanuts.ui.add.FoodPostAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,9 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class NotificationsFragment extends Fragment {
@@ -67,7 +58,6 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot notification : dataSnapshot.getChildren()) {
-                    Log.d("NOTIF", String.valueOf(notification));
                     if (notification.child("groupName").getValue() != null && notification.child("groupInvite").getValue() != null) {
                         String name = Objects.requireNonNull(notification.child("groupName").getValue()).toString();
                         String invite = Objects.requireNonNull(notification.child("groupInvite").getValue()).toString();

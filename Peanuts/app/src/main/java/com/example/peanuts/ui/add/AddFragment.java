@@ -145,14 +145,12 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                     Log.d("retrieve_success", dataSnapshot.toString());
                     for (DataSnapshot posts: dataSnapshot.getChildren()) {
                         usersPost.add(posts.getValue(FoodItem.class));
-                        Log.d("debug", "added child");
                     }
 
                     //usersPost.remove(usersPost.size()-1);
 
                 } else {
                     usersPost = new ArrayList<>();
-                    Log.d("debug", "in empty");
                 }
             }
             @Override
@@ -219,7 +217,6 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                             });
 
                     UploadTask uploadTask = fireRef.putBytes(data, metadata);
-                    Log.d("debug", "uploaded");
 
                     uploadTask.addOnSuccessListener(getActivity(), new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -247,7 +244,6 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                     FoodItem post = new FoodItem(nameOfFood, path);
                     //String str = random.toString();
                     //post.setRandomID(str);
-                    Log.d("debug", "food post created");
                     for(int i = 0; i < restrictions.size(); i++) {
                         if (restrictions.get(i).isChecked()) {
                             post.addAllergens(restrictions.get(i).getItem());
@@ -255,10 +251,8 @@ public class AddFragment extends Fragment implements View.OnClickListener{
                     }
                     usersPost.add(post);
 
-                    Log.d("debug", "added to usersPost");
                     myRef.child(email).setValue(usersPost);
                     //myRef.child(email).child(usersPost.get(usersPost.size()-1).getName()).child("image").setValue("url" + path);
-                    Log.d("debug", "done with db");
 
                     clearContent();
                 }

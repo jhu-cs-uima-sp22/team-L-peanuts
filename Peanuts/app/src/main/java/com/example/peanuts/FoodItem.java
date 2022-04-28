@@ -44,7 +44,6 @@ public class FoodItem {
 
     public FoodItem(String name, String imageUri) {
         this.name = name;
-        Log.d("debug", "name is set");
         this.imageUri = imageUri;
         allergens = new ArrayList<>();
         index = 0;
@@ -52,7 +51,6 @@ public class FoodItem {
 
     public FoodItem(String name, String imageUri, ArrayList<String> allergens) {
         this.name = name;
-        Log.d("debug", "name is set");
         this.imageUri = imageUri;
         //allergens = new ArrayList<>();
         this.allergens = allergens;
@@ -62,14 +60,12 @@ public class FoodItem {
     public FoodItem(String name, byte[] b) {
         this.name = name;
         this.data = b;
-        Log.d("debug", "name is set");
         allergens = new ArrayList<>();
         index = 0;
     }
 
     public FoodItem(String name, File file) {
         this.name = name;
-        Log.d("debug", "name is set");
         this.file = file;
         allergens = new ArrayList<>();
         index = 0;
@@ -131,11 +127,41 @@ public class FoodItem {
         return isChecked;
     }
 
+    @Override
+    public boolean equals(Object o) {
+
+        // If the object is compared with itself then return true
+        if (o == this) {
+            return true;
+        }
+
+        /* Check if o is an instance of Complex or not
+          "null instanceof [type]" also returns false */
+        if (!(o instanceof FoodItem)) {
+            return false;
+        }
+
+        // typecast o to Complex so that we can compare data members
+        FoodItem c = (FoodItem) o;
+
+        // Compare the data members and return accordingly
+        if (this.name.equals(c.name) && this.imageUri.equals(c.imageUri)) {
+            if (allergens != null && this.allergens.size() == c.allergens.size()) {
+                for (int i = 0; i < allergens.size(); i++) {
+                    if (!allergens.get(i).equals(c.allergens.get(i))) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
     public void setImage (String path, ImageView image) {
         if (path != null && !path.equals("")) {
             //get the storage reference
             storageReference = FirebaseStorage.getInstance("gs://peanuts-e9a7c.appspot.com").getReference().child(path);
-            Log.d("debug", "got storage ref");
 
             //create temp file for image
             File file = null;
@@ -146,13 +172,11 @@ public class FoodItem {
             }
 
             File finalLocalFile = file;
-            Log.d("debug", "got file");
 
             //store to storage
             storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Log.d("debug", "in on success for retrieving image");
                     Bitmap bitmap = BitmapFactory.decodeFile(finalLocalFile.getAbsolutePath());
                     image.setImageBitmap(bitmap);
                 }

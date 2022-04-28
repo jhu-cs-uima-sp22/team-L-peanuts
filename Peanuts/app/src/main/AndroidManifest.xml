@@ -17,17 +17,17 @@
             android:resource="@xml/searchable" />
 
         <activity
-            android:name=".GroupAddFood"
+            android:name=".ui.groups.GroupAddFood"
             android:exported="false"
-            android:parentActivityName=".GroupActivity"/>
+            android:parentActivityName=".ui.groups.GroupActivity"/>
         <activity
-            android:name=".GroupActivity"
+            android:name=".ui.groups.GroupActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".NewGroup"
             android:exported="false"
-            android:parentActivityName=".GroupActivity">
+            android:parentActivityName=".ui.groups.GroupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>

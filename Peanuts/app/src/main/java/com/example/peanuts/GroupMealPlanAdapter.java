@@ -45,7 +45,6 @@ public class GroupMealPlanAdapter extends RecyclerView.Adapter<GroupMealPlanAdap
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Log.d("Debug", "IN MEAL ADAPTER");
         holder.name.setText(foodItems.get(position).getName());
         String path = foodItems.get(position).getImageUri();
         foodItems.get(position).setImage(path, holder.image);
@@ -60,7 +59,9 @@ public class GroupMealPlanAdapter extends RecyclerView.Adapter<GroupMealPlanAdap
                 ArrayList<String> stringData = new ArrayList<>();
                 stringData.add("\nAllergens/Restrictions:\n");
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                stringData.addAll(allergens);
+                if (allergens != null) {
+                    stringData.addAll(allergens);
+                }
                 /*for (int i = 0; i < 12; i++) {
                     if (data[i]) {
                         stringData.add(preferences.getString("" + i, ""));

@@ -128,7 +128,6 @@ public class FoodItemAdapter extends ArrayAdapter<FoodItem> {
         if (path != null && !path.equals("")) {
             //get the storage reference
             storageReference = FirebaseStorage.getInstance("gs://peanuts-e9a7c.appspot.com").getReference().child(path);
-            Log.d("debug", "got storage ref");
 
             //create temp file for image
             File file = null;
@@ -139,13 +138,11 @@ public class FoodItemAdapter extends ArrayAdapter<FoodItem> {
             }
 
             File finalLocalFile = file;
-            Log.d("debug", "got file");
 
             //store to storage
             storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Log.d("debug", "in on success for retrieving image");
                     Bitmap bitmap = BitmapFactory.decodeFile(finalLocalFile.getAbsolutePath());
                     image.setImageBitmap(bitmap);
                 }

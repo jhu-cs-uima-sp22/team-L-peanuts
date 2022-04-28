@@ -275,12 +275,9 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
                     path = dataSnapshot.getValue().toString();
-                    Log.d("debug", path);
                     assert (path != null);
                     ImageView image = (ImageView) root.findViewById(R.id.profile_photo);
-                    Log.d("debug", "before set image");
                     setImage(path, image);
-                    Log.d("debug", "after set image");
                 }
             }
 
@@ -323,13 +320,10 @@ public class ProfileFragment extends Fragment {
     }
 
     public void setImage (String path, ImageView image) {
-        Log.d("debug", "in set image");
         //Log.d("debug", path);
         if (path != null && !path.equals("")) {
-            Log.d("debug", "in if statment");
             //get the storage reference
             storageReference = FirebaseStorage.getInstance("gs://peanuts-e9a7c.appspot.com").getReference().child(path);
-            Log.d("debug", "got storage ref");
 
             //create temp file for image
             File file = null;
@@ -340,7 +334,6 @@ public class ProfileFragment extends Fragment {
             }
 
             File finalLocalFile = file;
-            Log.d("debug", "got file");
 
             //store to storage
             storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {

@@ -64,7 +64,6 @@ public class ExploreFragment extends Fragment {
 
         final TextView textView = binding.textExplore;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        Log.d("debug", "in explore");
 
         usersPost = new ArrayList<>();
         Context context = getContext();
@@ -78,31 +77,25 @@ public class ExploreFragment extends Fragment {
        myRef.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("debug", "in onDataChange");
 
                 if (dataSnapshot.getValue() != null) {
                     Log.d("retrieve_success", dataSnapshot.toString());
                     for (DataSnapshot user: dataSnapshot.getChildren()) {
                         for (DataSnapshot post: user.getChildren()) {
                             usersPost.add(post.getValue(FoodItem.class));
-                            Log.d("debug", "added child in frag");
 
                             if(getContext() != null && usersPost != null) {
 
                                 adapter = new PostAdapter(getContext(), R.layout.explore_posts, usersPost);
                             }
                             list = root.findViewById(R.id.posts_list);
-                            Log.d("debug", "set list");
                             list.setAdapter(adapter);
-                            Log.d("debug", "set adapter");
                             registerForContextMenu(list);
                             // refresh view
                             adapter.notifyDataSetChanged();
-                            Log.d("debug", "done");
                         }
                     }
                 } else {
-                    Log.d("debug", "in empty");
                 }
             }
             @Override

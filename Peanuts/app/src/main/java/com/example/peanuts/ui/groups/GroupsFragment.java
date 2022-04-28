@@ -1,33 +1,23 @@
 package com.example.peanuts.ui.groups;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.peanuts.FoodDetail;
-import com.example.peanuts.FoodItemAdapterProfile;
-import com.example.peanuts.GroupActivity;
-import com.example.peanuts.GroupItem;
 import com.example.peanuts.GroupItemAdapter;
 import com.example.peanuts.MainActivity;
 import com.example.peanuts.NewAccount;
 import com.example.peanuts.R;
 import com.example.peanuts.databinding.FragmentGroupBinding;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

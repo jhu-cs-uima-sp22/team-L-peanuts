@@ -1,4 +1,4 @@
-package com.example.peanuts;
+package com.example.peanuts.ui.groups;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +18,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
@@ -28,11 +29,18 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.peanuts.FoodItem;
+import com.example.peanuts.GroupMealPlanAdapter;
+import com.example.peanuts.GroupMemberAdapter;
+import com.example.peanuts.NewAccount;
+import com.example.peanuts.Pop;
+import com.example.peanuts.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Array;
@@ -52,6 +60,7 @@ public class GroupActivity extends AppCompatActivity {
     private List<NewAccount.User> members;
     private Map<String, FoodItem> foodPosts;
     private int memberPosition;
+    private String user;
     //private List<String> images;
     //private List<String> foodName;
     //private List<List<String>> allergens;
@@ -66,6 +75,7 @@ public class GroupActivity extends AppCompatActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
+        user = preferences.getString("user_email", "");
         ConstraintLayout placeholder = (ConstraintLayout) findViewById(R.id.PlaceHolder);
         HorizontalScrollView restrictionsView = (HorizontalScrollView) findViewById(R.id.RestrictionsInGroups);
         ConstraintLayout response = (ConstraintLayout) findViewById(R.id.MealPlanResponse);
@@ -74,7 +84,6 @@ public class GroupActivity extends AppCompatActivity {
         restrictions = new HashMap<>();
         members = new ArrayList<>();
         foodPosts = new HashMap<>();
-
         myRef.child("groups").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -120,6 +129,7 @@ public class GroupActivity extends AppCompatActivity {
                     members.add(new NewAccount.User(email, memberName, Integer.parseInt(response), restrictions));
                 }
 
+                Log.d("Debug", "Members1: " + String.valueOf(members));
 
                 restrictions = (Map<String, List<String>>) dataSnapshot.child("restrictions").getValue();
                 Log.d("Debug", "Restrictions1: " + String.valueOf(restrictions));
@@ -342,8 +352,6 @@ public class GroupActivity extends AppCompatActivity {
                 meals.setAdapter(mealPlanAdapter);
                 registerForContextMenu(meals);
                 mealPlanAdapter.notifyDataSetChanged();
-
-                //pull users reponse from database, depending on what it is, call 1 of the 3 functions below
             }
 
             @Override
@@ -354,11 +362,65 @@ public class GroupActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.groups_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
         }
+        else if (item.getItemId() == R.id.leave) {
+            Query member = myRef.child("groups").child(id);
+            member.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Map<String, List<String>> restriction = new HashMap<>();
+                    for (DataSnapshot member : dataSnapshot.child("members").getChildren()) {
+                        if (member.child("email").getValue().toString().equals(user)) {
+                            member.getRef().removeValue();
+                        } else {
+                            for (DataSnapshot restrict : member.child("restrictions").getChildren()) {
+                                String restItem = restrict.getValue().toString();
+                                if (restriction.get(restItem) == null)
+                                    restriction.put(restItem, new ArrayList<>());
+                                restriction.get(restItem).add(member.child("name").getValue().toString());
+                            }
+                        }
+                    }
+                    myRef.child("groups").child(id).child("restrictions").setValue(restriction);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            Query group = myRef.child("users").child(user).child("groups");
+            group.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot member : dataSnapshot.getChildren()) {
+                        if (member.getValue().toString().equals(id)) {
+                            member.getRef().removeValue();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+        finish();
+
         return super.onOptionsItemSelected(item);
     }
 
