@@ -110,6 +110,7 @@ public class GroupActivity extends AppCompatActivity {
                     if (responseValue == 2)
                         onCrossClick(response);
                 }
+                //
 
                 Log.d("Debug", "Group Name: " + name);
                 isHost = preferences.getString("user_email", "").equals((String) dataSnapshot.child("host").getValue());
