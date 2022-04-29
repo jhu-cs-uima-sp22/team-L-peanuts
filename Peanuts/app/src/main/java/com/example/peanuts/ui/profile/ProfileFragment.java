@@ -104,7 +104,7 @@ public class ProfileFragment extends Fragment {
         myPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         this.user = myPrefs.getString("user_email", "");
-
+        Log.d("DEBUG11", user);
         myRef.child(user).child("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

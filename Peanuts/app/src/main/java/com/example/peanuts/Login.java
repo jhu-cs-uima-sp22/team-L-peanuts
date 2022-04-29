@@ -26,6 +26,7 @@ public class Login extends AppCompatActivity {
 
     private EditText passText;
     private EditText emailText;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +47,15 @@ public class Login extends AppCompatActivity {
         int duration = Toast.LENGTH_SHORT;
 
         try {
-            String email = emailText.getText().toString();
+            email = emailText.getText().toString();
             String pass = passText.getText().toString();
 
             if (email.equals("") || pass.equals("")) throw new Exception();
+
+            if (email.contains(".")) {
+                int index = email.indexOf(".");
+                email = email.substring(0, index) + email.substring(index + 1);
+            }
 
             myRef.child(email).child("password").addValueEventListener(new ValueEventListener() {
                 @Override
