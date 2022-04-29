@@ -61,6 +61,7 @@ public class GroupActivity extends AppCompatActivity {
     private Map<String, FoodItem> foodPosts;
     private int memberPosition;
     private String user;
+    private boolean isHost;
     //private List<String> images;
     //private List<String> foodName;
     //private List<List<String>> allergens;
@@ -106,7 +107,7 @@ public class GroupActivity extends AppCompatActivity {
                     onCrossClick(response);
 
                 Log.d("Debug", "Group Name: " + name);
-                boolean isHost = preferences.getString("user_email", "").equals((String) dataSnapshot.child("host").getValue());
+                isHost = preferences.getString("user_email", "").equals((String) dataSnapshot.child("host").getValue());
                 foods = new ArrayList<>();
                 for (DataSnapshot foodIDs : dataSnapshot.child("foods").getChildren()) {
                     String image = foodIDs.child("imageUri").getValue(String.class);
