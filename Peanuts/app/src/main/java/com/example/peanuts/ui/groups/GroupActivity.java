@@ -17,6 +17,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,6 +50,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class GroupActivity extends AppCompatActivity {
     private String id;
@@ -99,13 +101,17 @@ public class GroupActivity extends AppCompatActivity {
                         memberPosition = Integer.parseInt(member.getKey());
                     }
                 }
-                long responseValue = dataSnapshot.child("members").child("" + memberPosition).child("response").getValue(int.class);
-                if (responseValue == 0)
-                    changeResponse(response);
-                if (responseValue == 1)
-                    onCheckClick(response);
-                if (responseValue == 2)
-                    onCrossClick(response);
+                DataSnapshot temp = Objects.requireNonNull(dataSnapshot.child("members").child("" + memberPosition).child("response"));
+                if (temp.getValue(int.class) != null) {
+                    long responseValue = temp.getValue(int.class);
+                    if (responseValue == 0)
+                        changeResponse(response);
+                    if (responseValue == 1)
+                        onCheckClick(response);
+                    if (responseValue == 2)
+                        onCrossClick(response);
+                }
+                //
 
                 Log.d("Debug", "Group Name: " + name);
                 isHost = preferences.getString("user_email", "").equals((String) dataSnapshot.child("host").getValue());
