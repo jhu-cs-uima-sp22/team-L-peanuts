@@ -5,40 +5,28 @@
 
 User 1:
 
-Email: email
+Email: karenEmail
 
-Password: peanuts
+Password: karen
 
 User 2:
 
-Email: are
+Email: johnEmail
 
-Password: are
+Password: karen
+
+User 3:
+
+Email: sam@gmail.com
+
+Password: sam
 
 NOTE: You can also create a login for testing.
 
 **State of App:**
 
-The app functions properly. Nearly all of our original sprint 1 tasks were completed. We just did not get a chance to implement the edit foods page since we were still working retreving data from the Foods database.
+The app functions properly. All of our original sprint 2 tasks were completed. All the pages are completed, but we are working on finding and fixing any bugs. 
 
-**Completed Pages:**
-
--Login and signup screens
-
--Editing restrictions page
-
--Profile page
-
--Settings page
-
--Add page
-
-**Complete Features:**
-
--Login and signup stores user information in a database. A user can submit and change their own restrictions to be stored in the database.
-
--The profile page displays the general view of what their profile looks like, including restrictions, name, email, and a foods section.
-
--The settings page functions properly, allowing user to change name or password.
-
--All features of the add page view is completed. New created posts are added to a Foods database.
+NOTE: 
+-sometimes images do not load, but they are stored and retrieved correctly.
+-for the check lists, if the user selects done too quickly, the response might not have been retrieved because the emulator was slow. 
