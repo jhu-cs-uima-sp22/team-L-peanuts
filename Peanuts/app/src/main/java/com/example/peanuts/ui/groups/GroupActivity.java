@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.peanuts.FoodItem;
 import com.example.peanuts.GroupMealPlanAdapter;
@@ -380,6 +381,14 @@ public class GroupActivity extends AppCompatActivity {
             return true;
         }
         else if (item.getItemId() == R.id.leave) {
+            if (isHost) {
+                CharSequence text = "You cannot leave the group since you're the host";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+                toast.show();
+                return true;
+            }
+
             Query member = myRef.child("groups").child(id);
             member.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
