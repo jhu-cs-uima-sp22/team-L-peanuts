@@ -92,20 +92,18 @@ public class GroupActivity extends AppCompatActivity {
                 String name = (String) dataSnapshot.child("groupName").getValue();
                 setTitle(name);
 
-                //**below is attempt at retrieving response and then setting initial state**
-                /*for (DataSnapshot member : dataSnapshot.child("members").getChildren()) {
+                for (DataSnapshot member : dataSnapshot.child("members").getChildren()) {
                     if (member.child("email").getValue().toString().equals(user)) {
                         memberPosition = Integer.parseInt(member.getKey());
                     }
-                }*/
-                memberPosition = 0; //delete
-                if (memberPosition == 0) //these are wrong, need to go into the member, then find the response
+                }
+                int responseValue = Integer.parseInt(dataSnapshot.child("members").child("" + memberPosition).child("response").getValue(String.class));
+                if (responseValue == 0)
                     changeResponse(response);
-                if (memberPosition == 1)
+                if (responseValue == 1)
                     onCheckClick(response);
-                if (memberPosition == 2)
+                if (responseValue == 2)
                     onCrossClick(response);
-                //**above**
 
                 Log.d("Debug", "Group Name: " + name);
                 boolean isHost = preferences.getString("user_email", "").equals((String) dataSnapshot.child("host").getValue());
@@ -121,6 +119,7 @@ public class GroupActivity extends AppCompatActivity {
                     foods.add(new FoodItem(title, image, allergens));
                 }
 
+                members = new ArrayList<>();
                 for (DataSnapshot member : dataSnapshot.child("members").getChildren()) {
                     String email = member.child("email").getValue(String.class);
                     String memberName = member.child("name").getValue(String.class);
@@ -134,22 +133,26 @@ public class GroupActivity extends AppCompatActivity {
                 restrictions = (Map<String, List<String>>) dataSnapshot.child("restrictions").getValue();
                 Log.d("Debug", "Restrictions1: " + String.valueOf(restrictions));
                 if (isHost) {
-                    placeholder.setVisibility(View.INVISIBLE);
-                    restrictionsView.setVisibility(View.VISIBLE);
+                    if (foods.isEmpty()) {
+                        placeholder.setVisibility(View.VISIBLE);
+                        restrictionsView.setVisibility(View.INVISIBLE);
+                    } else {
+                        placeholder.setVisibility(View.INVISIBLE);
+                        restrictionsView.setVisibility(View.VISIBLE);
+                    }
                 } else {
                     ImageButton addMealPlan = findViewById(R.id.AddMealPlanButton);
                     addMealPlan.setVisibility(View.INVISIBLE);
-                    if (foods.isEmpty()) { //check if meal plan is empty
+                    if (foods.isEmpty()) {
                         //if meal plan is empty
                         placeholder.setVisibility(View.VISIBLE);
                         response.setVisibility(View.INVISIBLE);
-                        restrictionsView.setVisibility(View.INVISIBLE);
                     } else {
                         //if meal plan exists
                         placeholder.setVisibility(View.INVISIBLE);
                         response.setVisibility(View.VISIBLE);
-                        restrictionsView.setVisibility(View.INVISIBLE);
                     }
+                    restrictionsView.setVisibility(View.INVISIBLE);
                 }
                 ConstraintLayout cardView;
                 if (restrictions != null) {
@@ -435,7 +438,7 @@ public class GroupActivity extends AppCompatActivity {
     public void onCheckClick(View view) {
         ConstraintLayout cl = findViewById(R.id.MealPlanResponse);
         cl.setBackgroundColor(Color.rgb(211, 225,175));
-        ImageFilterButton mb = findViewById(R.id.ResponseCross);
+        MaterialButton mb = findViewById(R.id.ResponseCross);
         mb.setVisibility(View.INVISIBLE);
         TextView tv = findViewById(R.id.textView17);
         tv.setVisibility(View.INVISIBLE);
@@ -444,6 +447,7 @@ public class GroupActivity extends AppCompatActivity {
         TextView changeResponse = findViewById(R.id.changeResponseCheck);
         changeResponse.setVisibility(View.VISIBLE);
         myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue("1");
+
     }
 
     public void onCrossClick(View view) {
@@ -465,7 +469,7 @@ public class GroupActivity extends AppCompatActivity {
         cl.setBackgroundColor(Color.rgb(250, 209,169));
         MaterialButton mbCross = findViewById(R.id.ResponseCross);
         mbCross.setVisibility(View.VISIBLE);
-        ImageFilterButton mbCheck = findViewById(R.id.ResponseCheck);
+        MaterialButton mbCheck = findViewById(R.id.ResponseCheck);
         mbCheck.setVisibility(View.VISIBLE);
         TextView tv = findViewById(R.id.textView17);
         tv.setVisibility(View.VISIBLE);
