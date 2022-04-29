@@ -34,6 +34,7 @@ public class NewAccount extends AppCompatActivity {
     private EditText passText;
     private EditText confirmText;
     private boolean isSignUp;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +63,14 @@ public class NewAccount extends AppCompatActivity {
         isSignUp = true;
         try {
             String name = nameText.getText().toString();
-            String email = emailText.getText().toString();
+            email = emailText.getText().toString();
             String pass = passText.getText().toString();
             String confirm = confirmText.getText().toString();
+
+            if (email.contains(".")) {
+                int index = email.indexOf(".");
+                email = email.substring(0, index) + email.substring(index + 1);
+            }
 
             if (name.equals("") || confirm.equals("") ||
                     email.equals("") || pass.equals("")) throw new Exception();
@@ -180,6 +186,10 @@ public class NewAccount extends AppCompatActivity {
         Context context = getApplicationContext();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
+        if (email.contains(".")) {
+            int index = email.indexOf(".");
+            email = email.substring(0, index) + email.substring(index + 1);
+        }
         editor.putString("user_email", email);
         editor.putString("user_name", name);
         editor.putString("user_password", password);
