@@ -24,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Objects;
 
 public class NotificationsFragment extends Fragment {
@@ -67,6 +69,73 @@ public class NotificationsFragment extends Fragment {
                         notifications.add(notif);
                     }
                 }
+                Collections.sort(notifications, new Comparator<NotificationItem>() {
+                    @Override
+                    public int compare(NotificationItem i1, NotificationItem i2) {
+                        String[] date1 = i1.getDate().split(" ");
+                        String[] date2 = i2.getDate().split(" ");
+                        String[] time1 = date1[3].split(":");
+                        String[] time2 = date2[3].split(":");
+                        int year1 = Integer.parseInt(date1[5]);
+                        int year2 = Integer.parseInt(date2[5]);
+                        int month1 = getMonth(date1[1]);
+                        int month2 = getMonth(date2[1]);
+                        int day1 = Integer.parseInt(date1[2]);
+                        int day2 = Integer.parseInt(date2[2]);
+                        int hour1 = Integer.parseInt(time1[0]);
+                        int hour2 = Integer.parseInt(time2[0]);
+                        int minute1 = Integer.parseInt(time1[1]);
+                        int minute2 = Integer.parseInt(time2[1]);
+                        int second1 = Integer.parseInt(time1[2]);
+                        int second2 = Integer.parseInt(time2[2]);
+
+                        if (year1 != year2) {
+                            return year2 - year1;
+                        } else if (month1 != month2) {
+                            return month2 - month1;
+                        } else if (day1 != day2) {
+                            return day2 - day1;
+                        } else if (hour1 != hour2) {
+                            return hour2 - hour1;
+                        } else if (minute1 != minute2) {
+                            return minute2 - minute1;
+                        } else if (second1 != second2) {
+                            return second2 - second1;
+                        } else {
+                            return 0;
+                        }
+                    }
+
+                    private int getMonth(String month) {
+                        switch (month) {
+                            case "Jan":
+                                return 1;
+                            case "Feb":
+                                return 2;
+                            case "Mar":
+                                return 3;
+                            case "Apr":
+                                return 4;
+                            case "May":
+                                return 5;
+                            case "Jun":
+                                return 6;
+                            case "Jul":
+                                return 7;
+                            case "Aug":
+                                return 8;
+                            case "Sep":
+                                return 9;
+                            case "Oct":
+                                return 10;
+                            case "Nov":
+                                return 11;
+                            default:
+                                return 12;
+                        }
+                    }
+                });
+
                 adapter = new NotificationsAdapter(getContext(), R.layout.notifications_layout, notifications);
 
                 ListView myList = (ListView) root.findViewById(R.id.notifications);

@@ -2,7 +2,10 @@ package com.example.peanuts.ui.groups;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.utils.widget.ImageFilterButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,14 +14,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,6 +43,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +59,7 @@ public class GroupActivity extends AppCompatActivity {
     private Map<String, List<String>> restrictions;
     private List<NewAccount.User> members;
     private Map<String, FoodItem> foodPosts;
+    private int memberPosition;
     private String user;
     //private List<String> images;
     //private List<String> foodName;
@@ -82,46 +91,72 @@ public class GroupActivity extends AppCompatActivity {
                 //GroupItem group = (GroupItem) dataSnapshot.getValue();
                 String name = (String) dataSnapshot.child("groupName").getValue();
                 setTitle(name);
+
+                for (DataSnapshot member : dataSnapshot.child("members").getChildren()) {
+                    if (member.child("email").getValue().toString().equals(user)) {
+                        memberPosition = Integer.parseInt(member.getKey());
+                    }
+                }
+                String temp = dataSnapshot.child("members").child("" + memberPosition).child("response").getValue(String.class);
+                int responseValue = 0;
+                if (temp != null) {
+                    responseValue = Integer.parseInt(temp);
+                }
+                if (responseValue == 0)
+                    changeResponse(response);
+                if (responseValue == 1)
+                    onCheckClick(response);
+                if (responseValue == 2)
+                    onCrossClick(response);
+
+                Log.d("Debug", "Group Name: " + name);
                 boolean isHost = preferences.getString("user_email", "").equals((String) dataSnapshot.child("host").getValue());
                 foods = new ArrayList<>();
                 for (DataSnapshot foodIDs : dataSnapshot.child("foods").getChildren()) {
                     String image = foodIDs.child("imageUri").getValue(String.class);
+                    Log.d("Debug", "Image: " + image);
                     String title = foodIDs.child("name").getValue(String.class);
+                    Log.d("Debug", "Food Name: " + title);
 
                     ArrayList<String> allergens = (ArrayList<String>)foodIDs.child("allergens").getValue();
+                    Log.d("Debug", "Allergens: " + allergens);
                     foods.add(new FoodItem(title, image, allergens));
                 }
 
-                //**FOR TESTING**
-                /*boolean[] booleans = new boolean[12];
-                booleans[5] = true;
-                foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
-                foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
-                foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
-                foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));
-                foods.add(new FoodItem("Spaghetti", booleans, getDrawable(R.drawable.spaghetti)));*/
-                //**FOR TESTING**
+                members = new ArrayList<>();
+                for (DataSnapshot member : dataSnapshot.child("members").getChildren()) {
+                    String email = member.child("email").getValue(String.class);
+                    String memberName = member.child("name").getValue(String.class);
+                    String response = (String) member.child("response").getValue();
+                    ArrayList<String> restrictions = (ArrayList<String>) member.child("restrictions").getValue();
+                    members.add(new NewAccount.User(email, memberName, Integer.parseInt(response), restrictions));
+                }
 
-                members = (ArrayList<NewAccount.User>) dataSnapshot.child("members").getValue();
+                Log.d("Debug", "Members1: " + String.valueOf(members));
+
                 restrictions = (Map<String, List<String>>) dataSnapshot.child("restrictions").getValue();
-
+                Log.d("Debug", "Restrictions1: " + String.valueOf(restrictions));
                 if (isHost) {
-                    placeholder.setVisibility(View.INVISIBLE);
-                    restrictionsView.setVisibility(View.VISIBLE);
+                    if (foods.isEmpty()) {
+                        placeholder.setVisibility(View.VISIBLE);
+                        restrictionsView.setVisibility(View.INVISIBLE);
+                    } else {
+                        placeholder.setVisibility(View.INVISIBLE);
+                        restrictionsView.setVisibility(View.VISIBLE);
+                    }
                 } else {
                     ImageButton addMealPlan = findViewById(R.id.AddMealPlanButton);
                     addMealPlan.setVisibility(View.INVISIBLE);
-                    if (foods.isEmpty()) { //check if meal plan is empty
+                    if (foods.isEmpty()) {
                         //if meal plan is empty
                         placeholder.setVisibility(View.VISIBLE);
                         response.setVisibility(View.INVISIBLE);
-                        restrictionsView.setVisibility(View.INVISIBLE);
                     } else {
                         //if meal plan exists
                         placeholder.setVisibility(View.INVISIBLE);
                         response.setVisibility(View.VISIBLE);
-                        restrictionsView.setVisibility(View.INVISIBLE);
                     }
+                    restrictionsView.setVisibility(View.INVISIBLE);
                 }
                 ConstraintLayout cardView;
                 if (restrictions != null) {
@@ -135,11 +170,7 @@ public class GroupActivity extends AppCompatActivity {
                             public void onClick(View view) {
                                 Intent intent = new Intent(context, Pop.class);
                                 intent.putExtra("foodName", "Peanut Allergy");
-                                ArrayList<String> temp = new ArrayList<>();
-                                for (int i = 0; i < 100; i++) {
-                                    temp.add("hello");
-                                }
-                                intent.putStringArrayListExtra("data", /*(ArrayList<String>) restrictions.get("Peanuts")*/temp);
+                                intent.putStringArrayListExtra("data", (ArrayList<String>) restrictions.get("Peanuts"));
                                 context.startActivity(intent);
                             }
                         });
@@ -310,8 +341,10 @@ public class GroupActivity extends AppCompatActivity {
                         });
                     }
                 }
+                Log.d("Debug", "Members: " + String.valueOf(members));
                 GroupMemberAdapter memberAdapter = new GroupMemberAdapter(context, R.layout.group_users_layout, members);
                 ListView membersList = (ListView) findViewById(R.id.ResponseList);
+                Log.d("Debug", String.valueOf(members));
                 membersList.setAdapter(memberAdapter);
                 registerForContextMenu(membersList);
                 memberAdapter.notifyDataSetChanged();
@@ -417,6 +450,8 @@ public class GroupActivity extends AppCompatActivity {
         looksGood.setVisibility(View.VISIBLE);
         TextView changeResponse = findViewById(R.id.changeResponseCheck);
         changeResponse.setVisibility(View.VISIBLE);
+        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue("1");
+
     }
 
     public void onCrossClick(View view) {
@@ -430,6 +465,7 @@ public class GroupActivity extends AppCompatActivity {
         okThanks.setVisibility(View.VISIBLE);
         TextView changeResponse = findViewById(R.id.changeResponseCross);
         changeResponse.setVisibility(View.VISIBLE);
+        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue("2");
     }
 
     public void changeResponse(View view) {
@@ -449,7 +485,6 @@ public class GroupActivity extends AppCompatActivity {
         okThanks.setVisibility(View.INVISIBLE);
         TextView changeResponse2 = findViewById(R.id.changeResponseCross);
         changeResponse2.setVisibility(View.INVISIBLE);
+        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue("0");
     }
-
-
 }

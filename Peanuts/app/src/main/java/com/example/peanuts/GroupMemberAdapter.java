@@ -28,6 +28,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
 
@@ -41,9 +42,12 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
     public GroupMemberAdapter(Context ctx, int res, List<NewAccount.User> member) {
         super(ctx, res, member);
         resource = res;
+        Log.d("Debug", "in group member adapter");
         if (member != null) {
             this.members.addAll(member);
+            Log.d("Debug", "setting member");
         }
+        Log.d("MEMBERS", String.valueOf(members));
     }
 
     @Override
@@ -67,13 +71,12 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
         ImageView cross = groupMemberView.findViewById(R.id.ResponseCrossIcon);
         ImageView noResponse = groupMemberView.findViewById(R.id.ResponseNone);
 
-        Map<String, String> user = (Map<String, String>) getItem(position);
+        //Map<String, String> user = (Map<String, String>) getItem(position);
 
+        NewAccount.User user = getItem(position);
         if (user != null) {
-            String name = user.get("name");
-            String email = user.get("email");
-
-
+            String name = user.getName();
+            String email = user.getEmail();
             memberName.setText(name);
             memberEmail.setText(email);
             if (email != null) {
@@ -101,11 +104,25 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
         Context context = getContext();
         memberImage.setImageDrawable(context.getDrawable(R.drawable.baseline_account_circle_24));
 
-        //these should be in an if condition to see what the user responded with
-        noResponse.setVisibility(View.VISIBLE);
-        check.setVisibility(View.INVISIBLE);
-        cross.setVisibility(View.INVISIBLE);
+        //long response = (long) Integer.parseInt(user.get("response")); //im getting a really weird error here
 
+        int response = user.getResponse();
+
+        if (response == 0) {
+            noResponse.setVisibility(View.VISIBLE);
+            check.setVisibility(View.INVISIBLE);
+            cross.setVisibility(View.INVISIBLE);
+        }
+        if (response == 1) {
+            noResponse.setVisibility(View.INVISIBLE);
+            check.setVisibility(View.VISIBLE);
+            cross.setVisibility(View.INVISIBLE);
+        }
+        if (response == 2) {
+            noResponse.setVisibility(View.INVISIBLE);
+            check.setVisibility(View.INVISIBLE);
+            cross.setVisibility(View.VISIBLE);
+        }
         return groupMemberView;
     }
 
