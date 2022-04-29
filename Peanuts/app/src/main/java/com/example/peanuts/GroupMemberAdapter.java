@@ -15,7 +15,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,6 +33,9 @@ import java.util.Objects;
 public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
 
     int resource;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance("https://peanuts-e9a7c-default-rtdb.firebaseio.com/");
+    private DatabaseReference myRef = database.getReference();
+    private String path;
 
     ArrayList<NewAccount.User> members = new ArrayList<>();
 
@@ -69,6 +79,26 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
             String email = user.getEmail();
             memberName.setText(name);
             memberEmail.setText(email);
+            if (email != null) {
+                myRef.child("users").child(email).child("profile_image").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        path = dataSnapshot.getValue(String.class);
+                        Log.d("retrieved data snapshot", String.valueOf(dataSnapshot));
+                        FoodItem item = new FoodItem("", "");
+                        Log.d("DEBUG", "before set path");
+                        item.setImage(path, memberImage);
+                        Log.d("DEBUG", "AFTER set path");
+                        Log.d("DEBUG", "PATH: " + path);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.d("error - data snapshot", String.valueOf(databaseError));
+
+                    }
+                });
+            }
         }
         
         Context context = getContext();

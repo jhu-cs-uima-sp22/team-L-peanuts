@@ -2,11 +2,13 @@ package com.example.peanuts;
 
 import android.content.Context;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
+import com.example.peanuts.ui.notifications.NotificationItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,9 +26,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class GroupAddFoodAdapter extends ArrayAdapter<FoodItem> {
     int resource;
@@ -33,20 +38,25 @@ public class GroupAddFoodAdapter extends ArrayAdapter<FoodItem> {
     protected DatabaseReference myRef = database.getReference();
     private ArrayList<FoodItem> addedItems;
     private String groupID;
-    ArrayList<FoodItem> checkedItem;
+    private ArrayList<FoodItem> checkedItem;
     HashMap<String, FoodItem> ID;
+    //private Listener l;
+    protected CheckBox checkBox;
+    protected FoodItem it;
 
     public GroupAddFoodAdapter(Context ctx, int res, List<FoodItem> items, ArrayList<FoodItem> added, String id) {
         super(ctx, res, items);
         resource = res;
-        addedItems = added;
+        checkedItem = added;
         groupID = id;
+
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LinearLayout itemView;
         FoodItem it = getItem(position);
+        //l = new Listener();
 
         if (convertView == null) {
             itemView = new LinearLayout(getContext());
@@ -63,64 +73,13 @@ public class GroupAddFoodAdapter extends ArrayAdapter<FoodItem> {
         //TextView allergenText = (TextView) itemView.findViewById(R.id.allergens);
         addedItems = new ArrayList<>();
         checkedItem = new ArrayList<>();
-        ID = new HashMap<>();
+        //myRef.child("groups").child(groupID).child("foods").addValueEventListener(l);
+        //ID = l.getID();
+        Log.d("DEBUG5", String.valueOf(ID));
+
+        //checkBox.setChecked(false);
 
         //Foods already in database
-
-        myRef.child("groups").child(groupID).child("foods").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //if (dataSnapshot.getChildren() != null) {
-                    //for (DataSnapshot foods : foodIDs.getChildren()) {
-                for (DataSnapshot ids : dataSnapshot.getChildren()) {
-                    String name = (String)ids.child("name").getValue();
-                    Log.d("DEBUG", "NAME IS: " + name);
-                    String path = (String)ids.child("imageUri").getValue();
-                    Log.d("DEBUG", "PATH IS: " + path);
-                    ArrayList<String> allergens = (ArrayList<String>) ids.child("allergens").getValue();
-                    Log.d("DEBUG", "ALLERGENS ARE: " + allergens);
-                    FoodItem item = new FoodItem(name, path, allergens);
-                    ID.put(ids.getKey(), item);
-                    //ids.getValue(FoodItem.class)
-                    Log.d("DEBUG", "IDS ARE: " + ids);
-                    //Log.d("DEBUG", "FOODS ARE: " + ids.);
-                }
-
-                Log.d("DEBUG", "THE MAP IS: " + ID);
-
-                Log.d("DEBUG", "IT VALUE IS: " + it);
-
-                //ID = (HashMap<String, FoodItem>)dataSnapshot.getChildren();
-                if (ID.containsValue(it)) {
-                    Log.d("DEBUG", "IN IF STATEMENT");
-                    checkBox.setChecked(true);
-                }
-
-                Log.d("DEBUG", "ID AFTER FILLED: " + ID);
-                /*for (Map.Entry<String, FoodItem> entry : ID.entrySet()) {
-                    //checkedItem.add(entry.getValue());
-                }*/
-                //if (addedItems != null && )
-                //addedItems = (ArrayList<FoodItem>) dataSnapshot.getValue();
-
-                Log.d("retrieve_success GROUPS", dataSnapshot.toString());
-                //checkedItem = (ArrayList<FoodItem>) dataSnapshot.getValue();
-                /*if (checkedItem != null && checkedItem.contains(it)) {
-                    checkBox.setChecked(true);
-                }*/
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        /*if (checkedItem != null && checkedItem.contains(it)) {
-            checkBox.setChecked(true);
-        }*/
-
-        Log.d("DEBUG", "Checked foods: " + ID);
 
         //Title
         String name = it.getName();
@@ -135,42 +94,100 @@ public class GroupAddFoodAdapter extends ArrayAdapter<FoodItem> {
 
         it.setImage(path, image);
 
+        //notifyDataSetChanged();
+        Log.d("DEBUG1", "Items in DB map: " + ID);
+
+        /*for (Map.Entry<String, FoodItem> entry : ID.entrySet()) {
+            addedItems.add(entry.getValue());
+        }*/
+        //checkBox.setChecked(ID.containsValue(it));
+
         //for(FoodItem item : checkedItem) {
         /*if (checkedItem != null) {
             if (checkedItem.contains(it)) {
                 checkBox.setChecked(true);
             }
         }*/
+        myRef.child("groups").child(groupID).child("foods").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //ID = new HashMap<>();
+                checkedItem = new ArrayList<>();
+                Log.d("DEBUG8", "in data change");
+
+                for (DataSnapshot ids : dataSnapshot.getChildren()) {
+                    String name = (String) ids.child("name").getValue();
+                    String path = (String) ids.child("imageUri").getValue();
+                    ArrayList<String> allergens = (ArrayList<String>) ids.child("allergens").getValue();
+                    FoodItem item = new FoodItem(name, path, allergens);
+                    checkedItem.add(item);
+                    //ID.put(ids.getKey(), item);
+                }
+                //notifyDataSetChanged();
+
+                Log.d("DEBUG6", "Items in DB map: " + ID);
+
+                //checkBox.setChecked(ID.containsValue(it));
+                checkBox.setChecked(checkedItem.contains(it));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Log.d("ITEM", "added");
+                Log.d("DEBUG8", "in on checked");
                 it.changeChecked(b);
-                if (b) {
-                    addedItems.add(it);
-                    Log.d("DEBUG", "In checked item");
-                    Log.d("DEBUG", "Item list in add item: " + addedItems);
+                Log.d("DEBUG7", "CHECK: " + b);
+                Log.d("DEBUG7", "ADDEDITEMS: " + checkedItem);
 
-                } else {
+                if (b && !checkedItem.contains(it)) {
+                    Log.d("DEBUG8", "in true");
+                    Log.d("DEBUG1", "in check");
+                    addedItems.add(it);
+                    checkedItem.add(it);
+                } else if (!b && checkedItem.contains(it)) {
+                    Log.d("DEBUG8", "in false");
+                    Log.d("DEBUG1", "in remove");
+                    //checkBox.setChecked(false);
+                    String index = checkedItem.indexOf(it) + "";
                     addedItems.remove(it);
-                    if (ID.containsValue(it)) {
+                    checkedItem.remove(it);
+                    //myRef.child("groups").child(groupID).child("foods").child(index).getRef().removeValue();
+
+                }
+                //myRef.child("groups").child(groupID).child("foods").setValue(checkedItem);
+                //myRef.child("groups").child("foods").setValue(addedItems);
+
+                    /*if (ID.containsValue(it)) {
+                        Log.d("DEBUG1", "in contains");
                         String foodID = "";
-                        Log.d("DEBUG", "In contains");
                         for (Map.Entry<String, FoodItem> entry : ID.entrySet()) {
                             if (entry.getValue().equals(it)) {
                                 foodID = entry.getKey();
-                                Log.d("DEBUG", "Found key");
+                                Log.d("DEBUG1", "key found");
+                                Log.d("DEBUG1", "key: " + foodID);
                                 break;
                             }
                         }
                         if (!foodID.equals("")) {
-                            myRef.child("groups").child("foods").child(foodID).getRef().removeValue();
-                        }
-                    }
-                    Log.d("DEBUG", "In remove item");
-                    Log.d("DEBUG", "Item list in remove item: " + addedItems);
-                }
+                            Log.d("DEBUG1", "before remove");
+                            myRef.child("groups").child(groupID).child("foods").child(foodID).getRef().removeValue();
+                            //notifyDataSetChanged();
+                            Log.d("DEBUG1", "after remove");
+                            Log.d("DEBUG1", "Map: " + ID);
+                        }*/
+                    //notifyDataSetChanged();
+                    // }
+
+                //Log.d("DEBUG1", "Added items: " + addedItems);
+                //Log.d("DEBUG1", "Items in DB map: " + ID);
             }
         });
 
@@ -179,7 +196,43 @@ public class GroupAddFoodAdapter extends ArrayAdapter<FoodItem> {
         return itemView;
     }
 
+
+       /* private class Listener implements ValueEventListener {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ID = new HashMap<>();
+                for (DataSnapshot ids : dataSnapshot.getChildren()) {
+                    String name = (String) ids.child("name").getValue();
+                    String path = (String) ids.child("imageUri").getValue();
+                    ArrayList<String> allergens = (ArrayList<String>) ids.child("allergens").getValue();
+                    FoodItem item = new FoodItem(name, path, allergens);
+                    ID.put(ids.getKey(), item);
+                }
+                notifyDataSetChanged();
+
+                Log.d("DEBUG6", "Items in DB map: " + ID);
+
+                checkBox.setChecked(ID.containsValue(it));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+
+            public HashMap<String, FoodItem> getID() {
+                return ID;
+            }
+        }*/
+
+        /*if (checkedItem != null && checkedItem.contains(it)) {
+            checkBox.setChecked(true);
+        }*/
+
+
     public ArrayList<FoodItem> getAddedItems () {
-        return addedItems;
+        return checkedItem;
+        //return addedItems;
     }
 }

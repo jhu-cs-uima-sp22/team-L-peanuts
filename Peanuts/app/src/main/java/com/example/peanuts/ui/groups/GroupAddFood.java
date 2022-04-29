@@ -53,6 +53,9 @@ public class GroupAddFood extends AppCompatActivity {
     private FirebaseDatabase databaseGroups = FirebaseDatabase.getInstance("https://peanuts-e9a7c-default-rtdb.firebaseio.com/");
     private DatabaseReference myRefGroups = databaseGroups.getReference();
     protected SharedPreferences preferences;
+    private HashMap<String, FoodItem> ID;
+    private boolean fromSearch;
+    private GroupAddFoodAdapter filteredAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,17 +71,25 @@ public class GroupAddFood extends AppCompatActivity {
         databasePosts = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
         myRefPosts = databasePosts.getReference();
         addedItems = new ArrayList<>();
+        fromSearch = false;
 
         initSearch();
+        ID = new HashMap<>();
 
         /*myRefGroups.child("groups").child(id).child("foods").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot IDs : dataSnapshot.getChildren()) {
-                    for (DataSnapshot foodsItems : IDs.getChildren()) {
+                    String name = (String)IDs.child("name").getValue();
+                    String path = (String)IDs.child("imageUri").getValue();
+                    ArrayList<String> allergens = (ArrayList<String>) IDs.child("allergens").getValue();
+                    FoodItem item = new FoodItem(name, path, allergens);
+                    ID.put(IDs.getKey(), item);
+                    /*for (DataSnapshot foodsItems : IDs.getChildren()) {
                         addedItems.add(foodsItems.getValue(FoodItem.class));
-                    }
-                }
+                    }*/
+                /*}
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -87,7 +98,7 @@ public class GroupAddFood extends AppCompatActivity {
             }
         });*/
 
-        Log.d("DEBUG", "Added items: " + addedItems);
+        Log.d("DEBUG2", "Added items: " + ID);
 
         myRefPosts.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
@@ -121,6 +132,11 @@ public class GroupAddFood extends AppCompatActivity {
             }
         });
 
+        /*if(context != null && usersPost != null) {
+
+            adapter = new GroupAddFoodAdapter(context, R.layout.item_restriction, usersPost, addedItems, id);
+        }*/
+
         done = (Button) findViewById(R.id.done_button);
         done.setOnClickListener(new View.OnClickListener() {
 
@@ -128,7 +144,14 @@ public class GroupAddFood extends AppCompatActivity {
             public void onClick(View view) {
                 //add addedItems to group database
                 //myRefGroups.child(id).setValue(addedItems);
-                addedItems = adapter.getAddedItems();
+
+                if (fromSearch) {
+                    addedItems = filteredAdapter.getAddedItems();
+                    fromSearch = false;
+                } else {
+                    addedItems = adapter.getAddedItems();
+                }
+
                 preferences = PreferenceManager.getDefaultSharedPreferences(context);
                 DatabaseReference userGroup = myRefGroups.child("groups").child(id).child("foods").push();
                 Map<String, Object> map = new HashMap<>();
@@ -138,8 +161,14 @@ public class GroupAddFood extends AppCompatActivity {
                     userKey = userKey + 1;
                     map.put(userKey, food);
                 }
+                //adapter.notifyDataSetChanged();
 
-                myRefGroups.child("groups").child(id).child("foods").updateChildren(map);
+                //myRefGroups.child("groups").child(id).child("foods").updateChildren(map);
+                //adapter.notifyDataSetChanged();
+
+                myRefGroups.child("groups").child(id).child("foods").setValue(addedItems);
+                Log.d("DEBUG8", "set new value");
+
                 myRefGroups.child("groups").child(id).addValueEventListener(new ValueEventListener() {
 
                     @Override
@@ -195,8 +224,8 @@ public class GroupAddFood extends AppCompatActivity {
                         filteredPosts.add(post);
                     }
                 }
-
-                GroupAddFoodAdapter filteredAdapter = new GroupAddFoodAdapter(context, R.layout.item_restriction, filteredPosts, addedItems, id);
+                fromSearch = true;
+                filteredAdapter = new GroupAddFoodAdapter(context, R.layout.item_restriction, filteredPosts, addedItems, id);
                 if (list != null) {
                     list.setAdapter(filteredAdapter);
                 }
