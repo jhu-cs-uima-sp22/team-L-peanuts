@@ -106,7 +106,7 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
 
         //long response = (long) Integer.parseInt(user.get("response")); //im getting a really weird error here
 
-        int response = user.getResponse();
+        long response = user.getResponse();
 
         if (response == 0) {
             noResponse.setVisibility(View.VISIBLE);

@@ -33,6 +33,7 @@ public class NewAccount extends AppCompatActivity {
     private EditText emailText;
     private EditText passText;
     private EditText confirmText;
+    private boolean isSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class NewAccount extends AppCompatActivity {
         CharSequence text = "Passwords do not match";
         int duration = Toast.LENGTH_SHORT;
 
+        isSignUp = true;
         try {
             String name = nameText.getText().toString();
             String email = emailText.getText().toString();
@@ -78,7 +80,8 @@ public class NewAccount extends AppCompatActivity {
                             isNewEmail = false;
                         }
                     }
-                    if (isNewEmail) {
+                    if (isNewEmail && isSignUp) {
+                        isSignUp = false;
                         if (pass.equals(confirm)) {
                             writeNewUser(name, email, pass);
                             Intent intent = new Intent(context, EditRestrictions.class);
@@ -88,7 +91,7 @@ public class NewAccount extends AppCompatActivity {
                             Toast toast = Toast.makeText(context, text, duration);
                             toast.show();
                         }
-                    } else {
+                    } else if (isSignUp) {
                         Toast toast = Toast.makeText(context, "Email already in use", duration);
                         toast.show();
                     }
@@ -118,7 +121,7 @@ public class NewAccount extends AppCompatActivity {
         public String email;
         public ArrayList<String> restrictions;
         public String path;
-        public int response;
+        public long response;
 
         User(String username, String email, String password, ArrayList<String> restrictions) {
             this.name = username;
@@ -133,7 +136,7 @@ public class NewAccount extends AppCompatActivity {
             this.restrictions = restrictions;
         }
 
-        public User(String username, String email, int response, ArrayList<String> restrictions) {
+        public User(String username, String email, long response, ArrayList<String> restrictions) {
             this.name = username;
             this.email = email;
             this.response = response;
@@ -161,7 +164,7 @@ public class NewAccount extends AppCompatActivity {
 
         public ArrayList<String> getRestrictions() { return restrictions; }
 
-        public int getResponse() {
+        public long getResponse() {
             return response;
         }
 

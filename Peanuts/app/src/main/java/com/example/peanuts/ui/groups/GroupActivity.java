@@ -97,11 +97,7 @@ public class GroupActivity extends AppCompatActivity {
                         memberPosition = Integer.parseInt(member.getKey());
                     }
                 }
-                String temp = dataSnapshot.child("members").child("" + memberPosition).child("response").getValue(String.class);
-                int responseValue = 0;
-                if (temp != null) {
-                    responseValue = Integer.parseInt(temp);
-                }
+                long responseValue = dataSnapshot.child("members").child("" + memberPosition).child("response").getValue(int.class);
                 if (responseValue == 0)
                     changeResponse(response);
                 if (responseValue == 1)
@@ -127,9 +123,9 @@ public class GroupActivity extends AppCompatActivity {
                 for (DataSnapshot member : dataSnapshot.child("members").getChildren()) {
                     String email = member.child("email").getValue(String.class);
                     String memberName = member.child("name").getValue(String.class);
-                    String response = (String) member.child("response").getValue();
+                    long response = (long) member.child("response").getValue();
                     ArrayList<String> restrictions = (ArrayList<String>) member.child("restrictions").getValue();
-                    members.add(new NewAccount.User(email, memberName, Integer.parseInt(response), restrictions));
+                    members.add(new NewAccount.User(email, memberName, response, restrictions));
                 }
 
                 Log.d("Debug", "Members1: " + String.valueOf(members));
@@ -450,7 +446,7 @@ public class GroupActivity extends AppCompatActivity {
         looksGood.setVisibility(View.VISIBLE);
         TextView changeResponse = findViewById(R.id.changeResponseCheck);
         changeResponse.setVisibility(View.VISIBLE);
-        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue("1");
+        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue(1);
 
     }
 
@@ -465,7 +461,7 @@ public class GroupActivity extends AppCompatActivity {
         okThanks.setVisibility(View.VISIBLE);
         TextView changeResponse = findViewById(R.id.changeResponseCross);
         changeResponse.setVisibility(View.VISIBLE);
-        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue("2");
+        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue(2);
     }
 
     public void changeResponse(View view) {
@@ -485,6 +481,6 @@ public class GroupActivity extends AppCompatActivity {
         okThanks.setVisibility(View.INVISIBLE);
         TextView changeResponse2 = findViewById(R.id.changeResponseCross);
         changeResponse2.setVisibility(View.INVISIBLE);
-        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue("0");
+        myRef.child("groups").child(id).child("members").child(String.valueOf(memberPosition)).child("response").setValue(0);
     }
 }
