@@ -129,6 +129,9 @@ public class GroupActivity extends AppCompatActivity {
                     String memberName = member.child("name").getValue(String.class);
                     String response = (String) member.child("response").getValue();
                     ArrayList<String> restrictions = (ArrayList<String>) member.child("restrictions").getValue();
+                    if (response == null) {
+                        response = "0";
+                    }
                     members.add(new NewAccount.User(email, memberName, Integer.parseInt(response), restrictions));
                 }
 

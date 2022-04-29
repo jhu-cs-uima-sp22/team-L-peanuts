@@ -88,7 +88,7 @@ public class GroupMemberAdapter extends ArrayAdapter<NewAccount.User> {
                         FoodItem item = new FoodItem("", "");
                         Log.d("DEBUG", "before set path");
                         item.setImage(path, memberImage);
-                        Log.d("DEBUG", "AFTER set path");
+                        Log.d("DEBUG10", "AFTER set path");
                         Log.d("DEBUG", "PATH: " + path);
                     }
 
