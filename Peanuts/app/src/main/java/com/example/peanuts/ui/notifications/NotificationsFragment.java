@@ -67,6 +67,13 @@ public class NotificationsFragment extends Fragment {
                         notifications.add(notif);
                     }
                 }
+
+                //sort notifications here
+
+
+
+
+                //
                 adapter = new NotificationsAdapter(getContext(), R.layout.notifications_layout, notifications);
 
                 ListView myList = (ListView) root.findViewById(R.id.notifications);

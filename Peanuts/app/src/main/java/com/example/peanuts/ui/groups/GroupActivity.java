@@ -97,7 +97,11 @@ public class GroupActivity extends AppCompatActivity {
                         memberPosition = Integer.parseInt(member.getKey());
                     }
                 }
-                int responseValue = Integer.parseInt(dataSnapshot.child("members").child("" + memberPosition).child("response").getValue(String.class));
+                String temp = dataSnapshot.child("members").child("" + memberPosition).child("response").getValue(String.class);
+                int responseValue = 0;
+                if (temp != null) {
+                    responseValue = Integer.parseInt(temp);
+                }
                 if (responseValue == 0)
                     changeResponse(response);
                 if (responseValue == 1)
