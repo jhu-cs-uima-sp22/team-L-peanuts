@@ -144,6 +144,12 @@ public class Settings extends AppCompatActivity {
         finish();
     }
 
+    public void logout(View view) {
+        Intent intent = new Intent(this, Login.class);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

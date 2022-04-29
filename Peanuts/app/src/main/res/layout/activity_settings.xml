@@ -137,5 +137,17 @@
             android:text="Save Changes"
             android:textAlignment="center"
             android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/Logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:onClick="logout"
+            android:text="Logout"
+            android:textAlignment="center"
+            android:textColor="#04704E"
+            android:textSize="24sp" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
