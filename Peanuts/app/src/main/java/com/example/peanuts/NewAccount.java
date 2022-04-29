@@ -1,5 +1,6 @@
 package com.example.peanuts;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -12,12 +13,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Logger;
+import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class NewAccount extends AppCompatActivity {
 
@@ -62,15 +67,39 @@ public class NewAccount extends AppCompatActivity {
             if (name.equals("") || confirm.equals("") ||
                     email.equals("") || pass.equals("")) throw new Exception();
 
-            if (pass.equals(confirm)) {
-                writeNewUser(name, email, pass);
-                Intent intent = new Intent(this, EditRestrictions.class);
-                intent.putExtra("user", email);
-                startActivity(intent);
-            } else {
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-            }
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    boolean isNewEmail = true;
+
+                    for (DataSnapshot user : dataSnapshot.getChildren()) {
+                        String currEmail = user.getKey();
+                        if (Objects.requireNonNull(currEmail).equals(email)) {
+                            isNewEmail = false;
+                        }
+                    }
+                    if (isNewEmail) {
+                        if (pass.equals(confirm)) {
+                            writeNewUser(name, email, pass);
+                            Intent intent = new Intent(context, EditRestrictions.class);
+                            intent.putExtra("user", email);
+                            startActivity(intent);
+                        } else {
+                            Toast toast = Toast.makeText(context, text, duration);
+                            toast.show();
+                        }
+                    } else {
+                        Toast toast = Toast.makeText(context, "Email already in use", duration);
+                        toast.show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
         } catch (Exception e) {
             Toast toast = Toast.makeText(context, "Missing input", duration);
             toast.show();
@@ -153,5 +182,6 @@ public class NewAccount extends AppCompatActivity {
         editor.putString("user_password", password);
         editor.apply();
         myRef.child(email).setValue(user);
+
     }
 }
