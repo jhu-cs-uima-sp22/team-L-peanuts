@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -15,8 +14,6 @@ public class Pop extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Log.d("Debug", "IN POP");
 
         setContentView(R.layout.popup);
 

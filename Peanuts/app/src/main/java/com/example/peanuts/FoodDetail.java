@@ -6,38 +6,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class FoodDetail extends AppCompatActivity {
 
     private SharedPreferences preferences;
-    private StorageReference storageReference;
     private String user;
     private DatabaseReference myRefForFoods;
     private FirebaseDatabase databaseForFoods;
@@ -58,8 +43,6 @@ public class FoodDetail extends AppCompatActivity {
 
         Intent intent = getIntent();
         name.setText(intent.getStringExtra("name"));
-        String strName = intent.getStringExtra("name");
-        //image.setImageURI(Uri.parse(intent.getStringExtra("image")));
 
         int position = intent.getIntExtra("position", -1);
 
@@ -72,7 +55,6 @@ public class FoodDetail extends AppCompatActivity {
         if (position == -1) {
             String path = intent.getStringExtra("image");
             item.setImage(path, image); //set image
-            Log.d("debug", "Path in detail: " + path);
         } else {
 
             myRefForFoods.child(user).child("" + position).addValueEventListener(new ValueEventListener() {
@@ -85,7 +67,7 @@ public class FoodDetail extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.d("retrieve_fail", databaseError.toString());
+
                 }
             });
         }
@@ -99,7 +81,6 @@ public class FoodDetail extends AppCompatActivity {
                     restrictionsText = restrictionsText + "-" + preferences.getString("" + i, "") + "\n";
                 }
             }
-            //allergens.setText(restrictionsText);
         } else if (allergensList != null) {
             for (int i = 0; i < allergensList.size(); i++) {
                 restrictionsText = restrictionsText + "-" + allergensList.get(i) + "\n";

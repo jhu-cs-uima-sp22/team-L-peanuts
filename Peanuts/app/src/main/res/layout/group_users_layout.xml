@@ -14,7 +14,6 @@
             android:id="@+id/UserImage"
             android:layout_width="75dp"
             android:layout_height="match_parent"
-            android:background="#F44336"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_account_circle_24" />

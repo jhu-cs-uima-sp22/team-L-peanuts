@@ -24,11 +24,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -84,9 +79,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
 
-//        if (id == R.id.nav_exit) {
-//            this.finishAffinity();  // exit the app
-//        }
                 if (id == R.id.text_add) {
                     transaction = getSupportFragmentManager().beginTransaction();
                     transaction.replace(R.id.nav_view, addFood);
@@ -115,38 +107,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NewGroup.class);
         startActivity(intent);
     }
-
-    /*
-    public ArrayList<GroupItem> getGroup() {
-        groupItems = new ArrayList<>();
-
-        Context context = this.getApplicationContext();
-        SharedPreferences myPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        String user = myPrefs.getString("user_email", "");
-
-        myRef.child(user).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null) {
-                    Log.d("retrieve_success", dataSnapshot.toString());
-                    members = (ArrayList<NewAccount.User>) dataSnapshot.child("members").getValue();
-                    groupRestrictions = (ArrayList<String>) dataSnapshot.child("restrictions").getValue();
-                } else {
-                    members = new ArrayList<>();
-                    groupRestrictions = new ArrayList<>();
-                }
-                return groupItems;
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("retrieve_fail", databaseError.toString());
-                members = new ArrayList<>();
-                groupRestrictions = new ArrayList<>();
-            }
-            });
-        }
-
-     */
-
 }

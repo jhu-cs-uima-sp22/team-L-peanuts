@@ -1,45 +1,33 @@
 package com.example.peanuts.ui.profile;
 
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.app.Activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.widget.AdapterView;
 import android.widget.GridView;
 
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.peanuts.EditFoods;
 import com.example.peanuts.EditRestrictions;
-import com.example.peanuts.FoodDetail;
 import com.example.peanuts.FoodItem;
-import com.example.peanuts.FoodItemAdapter;
 import com.example.peanuts.FoodItemAdapterProfile;
-import com.example.peanuts.Login;
 import com.example.peanuts.MainActivity;
 import com.example.peanuts.ProfileViewModel;
 import com.example.peanuts.R;
@@ -48,13 +36,11 @@ import com.example.peanuts.Settings;
 import com.example.peanuts.databinding.FragmentProfileBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.example.peanuts.databinding.FragmentProfileBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -72,7 +58,6 @@ public class ProfileFragment extends Fragment {
     private SharedPreferences myPrefs;
     private GridView myList;
     protected FoodItemAdapterProfile adapter;
-    public int foodPosition = 0;
     private String user;
     private ArrayList<String> checkedItem;
     private String name = "";
@@ -104,11 +89,9 @@ public class ProfileFragment extends Fragment {
         myPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         this.user = myPrefs.getString("user_email", "");
-        Log.d("DEBUG11", user);
         myRef.child(user).child("name").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("retrieve", dataSnapshot.toString());
                 name = (String) dataSnapshot.getValue();
                     Context context = getContext();
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -120,7 +103,7 @@ public class ProfileFragment extends Fragment {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("retrieve", databaseError.toString());
+
             }
         });
 
@@ -131,7 +114,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
-                    Log.d("retrieve_success", dataSnapshot.toString());
                     checkedItem = (ArrayList<String>) dataSnapshot.getValue();
                 } else {
                     checkedItem = new ArrayList<>();
@@ -188,34 +170,9 @@ public class ProfileFragment extends Fragment {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("retrieve_fail", databaseError.toString());
                 checkedItem = new ArrayList<>();
             }
         });
-
-//        myRefForFoods.child(user).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Log.d("debug", "in onDataChange");
-//
-//                if (dataSnapshot.getValue() != null) {
-//                    Log.d("retrieve_success", dataSnapshot.toString());
-//                    for (DataSnapshot posts: dataSnapshot.getChildren()) {
-//                        usersPost.add(posts.getValue(FoodItem.class));
-//                        Log.d("debug", "added child");
-//                    }
-//
-//                } else {
-//                    usersPost = new ArrayList<>();
-//                    Log.d("debug", "in empty");
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                Log.d("retrieve_fail", databaseError.toString());
-//            }
-//        });
-
 
         final TextView textView = binding.textProfile;
         profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
@@ -283,7 +240,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("debug", "didnt work");
+
             }
         });
 
@@ -320,7 +277,6 @@ public class ProfileFragment extends Fragment {
     }
 
     public void setImage (String path, ImageView image) {
-        //Log.d("debug", path);
         if (path != null && !path.equals("")) {
             //get the storage reference
             storageReference = FirebaseStorage.getInstance("gs://peanuts-e9a7c.appspot.com").getReference().child(path);
@@ -339,14 +295,12 @@ public class ProfileFragment extends Fragment {
             storageReference.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Log.d("debug", "in on success for retrieving image");
                     Bitmap bitmap = BitmapFactory.decodeFile(finalLocalFile.getAbsolutePath());
                     image.setImageBitmap(bitmap);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.d("debug", "in on failure for retrieving image");
 
                 }
             });

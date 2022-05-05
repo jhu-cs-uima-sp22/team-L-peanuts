@@ -6,21 +6,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import com.example.peanuts.FoodItem;
 import com.example.peanuts.GroupAddFoodAdapter;
 import com.example.peanuts.R;
-import com.example.peanuts.ui.home.PostAdapter;
 import com.example.peanuts.ui.notifications.NotificationItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,12 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -42,8 +35,6 @@ public class GroupAddFood extends AppCompatActivity {
     protected FirebaseDatabase databasePosts;
     protected DatabaseReference myRefPosts;
     private ArrayList<FoodItem> usersPost;
-    private TextView title;
-    private Icon icon;
     private GroupAddFoodAdapter adapter;
     private ListView list;
     protected Context context;
@@ -67,7 +58,6 @@ public class GroupAddFood extends AppCompatActivity {
 
         context = getApplicationContext();
         usersPost = new ArrayList<>();
-        //Fill arraylist
         databasePosts = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
         myRefPosts = databasePosts.getReference();
         addedItems = new ArrayList<>();
@@ -76,37 +66,11 @@ public class GroupAddFood extends AppCompatActivity {
         initSearch();
         ID = new HashMap<>();
 
-        /*myRefGroups.child("groups").child(id).child("foods").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot IDs : dataSnapshot.getChildren()) {
-                    String name = (String)IDs.child("name").getValue();
-                    String path = (String)IDs.child("imageUri").getValue();
-                    ArrayList<String> allergens = (ArrayList<String>) IDs.child("allergens").getValue();
-                    FoodItem item = new FoodItem(name, path, allergens);
-                    ID.put(IDs.getKey(), item);
-                    /*for (DataSnapshot foodsItems : IDs.getChildren()) {
-                        addedItems.add(foodsItems.getValue(FoodItem.class));
-                    }*/
-                /*}
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("retrieve_fail", databaseError.toString());
-            }
-        });*/
-
-        Log.d("DEBUG2", "Added items: " + ID);
-
         myRefPosts.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("debug", "in onDataChange");
 
                 if (dataSnapshot.getValue() != null) {
-                    Log.d("retrieve_success", dataSnapshot.toString());
                     for (DataSnapshot user: dataSnapshot.getChildren()) {
                         for (DataSnapshot post: user.getChildren()) {
                             usersPost.add(post.getValue(FoodItem.class));
@@ -122,20 +86,13 @@ public class GroupAddFood extends AppCompatActivity {
                             adapter.notifyDataSetChanged();
                         }
                     }
-                } else {
-                    Log.d("debug", "in empty");
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("retrieve_fail", databaseError.toString());
+
             }
         });
-
-        /*if(context != null && usersPost != null) {
-
-            adapter = new GroupAddFoodAdapter(context, R.layout.item_restriction, usersPost, addedItems, id);
-        }*/
 
         done = (Button) findViewById(R.id.done_button);
         done.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +100,6 @@ public class GroupAddFood extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //add addedItems to group database
-                //myRefGroups.child(id).setValue(addedItems);
 
                 if (fromSearch) {
                     addedItems = filteredAdapter.getAddedItems();
@@ -161,20 +117,14 @@ public class GroupAddFood extends AppCompatActivity {
                     userKey = userKey + 1;
                     map.put(userKey, food);
                 }
-                //adapter.notifyDataSetChanged();
-
-                //myRefGroups.child("groups").child(id).child("foods").updateChildren(map);
-                //adapter.notifyDataSetChanged();
 
                 myRefGroups.child("groups").child(id).child("foods").setValue(addedItems);
-                Log.d("DEBUG8", "set new value");
 
                 myRefGroups.child("groups").child(id).addValueEventListener(new ValueEventListener() {
 
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String date = new Date().toString();
-                        Log.d("DATE", date);
                         String group = dataSnapshot.child("groupName").getValue().toString();
                         NotificationItem notif = new NotificationItem(group, "false", id, date);
                         Map<String, Object> map = new HashMap<>();

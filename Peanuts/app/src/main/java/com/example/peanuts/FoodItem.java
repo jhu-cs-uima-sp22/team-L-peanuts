@@ -3,8 +3,6 @@ package com.example.peanuts;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -18,8 +16,6 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 public class FoodItem {
     private String name;
@@ -30,7 +26,6 @@ public class FoodItem {
     private File file;
     int index;
     private byte[] data;
-    private String randomID;
     private StorageReference storageReference;
     private boolean isChecked;
 
@@ -52,7 +47,6 @@ public class FoodItem {
     public FoodItem(String name, String imageUri, ArrayList<String> allergens) {
         this.name = name;
         this.imageUri = imageUri;
-        //allergens = new ArrayList<>();
         this.allergens = allergens;
         index = 0;
     }
@@ -101,15 +95,6 @@ public class FoodItem {
         allergens.add(index, al);
         index++;
     }
-
-    /*public void setRandomID (String str) {
-        randomID = str;
-        hasImage = true;
-    }*/
-
-    /*public String getRandomID () {
-        return randomID;
-    }*/
 
     public File getFile () {
         return file;
@@ -183,7 +168,6 @@ public class FoodItem {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.d("debug", "in on failure for retrieving image");
 
                 }
             });

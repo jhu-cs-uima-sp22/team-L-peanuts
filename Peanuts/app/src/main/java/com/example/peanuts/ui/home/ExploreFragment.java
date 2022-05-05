@@ -1,34 +1,21 @@
 package com.example.peanuts.ui.home;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.peanuts.FoodItem;
-import com.example.peanuts.RestrictionItem;
-import com.example.peanuts.MainActivity;
 import com.example.peanuts.R;
 import com.example.peanuts.databinding.FragmentExploreBinding;
-import com.example.peanuts.ui.add.FoodPost;
-import com.example.peanuts.ui.add.FoodPostAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,23 +23,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 public class ExploreFragment extends Fragment {
 
     private FragmentExploreBinding binding;
     private ListView list;
-    //RecyclerView
-    private CardView card;
-    private ImageView image;
-    private TextView title;
     private PostAdapter adapter;
     private ArrayList<FoodItem> usersPost;
 
     protected FirebaseDatabase database;
     protected DatabaseReference myRef;
-    private SharedPreferences sp;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -67,9 +47,6 @@ public class ExploreFragment extends Fragment {
 
         usersPost = new ArrayList<>();
         Context context = getContext();
-        sp = PreferenceManager.getDefaultSharedPreferences(context);
-        String email = sp.getString("user_email", "email");
-        //Fill arraylist
         database = FirebaseDatabase.getInstance("https://peanuts-e397e-default-rtdb.firebaseio.com/");
         myRef = database.getReference();
 
@@ -79,7 +56,6 @@ public class ExploreFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot.getValue() != null) {
-                    Log.d("retrieve_success", dataSnapshot.toString());
                     for (DataSnapshot user: dataSnapshot.getChildren()) {
                         for (DataSnapshot post: user.getChildren()) {
                             usersPost.add(post.getValue(FoodItem.class));
@@ -95,12 +71,11 @@ public class ExploreFragment extends Fragment {
                             adapter.notifyDataSetChanged();
                         }
                     }
-                } else {
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("retrieve_fail", databaseError.toString());
+
             }
         });
 

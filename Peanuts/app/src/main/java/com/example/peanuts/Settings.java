@@ -10,18 +10,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.peanuts.MainActivity;
-import com.example.peanuts.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -37,10 +33,8 @@ import java.util.UUID;
 public class Settings extends AppCompatActivity {
 
     private SharedPreferences preferences;
-    private MainActivity myact;
     private TextView photo;
     private ImageView image;
-    private Uri imageUri;
     private ActivityResultLauncher<String> getContent;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
@@ -48,7 +42,6 @@ public class Settings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //myact = (MainActivity) getActivity();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         Context context = getApplicationContext();
@@ -65,15 +58,10 @@ public class Settings extends AppCompatActivity {
         database = FirebaseDatabase.getInstance("https://peanuts-e9a7c-default-rtdb.firebaseio.com/");
         myRef = database.getReference("users");
 
-        //IMAGE
-
         getContent = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri result) {
-                imageUri = result;
                 image.setImageURI(result);
-                //bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-
             }
         });
 
@@ -108,8 +96,6 @@ public class Settings extends AppCompatActivity {
         String email = preferences.getString("user_email", "");
         myRef.child(email).child("profile_image").setValue(path);
         StorageReference fireRef = storage.getReference(path);
-        //StorageMetadata metadata = new StorageMetadata.Builder().setCustomMetadata("food post", email).build();
-        // assert (metadata != null);
 
         // Create file metadata including the content type
         StorageMetadata metadata = new StorageMetadata.Builder()
@@ -117,7 +103,7 @@ public class Settings extends AppCompatActivity {
                 .setCustomMetadata("myCustomProperty", "myValue")
                 .build();
 
-// Update metadata properties
+        // Update metadata properties
         fireRef.updateMetadata(metadata)
                 .addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
                     @Override
@@ -137,7 +123,7 @@ public class Settings extends AppCompatActivity {
         uploadTask.addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Log.d("debug", "in on success");
+
             }
         });
 

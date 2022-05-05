@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -60,7 +59,6 @@ public class Login extends AppCompatActivity {
             myRef.child(email).child("password").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Log.d("retrieve", dataSnapshot.toString());
                     String savedPass = (String) dataSnapshot.getValue();
 
                     if (pass.equals(savedPass)) {
@@ -79,7 +77,7 @@ public class Login extends AppCompatActivity {
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.d("retrieve", databaseError.toString());
+
                 }
             });
 

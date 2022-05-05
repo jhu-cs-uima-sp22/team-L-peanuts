@@ -12,14 +12,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.peanuts.ui.groups.GroupItem;
-import com.example.peanuts.ui.notifications.NotificationItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +26,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,8 +55,6 @@ public class NewGroup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_group);
 
-        Log.d("FRAG", "new group activity");
-
         context = getApplicationContext();
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         this.user = preferences.getString("user_email", "");
@@ -88,7 +83,6 @@ public class NewGroup extends AppCompatActivity {
     }
 
     public class Listener implements ValueEventListener {
-        private ArrayList<String> groups;
         @Override
          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             for (DataSnapshot userItem: dataSnapshot.getChildren()) {
@@ -106,12 +100,11 @@ public class NewGroup extends AppCompatActivity {
                 myList.setAdapter(adapter);
                 // refresh view
                 adapter.notifyDataSetChanged();
-                //test
             }
         }
         @Override
         public void onCancelled(@NonNull DatabaseError databaseError) {
-            Log.d("users_retrieve_error", databaseError.toString());
+
         }
 
     }

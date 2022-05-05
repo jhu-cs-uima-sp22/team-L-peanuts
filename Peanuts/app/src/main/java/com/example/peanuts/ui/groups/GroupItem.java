@@ -1,9 +1,5 @@
 package com.example.peanuts.ui.groups;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
 import com.example.peanuts.FoodItem;
 import com.example.peanuts.NewAccount;
 

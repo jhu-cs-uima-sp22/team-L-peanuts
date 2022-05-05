@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -24,7 +23,6 @@ public class EditRestrictions extends AppCompatActivity {
         Intent intent = getIntent();
         String user = intent.getStringExtra("user");
 
-        // create temp ArrayList of items
         restrictions = new ArrayList<>();
         restrictions.add(new RestrictionItem("Avocado", false, getResources().getDrawable(R.drawable.avocado_icon)));
         restrictions.add(new RestrictionItem("Dairy", false, getResources().getDrawable(R.drawable.dairy_icon)));

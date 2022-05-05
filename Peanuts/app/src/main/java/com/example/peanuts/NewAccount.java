@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,10 +16,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Logger;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -149,12 +146,6 @@ public class NewAccount extends AppCompatActivity {
             this.restrictions = restrictions;
         }
 
-//        @Override
-//        public boolean equals(Object o) {
-//            if (o == null) return false;
-//            String query = o.toString();
-//            return this.getName().contains(query) || this.getEmail().contains(query);
-//        }
 
         public String getName() { return name; }
 

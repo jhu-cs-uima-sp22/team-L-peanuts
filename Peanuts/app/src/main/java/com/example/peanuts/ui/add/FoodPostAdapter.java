@@ -1,7 +1,6 @@
 package com.example.peanuts.ui.add;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +52,6 @@ public class FoodPostAdapter extends ArrayAdapter<RestrictionItem> {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Log.d("ITEM", "added");
                 it.changeChecked(b);
             }
         });

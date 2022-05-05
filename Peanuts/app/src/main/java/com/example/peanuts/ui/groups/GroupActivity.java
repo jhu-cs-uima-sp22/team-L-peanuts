@@ -2,10 +2,7 @@ package com.example.peanuts.ui.groups;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.utils.widget.ImageFilterButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,19 +11,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +36,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,10 +55,6 @@ public class GroupActivity extends AppCompatActivity {
     private int memberPosition;
     private String user;
     private boolean isHost;
-    //private List<String> images;
-    //private List<String> foodName;
-    //private List<List<String>> allergens;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +77,6 @@ public class GroupActivity extends AppCompatActivity {
         myRef.child("groups").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("ID", id);
-                //GroupItem group = (GroupItem) dataSnapshot.getValue();
                 String name = (String) dataSnapshot.child("groupName").getValue();
                 setTitle(name);
 
@@ -111,19 +95,14 @@ public class GroupActivity extends AppCompatActivity {
                     if (responseValue == 2)
                         onCrossClick(response);
                 }
-                //
 
-                Log.d("Debug", "Group Name: " + name);
                 isHost = preferences.getString("user_email", "").equals((String) dataSnapshot.child("host").getValue());
                 foods = new ArrayList<>();
                 for (DataSnapshot foodIDs : dataSnapshot.child("foods").getChildren()) {
                     String image = foodIDs.child("imageUri").getValue(String.class);
-                    Log.d("Debug", "Image: " + image);
                     String title = foodIDs.child("name").getValue(String.class);
-                    Log.d("Debug", "Food Name: " + title);
 
                     ArrayList<String> allergens = (ArrayList<String>)foodIDs.child("allergens").getValue();
-                    Log.d("Debug", "Allergens: " + allergens);
                     foods.add(new FoodItem(title, image, allergens));
                 }
 
@@ -136,10 +115,7 @@ public class GroupActivity extends AppCompatActivity {
                     members.add(new NewAccount.User(email, memberName, response, restrictions));
                 }
 
-                Log.d("Debug", "Members1: " + String.valueOf(members));
-
                 restrictions = (Map<String, List<String>>) dataSnapshot.child("restrictions").getValue();
-                Log.d("Debug", "Restrictions1: " + String.valueOf(restrictions));
                 if (isHost) {
                     if (foods.isEmpty()) {
                         placeholder.setVisibility(View.VISIBLE);
@@ -345,10 +321,8 @@ public class GroupActivity extends AppCompatActivity {
                         });
                     }
                 }
-                Log.d("Debug", "Members: " + String.valueOf(members));
                 GroupMemberAdapter memberAdapter = new GroupMemberAdapter(context, R.layout.group_users_layout, members);
                 ListView membersList = (ListView) findViewById(R.id.ResponseList);
-                Log.d("Debug", String.valueOf(members));
                 membersList.setAdapter(memberAdapter);
                 registerForContextMenu(membersList);
                 memberAdapter.notifyDataSetChanged();
@@ -449,8 +423,6 @@ public class GroupActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    //***the below functions will have to be moved into onclick listeners later***
     public void onCheckClick(View view) {
         ConstraintLayout cl = findViewById(R.id.MealPlanResponse);
         cl.setBackgroundColor(Color.rgb(211, 225,175));

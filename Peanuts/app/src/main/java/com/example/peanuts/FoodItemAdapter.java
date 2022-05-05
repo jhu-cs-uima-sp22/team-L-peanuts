@@ -1,14 +1,9 @@
 package com.example.peanuts;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +28,6 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FoodItemAdapter extends ArrayAdapter<FoodItem> {
@@ -61,7 +55,6 @@ public class FoodItemAdapter extends ArrayAdapter<FoodItem> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LinearLayout foodItemView;
-//        FoodItem it = getItem(position);
 
         if (convertView == null) {
             foodItemView = new LinearLayout(getContext());
@@ -79,21 +72,6 @@ public class FoodItemAdapter extends ArrayAdapter<FoodItem> {
         close.setImageDrawable(closeImage);
         close.setTag(position);
 
-        /*foodName = it.getName();
-        name.setText(foodName);
-        it.setImage(it.getImageUri(), image);
-
-        close.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Integer index = (Integer) view.getTag();
-                items.remove(index.intValue());
-                notifyDataSetChanged();
-                myRefForFoods.child(user).setValue(items);
-            }
-        });*/
-
         myRefForFoods.child(user).child("" + position).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -101,9 +79,6 @@ public class FoodItemAdapter extends ArrayAdapter<FoodItem> {
                 name.setText(foodName);
                 imageUri = (String) dataSnapshot.child("imageUri").getValue();
                 setImage(imageUri, image);
-                /*if (imageUri != null) {
-                    image.setImageURI(Uri.parse(imageUri));
-                }*/
                 close.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -117,7 +92,7 @@ public class FoodItemAdapter extends ArrayAdapter<FoodItem> {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("retrieve_fail", databaseError.toString());
+
             }
         });
 
@@ -149,7 +124,6 @@ public class FoodItemAdapter extends ArrayAdapter<FoodItem> {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.d("debug", "in on failure for retrieving image");
 
                 }
             });

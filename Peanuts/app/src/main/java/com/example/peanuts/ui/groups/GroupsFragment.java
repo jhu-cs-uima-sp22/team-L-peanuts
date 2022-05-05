@@ -11,10 +11,8 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.peanuts.GroupItemAdapter;
-import com.example.peanuts.MainActivity;
 import com.example.peanuts.NewAccount;
 import com.example.peanuts.R;
 import com.example.peanuts.databinding.FragmentGroupBinding;
@@ -31,7 +29,6 @@ import java.util.Map;
 public class GroupsFragment extends Fragment {
 
     private FragmentGroupBinding binding;
-    private MainActivity myact;
     private ListView myList;
     protected GroupItemAdapter adapter;
     private SharedPreferences preferences;
@@ -43,10 +40,6 @@ public class GroupsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        GroupsViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(GroupsViewModel.class);
-
-        myact = (MainActivity) getActivity();
 
         Context context = getContext();
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
